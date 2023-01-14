@@ -4,8 +4,8 @@
 
     <div class="card shadow-lg rounded card p-2">
         <div class="card-header" id="#atas">
-            <span class="fs-4 fw-700">Data kategori</span>
-            <a href="{{ route('kategori.create') }}" class="btn btn-sm btn-primary float-end "><svg
+            <span class="fs-4 fw-700">Data Sub Kategori</span>
+            <a href="{{ route('subKategori.create') }}" class="btn btn-sm btn-primary float-end "><svg
                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
                     viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
@@ -18,13 +18,14 @@
                     <thead>
                         <tr>
                             <th>NO</th>
-                            <th>Name</th>
+                            <th>Kategori</th>
+                            <th>Sub Kategori</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-1">
-                        @if (count($kategoris))
-                            @foreach ($kategoris as $kategori)
+                        @if (count($subKategoris))
+                            @foreach ($subKategoris as $subKategori)
                                 <tr>
                                     <td>
                                         <div class="d-flex">
@@ -33,14 +34,19 @@
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            {{ $kategori->name }}
+                                            {{ $subKategori->kategori->name }}
                                         </div>
                                     </td>
                                     <td>
-                                        <form action="{{ route('kategori.destroy', $kategori->id) }}" method="post">
+                                        <div class="d-flex">
+                                            {{ $subKategori->name }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <form action="{{ route('subKategori.destroy', $subKategori->id) }}" method="post">
                                             @csrf
                                             @method('delete')
-                                            <a href="{{ route('kategori.edit', $kategori->id) }}"
+                                            <a href="{{ route('subKategori.edit', $subKategori->id) }}"
                                                 class="btn btn-sm btn-secondary" data-bs-toggle="tooltip"
                                                 data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
                                                 title="<span>Edit Data</span>">
@@ -51,7 +57,7 @@
                                                 </svg>
                                             </a> |
                                             <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                                data-bs-target="#modalCenter{{ $kategori->id }}"><svg
+                                                data-bs-target="#modalCenter{{ $subKategori->id }}"><svg
                                                     xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                                                     <path
@@ -59,7 +65,7 @@
                                                 </svg>
                                             </button>
                                             <!-- Modal -->
-                                            <div class="modal fade" id="modalCenter{{ $kategori->id }}" tabindex="-1"
+                                            <div class="modal fade" id="modalCenter{{ $subKategori->id }}" tabindex="-1"
                                                 aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">

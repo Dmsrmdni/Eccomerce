@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\SubKategoriController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         return view('admin.layouts.admin');
     });
     Route::resource('/kategori', KategoriController::class);
+    Route::resource('/subKategori', SubKategoriController::class);
 });
 
 Auth::routes();

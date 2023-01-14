@@ -94,7 +94,7 @@ class KategoriController extends Controller
         $kategoris->name = $request->name;
         $kategoris->save();
         return redirect()
-            ->route('kategori.index')->with('toast_success', 'Data has been edited');
+            ->route('kategori.index')->with('success', 'Data has been edited');
 
     }
 
@@ -109,7 +109,7 @@ class KategoriController extends Controller
         $kategoris = Kategori::findOrFail($id);
         $kategoris->delete();
         return redirect()
-            ->route('kategori.index')->with('toast_success', 'Data has been deleted');
+            ->route('kategori.index')->with('success', 'Data has been deleted');
 
     }
 }

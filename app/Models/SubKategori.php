@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
-use App\Models\SubKategori;
+use App\Models\Kategori;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kategori extends Model
+class SubKategori extends Model
 {
     use HasFactory;
 
-    public function sub_kategori()
+    public function kategori()
     {
-        return $this->hasMany(SubKategori::class);
+        return $this->belongsTo(Kategori::class);
     }
 }
