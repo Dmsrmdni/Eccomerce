@@ -55,6 +55,10 @@ data-template="vertical-menu-template-free"
 
 <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
 
+{{-- DataTable --}}
+<link href="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
+
 <!-- Page CSS -->
 
 <!-- Helpers -->
@@ -128,5 +132,13 @@ data-template="vertical-menu-template-free"
 
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js')}}"></script>
+<script src="{{ asset('assets/js/jquery-3.5.1.js') }}"></script>
+<script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+<script src="{{ asset('DataTables/datatables.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable();
+    });
+</script>
 </body>
 </html>

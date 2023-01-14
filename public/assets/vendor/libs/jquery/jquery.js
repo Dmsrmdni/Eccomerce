@@ -88,8 +88,8 @@
 
 /***/ "./libs/jquery/jquery.js":
 /*!*******************************!*\
-  !*** ./libs/jquery/jquery.js ***!
-  \*******************************/
+!*** ./libs/jquery/jquery.js ***!
+\*******************************/
 /*! exports provided: jQuery, $ */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -100,8 +100,8 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 
 /***/ "./node_modules/jquery/dist/jquery.js":
 /*!********************************************!*\
-  !*** ./node_modules/jquery/dist/jquery.js ***!
-  \********************************************/
+!*** ./node_modules/jquery/dist/jquery.js ***!
+\********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
