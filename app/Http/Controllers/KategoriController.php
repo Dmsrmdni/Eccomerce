@@ -15,7 +15,7 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        $kategoris = Kategori::all();
+        $kategoris = Kategori::latest()->get();
         return view('admin.kategori.index', compact('kategoris'));
     }
 
@@ -26,7 +26,7 @@ class KategoriController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.kategori.create');
     }
 
     /**
@@ -37,7 +37,17 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validasi
+        $validated = $request->validate([
+            'name' => 'required|unique:kategoris',
+        ]);
+
+        $kategoris = new Kategori();
+        $kategoris->name = $request->name;
+        $kategoris->save();
+        return redirect()
+            ->route('kategori.index')->with('toast_success', 'Data has been added');
+
     }
 
     /**
@@ -46,7 +56,7 @@ class KategoriController extends Controller
      * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function show(Kategori $kategori)
+    public function show($id)
     {
         //
     }
@@ -57,9 +67,11 @@ class KategoriController extends Controller
      * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function edit(Kategori $kategori)
+    public function edit($id)
     {
-        //
+        $kategoris = Kategori::findOrFail($id);
+        return view('admin.kategori.edit', compact('kategoris'));
+
     }
 
     /**
@@ -69,9 +81,21 @@ class KategoriController extends Controller
      * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Kategori $kategori)
+    public function update(Request $request, $id)
     {
-        //
+        $kategoris = Kategori::findOrFail($id);
+
+        if ($request->name != $kategoris->name) {
+            $rules['name'] = 'required';
+        }
+
+        $validasiData = $request->validate($rules);
+
+        $kategoris->name = $request->name;
+        $kategoris->save();
+        return redirect()
+            ->route('kategori.index')->with('toast_success', 'Data has been edited');
+
     }
 
     /**
@@ -80,8 +104,12 @@ class KategoriController extends Controller
      * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kategori $kategori)
+    public function destroy($id)
     {
-        //
+        $kategoris = Kategori::findOrFail($id);
+        $kategoris->delete();
+        return redirect()
+            ->route('kategori.index')->with('toast_success', 'Data has been deleted');
+
     }
 }
