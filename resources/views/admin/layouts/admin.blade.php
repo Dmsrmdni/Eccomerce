@@ -67,12 +67,14 @@ data-template="vertical-menu-template-free"
 <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
 <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
 <script src="{{ asset('assets/js/config.js') }}"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
-<!-- Layout wrapper -->
-<div class="layout-wrapper layout-content-navbar">
-    <div class="layout-container">
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+        @include('admin.layouts.components.alert')
+        <div class="layout-container">
     <!-- Menu -->
 
     @include('admin.layouts.components.sidebar')

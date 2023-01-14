@@ -46,7 +46,7 @@ class KategoriController extends Controller
         $kategoris->name = $request->name;
         $kategoris->save();
         return redirect()
-            ->route('kategori.index')->with('toast_success', 'Data has been added');
+            ->route('kategori.index')->with('success', 'Data has been added');
 
     }
 
