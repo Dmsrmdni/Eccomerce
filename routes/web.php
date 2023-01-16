@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\SubKategoriController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     });
     Route::resource('/kategori', KategoriController::class);
     Route::resource('/subKategori', SubKategoriController::class);
+    Route::resource('/produk', ProdukController::class);
+    Route::get('getSub_kategori/{id}', [SubKategoriController::class, 'getSubKategori']);
 });
 
 Auth::routes();
