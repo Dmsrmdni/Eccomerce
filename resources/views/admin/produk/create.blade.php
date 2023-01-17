@@ -107,7 +107,7 @@
                                 </span>
                             @enderror
                         </div>
-                        {{-- <div class="mb-3">
+                        <div class="mb-3">
                             <label class="form-label">gambar produk</label>
                             <input type="file" class="form-control mb-2  @error('gambar_produk') is-invalid @enderror"
                                 name="gambar_produk[]" value="{{ old('gambar_produk') }}" multiple>
@@ -116,7 +116,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
                 <div class="d-flex float-start">

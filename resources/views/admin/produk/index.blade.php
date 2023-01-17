@@ -163,7 +163,8 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <form action="{{ route('produk.destroy', $produk->id) }}" method="post">
+                                        <form action="{{ route('produk.destroy', $produk->id) }}" method="post"
+                                            enctype="multipart/form-data">
                                             @csrf
                                             @method('delete')
                                             <a href="{{ route('produk.edit', $produk->id) }}"

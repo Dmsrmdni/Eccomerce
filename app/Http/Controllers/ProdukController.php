@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Image;
 use App\Models\Kategori;
 use App\Models\Produk;
 use App\Models\SubKategori;
@@ -61,19 +62,19 @@ class ProdukController extends Controller
         $produks->stok = $request->stok;
         $produks->diskon = $request->diskon;
         $produks->deskripsi = $request->deskripsi;
-
-        // if ($request->hasfile('gambar_produk')) {
-
-        //     foreach ($request->file('gambar_produk') as $image) {
-        //         $produks->deleteImage();
-        //         $name = rand(1000, 9999) . $image->getClientOriginalName();
-        //         $image->move('images/gambar_produk/', $name);
-        //         $data[] = 'images/gambar_produk/' . $name;
-        //     }
-        // }
-
-        // $produks->gambar_produk = implode('|', $data);
         $produks->save();
+
+        if ($request->hasfile('gambar_produk')) {
+            foreach ($request->file('gambar_produk') as $image) {
+                $name = rand(1000, 9999) . $image->getClientOriginalName();
+                $image->move('images/gambar_produk/', $name);
+                $images = new Image();
+                $images->produk_id = $produks->id;
+                $images->gambar_produk = 'images/gambar_produk/' . $name;
+                $images->save();
+            }
+        }
+
         return redirect()
             ->route('produk.index')->with('success', 'Data has been added');
 
@@ -102,7 +103,8 @@ class ProdukController extends Controller
         $kategoris = Kategori::all();
         $produks = Produk::findOrFail($id);
         $subKategoris = SubKategori::where('kategori_id', $produks->kategori_id)->get();
-        return view('admin.produk.edit', compact('kategoris', 'produks', 'subKategoris'));
+        $images = Image::where('produk_id', $id)->get();
+        return view('admin.produk.edit', compact('kategoris', 'produks', 'subKategoris', 'images'));
 
     }
 
@@ -137,7 +139,7 @@ class ProdukController extends Controller
         $produks->deskripsi = $request->deskripsi;
         $produks->save();
         return redirect()
-            ->route('produk.index')->with('toast_success', 'Data has been edited');
+            ->route('produk.index')->with('success', 'Data has been edited');
 
     }
 
@@ -150,9 +152,13 @@ class ProdukController extends Controller
     public function destroy($id)
     {
         $produks = Produk::findOrFail($id);
+        $images = Image::where('produk_id', $id);
+        foreach ($images as $image) {
+            $image->deleteImage();
+        }
         $produks->delete();
-        // $produks->deleteImage();
+        $images->delete();
         return redirect()
-            ->route('produk.index')->with('toast_success', 'Data has been deleted');
+            ->route('produk.index')->with('success', 'Data has been deleted');
     }
 }
