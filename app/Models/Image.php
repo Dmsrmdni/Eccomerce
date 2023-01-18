@@ -19,16 +19,14 @@ class Image extends Model
     {
         if ($this->gambar_produk && file_exists(public_path($this->gambar_produk))) {
             return asset($this->gambar_produk);
-        } else {
-            return asset('images/no_image.jpg');
         }
     }
 
     public function deleteImage()
     {
-        if ($this->gambar_produk && file_exists(public_path($this->gambar_produk))) {
-            return unlink(public_path($this->gambar_produk));
-        }
+        // if ($this->gambar_produk && file_exists(public_path($this->gambar_produk))) {
+        return unlink(public_path($this->gambar_produk));
+        // }
     }
 
 }

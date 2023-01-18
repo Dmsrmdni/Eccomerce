@@ -152,12 +152,12 @@ class ProdukController extends Controller
     public function destroy($id)
     {
         $produks = Produk::findOrFail($id);
-        $images = Image::where('produk_id', $id);
+        $images = Image::where('produk_id', $id)->get();
         foreach ($images as $image) {
             $image->deleteImage();
+            $image->delete();
         }
         $produks->delete();
-        $images->delete();
         return redirect()
             ->route('produk.index')->with('success', 'Data has been deleted');
     }

@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-7">
                 <form action="{{ route('produk.update', $produks->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('put')
@@ -142,8 +142,8 @@
                     </div>
                 </form>
             </div>
-            <div class="col-lg-6">
-                <div class="card mb-4 shadow-lg rounded card">
+            <div class="col-lg-5">
+                <div class="card mb-4 shadow-lg overflow-scroll rounded card" style="height: 500px">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="mb-0">Data Image Produk</h4>
                     </div>
@@ -172,7 +172,7 @@
                         </form>
                         <div class="row mb-2">
                             @foreach ($images as $image)
-                                <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="col-md-6 col-lg-6 mb-4">
                                     <div class="card h-100">
                                         <img class="card-img-top" src="{{ asset($image->gambar_produk) }}"
                                             alt="Card image cap" />
@@ -223,6 +223,7 @@
             </div>
         </div>
     </div>
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
