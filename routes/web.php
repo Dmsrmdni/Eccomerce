@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlamatController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KecamatanController;
@@ -40,8 +41,10 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('/provinsi', ProvinsiController::class);
     Route::resource('/kota', KotaController::class);
     Route::resource('/kecamatan', KecamatanController::class);
+    Route::resource('/alamat', AlamatController::class);
     Route::get('getSub_kategori/{id}', [SubKategoriController::class, 'getSubKategori']);
     Route::get('getKota/{id}', [KotaController::class, 'getKota']);
+    Route::get('getKecamatan/{id}', [KecamatanController::class, 'getKecamatan']);
 });
 
 Auth::routes();

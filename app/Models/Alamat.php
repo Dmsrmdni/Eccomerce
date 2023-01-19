@@ -2,19 +2,20 @@
 
 namespace App\Models;
 
-use App\Models\Alamat;
+use App\Models\Kecamatan;
 use App\Models\Kota;
 use App\Models\Provinsi;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kecamatan extends Model
+class Alamat extends Model
 {
     use HasFactory;
 
-    public function kota()
+    public function user()
     {
-        return $this->belongsTo(Kota::class);
+        return $this->belongsTo(User::class);
     }
 
     public function provinsi()
@@ -22,8 +23,13 @@ class Kecamatan extends Model
         return $this->belongsTo(Provinsi::class);
     }
 
-    public function alamat()
+    public function kota()
     {
-        return $this->hasMany(Alamat::class);
+        return $this->belongsTo(Kota::class);
+    }
+
+    public function kecamatan()
+    {
+        return $this->belongsTo(Kecamatan::class);
     }
 }

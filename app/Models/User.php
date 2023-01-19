@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Alamat;
 use App\Models\Keranjang;
 use App\Models\Wishlist;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,6 +23,11 @@ class User extends Authenticatable
     public function keranjang()
     {
         return $this->hasMany(Keranjang::class);
+    }
+
+    public function alamat()
+    {
+        return $this->hasMany(Alamat::class);
     }
 
     /**

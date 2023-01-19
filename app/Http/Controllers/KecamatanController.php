@@ -46,7 +46,7 @@ class KecamatanController extends Controller
         $validated = $request->validate([
             'provinsi_id' => 'required',
             'kota_id' => 'required',
-            'kecamatan' => 'required',
+            'kecamatan' => 'required|unique:kecamatans',
         ]);
 
         $kecamatans = new Kecamatan();
@@ -55,7 +55,7 @@ class KecamatanController extends Controller
         $kecamatans->kecamatan = $request->kecamatan;
         $kecamatans->save();
         return redirect()
-            ->route('kecamatan.index')->with('success', 'Data has been edited');
+            ->route('kecamatan.index')->with('success', 'Data has been added');
 
     }
 
@@ -94,14 +94,13 @@ class KecamatanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //validasi
-        $validated = $request->validate([
-            'provinsi_id' => 'required',
-            'kota_id' => 'required',
-            'kecamatan' => 'required',
-        ]);
-
         $kecamatans = Kecamatan::findOrFail($id);
+        $rules['provinsi_id'] = 'required';
+        $rules['kota_id'] = 'required';
+        if ($request->kecamatan != $kecamatans->kecamatan) {
+            $rules['kecamatan'] = 'required';
+        }
+
         $kecamatans->provinsi_id = $request->provinsi_id;
         $kecamatans->kota_id = $request->kota_id;
         $kecamatans->kecamatan = $request->kecamatan;
@@ -123,5 +122,11 @@ class KecamatanController extends Controller
         $kecamatans->delete();
         return redirect()
             ->route('kecamatan.index')->with('success', 'Data has been deleted');
+    }
+
+    public function getKecamatan($id)
+    {
+        $kecamatans = Kecamatan::where('kota_id', $id)->get();
+        return response()->json($kecamatans);
     }
 }

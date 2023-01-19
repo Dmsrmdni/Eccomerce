@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Alamat;
 use App\Models\Kecamatan;
 use App\Models\Kota;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,5 +20,10 @@ class Provinsi extends Model
     public function kecamatan()
     {
         return $this->hasMany(Kecamatan::class);
+    }
+
+    public function alamat()
+    {
+        return $this->hasMany(Alamat::class);
     }
 }
