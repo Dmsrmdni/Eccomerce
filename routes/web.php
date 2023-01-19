@@ -4,6 +4,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\ProvinsiController;
 use App\Http\Controllers\SubKategoriController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +35,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('/image', ImageController::class);
     Route::resource('/wishlist', WishlistController::class);
     Route::resource('/keranjang', KeranjangController::class);
+    Route::resource('/provinsi', ProvinsiController::class);
     Route::get('getSub_kategori/{id}', [SubKategoriController::class, 'getSubKategori']);
 });
 

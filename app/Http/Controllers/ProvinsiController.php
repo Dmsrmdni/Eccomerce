@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Provinsi;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,9 @@ class ProvinsiController extends Controller
      */
     public function index()
     {
-        //
+        $provinsis = Provinsi::all();
+        return view('admin.provinsi.index', compact('provinsis'));
+
     }
 
     /**
@@ -24,7 +27,7 @@ class ProvinsiController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.provinsi.create');
     }
 
     /**
@@ -35,7 +38,16 @@ class ProvinsiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validasi
+        $validated = $request->validate([
+            'provinsi' => 'required|unique:provinsis',
+        ]);
+
+        $provinsis = new Provinsi();
+        $provinsis->provinsi = $request->provinsi;
+        $provinsis->save();
+        return redirect()
+            ->route('provinsi.index')->with('success', 'Data has been added');
     }
 
     /**
@@ -44,7 +56,7 @@ class ProvinsiController extends Controller
      * @param  \App\Models\Provinsi  $provinsi
      * @return \Illuminate\Http\Response
      */
-    public function show(Provinsi $provinsi)
+    public function show($id)
     {
         //
     }
@@ -55,9 +67,10 @@ class ProvinsiController extends Controller
      * @param  \App\Models\Provinsi  $provinsi
      * @return \Illuminate\Http\Response
      */
-    public function edit(Provinsi $provinsi)
+    public function edit($id)
     {
-        //
+        $provinsis = Provinsi::findOrFail($id);
+        return view('admin.provinsi.edit', compact('provinsis'));
     }
 
     /**
@@ -67,9 +80,21 @@ class ProvinsiController extends Controller
      * @param  \App\Models\Provinsi  $provinsi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Provinsi $provinsi)
+    public function update(Request $request, $id)
     {
-        //
+        $provinsis = Provinsi::findOrFail($id);
+
+        if ($request->provinsi != $provinsis->provinsi) {
+            $rules['provinsi'] = 'required';
+        }
+
+        $validasiData = $request->validate($rules);
+
+        $provinsis->provinsi = $request->provinsi;
+        $provinsis->save();
+        return redirect()
+            ->route('provinsi.index')->with('success', 'Data has been edited');
+
     }
 
     /**
@@ -78,8 +103,12 @@ class ProvinsiController extends Controller
      * @param  \App\Models\Provinsi  $provinsi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Provinsi $provinsi)
+    public function destroy($id)
     {
-        //
+        $provinsis = Provinsi::findOrFail($id);
+        $provinsis->delete();
+        return redirect()
+            ->route('provinsi.index')->with('success', 'Data has been deleted');
+
     }
 }
