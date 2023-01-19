@@ -3,6 +3,7 @@
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KeranjangController;
+use App\Http\Controllers\KotaController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProvinsiController;
 use App\Http\Controllers\SubKategoriController;
@@ -36,6 +37,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('/wishlist', WishlistController::class);
     Route::resource('/keranjang', KeranjangController::class);
     Route::resource('/provinsi', ProvinsiController::class);
+    Route::resource('/kota', KotaController::class);
     Route::get('getSub_kategori/{id}', [SubKategoriController::class, 'getSubKategori']);
 });
 
