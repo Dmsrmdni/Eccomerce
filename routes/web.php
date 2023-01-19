@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\SubKategoriController;
 use App\Http\Controllers\WishlistController;
@@ -32,6 +33,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('/produk', ProdukController::class);
     Route::resource('/image', ImageController::class);
     Route::resource('/wishlist', WishlistController::class);
+    Route::resource('/keranjang', KeranjangController::class);
     Route::get('getSub_kategori/{id}', [SubKategoriController::class, 'getSubKategori']);
 });
 

@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Wishlist extends Model
+class Keranjang extends Model
 {
     use HasFactory;
 
@@ -15,7 +15,6 @@ class Wishlist extends Model
     {
         return $this->belongsTo(Produk::class);
     }
-
     public function user()
     {
         return $this->belongsTo(User::class);
