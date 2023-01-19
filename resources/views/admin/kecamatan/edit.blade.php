@@ -2,20 +2,21 @@
 
 @section('content')
     <div class="container-fluid">
-        <form action="{{ route('kota.update', $kotas->id) }}" method="post">
+        <form action="{{ route('kecamatan.update', $kecamatans->id) }}" method="post">
             @csrf
             @method('put')
             <div class="col-lg-12">
                 <div class="card mb-4 shadow-lg rounded card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0">Tambah kota/kabupaten</h4>
+                        <h4 class="mb-0">Tambah Kecamatan</h4>
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
                             <label class="form-label">Name provinsi</label>
-                            <select name="provinsi_id" class="form-select @error('provinsi_id') is-invalid @enderror">
+                            <select name="provinsi_id" id="provinsi"
+                                class="form-select @error('provinsi_id') is-invalid @enderror">
                                 @foreach ($provinsis as $provinsi)
-                                    @if (old('provinsi_id', $provinsi->id) == $kotas->provinsi_id)
+                                    @if (old('provinsi_id', $provinsi->id) == $kecamatans->provinsi_id)
                                         <option value="{{ $provinsi->id }}" selected hidden>{{ $provinsi->provinsi }}
                                         </option>
                                     @else
@@ -30,11 +31,31 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Nama kota/kabupaten</label>
-                            <input type="text" name="kota"
-                                class="form-control mb-2  @error('kota') is-invalid @enderror"
-                                placeholder="Nama kota/kabupaten" value="{{ $kotas->kota }}">
-                            @error('kota')
+                            <label class="form-label">Kota</label>
+                            <select name="kota_id" id="kota"
+                                class="form-select @error('kota_id') is-invalid @enderror">
+                                @foreach ($kotas as $kota)
+                                    @if (old('kota_id', $kota->id) == $kecamatans->kota_id)
+                                        <option value="{{ $kota->id }}" selected>
+                                            {{ $kota->kota }}</option>
+                                    @else
+                                        <option value="{{ $kota->id }}">{{ $kota->kota }}
+                                        </option>
+                                    @endif
+                                @endforeach
+                            </select>
+                            @error('kota_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Nama kecamatan</label>
+                            <input type="text" name="kecamatan"
+                                class="form-control mb-2  @error('kecamatan') is-invalid @enderror"
+                                placeholder="Nama kecamatan" value="{{ $kecamatans->kecamatan }}">
+                            @error('kecamatan')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -72,4 +93,39 @@
             </div>
         </form>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            $('#provinsi').on('change', function() {
+                var provinsi_id = $(this).val();
+                if (provinsi_id) {
+                    $.ajax({
+                        url: '/admin/getKota/' + provinsi_id,
+                        type: "GET",
+                        data: {
+                            "_token": "{{ csrf_token() }}"
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            if (data) {
+                                $('#kota').empty();
+                                $('#kota').append(
+                                    '<option hidden>Pilih Kota</option>');
+                                $.each(data, function(key, kotas) {
+                                    $('select[name="kota_id"]').append(
+                                        '<option value="' + kotas.id + '">' +
+                                        kotas.kota + '</option>');
+                                });
+                            } else {
+                                $('#kota').empty();
+                            }
+                        }
+                    });
+                } else {
+                    $('#kota').empty();
+                }
+            });
+        });
+    </script>
 @endsection

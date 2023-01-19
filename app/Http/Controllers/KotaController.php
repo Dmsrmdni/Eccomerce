@@ -116,6 +116,11 @@ class KotaController extends Controller
         $kotas->delete();
         return redirect()
             ->route('kota.index')->with('success', 'Data has been deleted');
+    }
 
+    public function getKota($id)
+    {
+        $kotas = Kota::where('provinsi_id', $id)->get();
+        return response()->json($kotas);
     }
 }

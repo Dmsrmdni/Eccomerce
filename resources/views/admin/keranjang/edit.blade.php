@@ -32,7 +32,7 @@
                             <label class="form-label">Name Produk</label>
                             <select name="produk_id" class="form-select @error('produk_id') is-invalid @enderror">
                                 @foreach ($produks as $produk)
-                                    @if (old('produk_id', $produk->id) == $keranjangs->produk->id)
+                                    @if (old('produk_id', $produk->id) == $keranjangs->produk_id)
                                         <option value="{{ $produk->id }}" selected>{{ $produk->nama_produk }}</option>
                                     @else
                                         <option value="{{ $produk->id }}">{{ $produk->nama_produk }}</option>
