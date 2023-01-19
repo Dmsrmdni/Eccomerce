@@ -43,7 +43,7 @@ class KotaController extends Controller
         //validasi
         $validated = $request->validate([
             'provinsi_id' => 'required',
-            'kota' => 'required',
+            'kota' => 'required|unique:kotas',
         ]);
 
         $kotas = new Kota();
@@ -89,13 +89,13 @@ class KotaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //validasi
-        $validated = $request->validate([
-            'provinsi_id' => 'required',
-            'kota' => 'required',
-        ]);
-
         $kotas = Kota::findOrFail($id);
+        $rules['provinsi_id'] = 'required';
+        if ($request->provinsi != $kotas->kotas) {
+            $rules['kota'] = 'required';
+        }
+
+        $validasiData = $request->validate($rules);
         $kotas->provinsi_id = $request->provinsi_id;
         $kotas->kota = $request->kota;
         $kotas->save();
