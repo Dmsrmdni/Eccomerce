@@ -36,6 +36,11 @@ class User extends Authenticatable
         return $this->hasMany(VoucherUser::class);
     }
 
+    public function topup()
+    {
+        return $this->hasMany(TopUp::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

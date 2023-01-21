@@ -30,8 +30,7 @@ class KeranjangController extends Controller
     public function create()
     {
         $produks = Produk::all();
-        // $users = User::where('role', 'costumer')->get();
-        $users = User::all();
+        $users = User::where('role', 'costumer')->get();
         return view('admin.keranjang.create', compact('produks', 'users'));
 
     }

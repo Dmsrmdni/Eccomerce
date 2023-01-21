@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Produk;
+use App\Models\TopUp;
 use App\Models\User;
-use App\Models\Wishlist;
 use Illuminate\Http\Request;
 
-class WishlistController extends Controller
+class TopUpController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +16,9 @@ class WishlistController extends Controller
      */
     public function index()
     {
-        $wishlists = Wishlist::with('produk', 'user')->latest()->get();
-        return view('admin.wishlist.index', compact('wishlists'));
+        $topUps = TopUp::with('user')->latest()->get();
+        return view('admin.topUp.index', compact('topUps'));
+
     }
 
     /**
@@ -28,9 +28,8 @@ class WishlistController extends Controller
      */
     public function create()
     {
-        $produks = Produk::all();
         $users = User::where('role', 'costumer')->get();
-        return view('admin.wishlist.create', compact('produks', 'users'));
+        return view('admin.topUp.create', compact('users'));
 
     }
 
@@ -45,22 +44,28 @@ class WishlistController extends Controller
         //validasi
         $validated = $request->validate([
             'user_id' => 'required',
-            'produk_id' => 'required',
+            'jumlah_saldo' => 'required',
+            'metode_pembayaran' => 'required',
         ]);
 
-        $wishlists = new Wishlist();
-        $wishlists->user_id = $request->user_id;
-        $wishlists->produk_id = $request->produk_id;
-        $wishlists->save();
-        return redirect()
-            ->route('wishlist.index')->with('success', 'Data has been added');
+        $topUps = new TopUp();
+        $topUps->user_id = $request->user_id;
+        $topUps->jumlah_saldo = $request->jumlah_saldo;
+        $topUps->metode_pembayaran = $request->metode_pembayaran;
+        $topUps->save();
 
+        $users = User::findOrFail($topUps->user_id);
+        $users->saldo += $topUps->jumlah_saldo;
+        $users->save();
+        return redirect()
+            ->route('topUp.index')
+            ->with('success', 'Data has been added');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Wishlist  $wishlist
+     * @param  \App\Models\TopUp  $topUp
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -71,7 +76,7 @@ class WishlistController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Wishlist  $wishlist
+     * @param  \App\Models\TopUp  $topUp
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -83,7 +88,7 @@ class WishlistController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Wishlist  $wishlist
+     * @param  \App\Models\TopUp  $topUp
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -94,15 +99,16 @@ class WishlistController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Wishlist  $wishlist
+     * @param  \App\Models\TopUp  $topUp
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $wishlists = Wishlist::findOrFail($id);
-        $wishlists->delete();
+        $topUps = TopUp::findOrFail($id);
+        $topUps->delete();
         return redirect()
-            ->route('wishlist.index')->with('success', 'Data has been deleted');
+            ->route('topUp.index')
+            ->with('success', 'Data has been deleted');
 
     }
 }
