@@ -1,11 +1,10 @@
 @extends('admin.layouts.admin')
 
 @section('content')
-
     <div class="card shadow-lg rounded card p-2">
         <div class="card-header" id="#atas">
-            <span class="fs-4 fw-700">Data Voucher</span>
-            <a href="{{ route('voucher.create') }}" class="btn btn-sm btn-primary float-end"><svg
+            <span class="fs-4 fw-700">Data Pembelian Voucher</span>
+            <a href="{{ route('voucherUser.create') }}" class="btn btn-sm btn-primary float-end"><svg
                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
                     viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
@@ -14,23 +13,21 @@
         </div>
         <div class="table-responsive text-nowrap">
             <div class="container">
-                <table class="table table-hover pb-2" id="dataTable">
+                <table class="table table-hover table-bordered" id="dataTable">
                     <thead>
                         <tr>
                             <th>NO</th>
+                            <th>Nama Pembeli</th>
                             <th>Kode voucher</th>
-                            <th>Harga</th>
-                            <th>Label</th>
-                            <th>Diskon</th>
-                            <th>Waktu Mulai</th>
-                            <th>Waktu Berakhir</th>
-                            <th>Status</th>
+                            <th>Metode Pembayaran</th>
+                            <th>Tanggal</th>
+                            <th>Jam</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-1">
-                        @if (count($vouchers))
-                            @foreach ($vouchers as $voucher)
+                        @if (count($voucherUsers))
+                            @foreach ($voucherUsers as $voucherUser)
                                 <tr>
                                     <td>
                                         <div class="d-flex">
@@ -39,63 +36,43 @@
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            {{ $voucher->kode_voucher }}
+                                            {{ $voucherUser->user->name }}
                                         </div>
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            Rp. {{ number_format($voucher->harga, 0, ',', '.') }}
+                                            {{ $voucherUser->voucher->kode_voucher }}
                                         </div>
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            @if ($voucher->label == 'gratis')
-                                                <div class="badge bg-label-success w-100">{{ $voucher->label }}</div>
-                                            @elseif ($voucher->label == 'berbayar')
-                                                <div class="badge bg-label-danger w-100">{{ $voucher->label }}</div>
-                                            @endif
+                                            {{ $voucherUser->metode_pembayaran }}
                                         </div>
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            {{ $voucher->diskon }}%
+                                            {{ $voucherUser->created_at->format('Y-m-d') }}
                                         </div>
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            {{ $voucher->waktu_mulai }}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex">
-                                            {{ $voucher->waktu_berakhir }}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex">
-                                            @if ($voucher->status == 'aktif')
-                                                <div class="badge rounded-pill bg-success w-100">{{ $voucher->status }}
-                                                </div>
-                                            @elseif ($voucher->status == 'expired')
-                                                <div class="badge rounded-pill bg-danger w-100">{{ $voucher->status }}
-                                                </div>
-                                            @endif
+                                            {{ $voucherUser->created_at->format('h:i:s A') }}
                                         </div>
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                            data-bs-target="#modalCenter{{ $voucher->id }}"><svg
+                                            data-bs-target="#modalCenter{{ $voucherUser->id }}"><svg
                                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                                                 <path
                                                     d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
                                             </svg>
                                         </button>
-                                        <form action="{{ route('voucher.destroy', $voucher->id) }}" method="post">
+                                        <form action="{{ route('voucherUser.destroy', $voucherUser->id) }}" method="post">
                                             @csrf
                                             @method('delete')
                                             <!-- Modal -->
-                                            <div class="modal fade" id="modalCenter{{ $voucher->id }}" tabindex="-1"
+                                            <div class="modal fade" id="modalCenter{{ $voucherUser->id }}" tabindex="-1"
                                                 aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">

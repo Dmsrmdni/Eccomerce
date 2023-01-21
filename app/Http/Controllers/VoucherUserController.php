@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Models\Voucher;
 use App\Models\VoucherUser;
 use Illuminate\Http\Request;
 
@@ -14,7 +17,8 @@ class VoucherUserController extends Controller
      */
     public function index()
     {
-        //
+        $voucherUsers = VoucherUser::with('user', 'voucher')->latest()->get();
+        return view('admin.voucherUser.index', compact('voucherUsers'));
     }
 
     /**
@@ -24,7 +28,11 @@ class VoucherUserController extends Controller
      */
     public function create()
     {
-        //
+        $vouchers = Voucher::where('label', 'berbayar')->where('status', 'aktif')->get();
+        // $users = User::where('role', 'costumer')->get();
+        $users = User::all();
+        return view('admin.voucherUser.create', compact('vouchers', 'users'));
+
     }
 
     /**
@@ -35,7 +43,21 @@ class VoucherUserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validasi
+        $validated = $request->validate([
+            'user_id' => 'required',
+            'voucher_id' => 'required',
+            'metode_pembayaran' => 'required',
+        ]);
+
+        $voucherUsers = new VoucherUser();
+        $voucherUsers->user_id = $request->user_id;
+        $voucherUsers->voucher_id = $request->voucher_id;
+        $voucherUsers->metode_pembayaran = $request->metode_pembayaran;
+        $voucherUsers->save();
+        return redirect()
+            ->route('voucherUser.index')->with('success', 'Data has been added');
+
     }
 
     /**
@@ -44,7 +66,7 @@ class VoucherUserController extends Controller
      * @param  \App\Models\VoucherUser  $voucherUser
      * @return \Illuminate\Http\Response
      */
-    public function show(VoucherUser $voucherUser)
+    public function show($id)
     {
         //
     }
@@ -55,7 +77,7 @@ class VoucherUserController extends Controller
      * @param  \App\Models\VoucherUser  $voucherUser
      * @return \Illuminate\Http\Response
      */
-    public function edit(VoucherUser $voucherUser)
+    public function edit($id)
     {
         //
     }
@@ -67,7 +89,7 @@ class VoucherUserController extends Controller
      * @param  \App\Models\VoucherUser  $voucherUser
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, VoucherUser $voucherUser)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -78,8 +100,12 @@ class VoucherUserController extends Controller
      * @param  \App\Models\VoucherUser  $voucherUser
      * @return \Illuminate\Http\Response
      */
-    public function destroy(VoucherUser $voucherUser)
+    public function destroy($id)
     {
-        //
+        $voucherUsers = VoucherUser::findOrFail($id);
+        $voucherUsers->delete();
+        return redirect()
+            ->route('voucherUser.index')->with('success', 'Data has been deleted');
+
     }
 }

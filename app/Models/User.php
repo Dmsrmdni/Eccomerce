@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Alamat;
 use App\Models\Keranjang;
+use App\Models\VoucherUser;
 use App\Models\Wishlist;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -28,6 +29,11 @@ class User extends Authenticatable
     public function alamat()
     {
         return $this->hasMany(Alamat::class);
+    }
+
+    public function voucherUser()
+    {
+        return $this->hasMany(VoucherUser::class);
     }
 
     /**
