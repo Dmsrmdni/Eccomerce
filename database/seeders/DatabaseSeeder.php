@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Database\Seeders\ProvinsiSeeder;
+use Database\Seeders\KotaSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
             // UserSeeder::class,
             // KategoriSeeder::class,
             // SubKategoriSeeder::class,
-            ProvinsiSeeder::class,
+            // ProvinsiSeeder::class,
+            KotaSeeder::class,
         ]);
 
     }

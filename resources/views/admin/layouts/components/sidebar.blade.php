@@ -75,40 +75,6 @@
         </li>
         {{-- EndAkun --}}
 
-        {{-- Alamat --}}
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Data Alamat</span>
-        </li>
-
-        {{-- Provinsi --}}
-        <li class="menu-item {{ Request::is('admin/provinsi*') ? 'active' : '' }}">
-            <a href="/admin/provinsi" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-closet"></i>
-                <div>Provinsi</div>
-            </a>
-        </li>
-        {{-- EndProvinsi --}}
-
-        {{-- Kota/Kabupaten --}}
-        <li class="menu-item {{ Request::is('admin/kota*') ? 'active' : '' }}">
-            <a href="/admin/kota" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-history"></i>
-                <div>Kota/Kabupaten</div>
-            </a>
-        </li>
-        {{-- EndKota/Kabupaten --}}
-
-        {{-- Kecamatan --}}
-        <li class="menu-item {{ Request::is('admin/kecamatan') ? 'active' : '' }}">
-            <a href="/admin/kecamatan" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-discount"></i>
-                <div>Kecamatan</div>
-            </a>
-        </li>
-        {{-- EndKecamatan --}}
-
-        {{-- EndAlamat --}}
-
         {{-- Data Produk --}}
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Data Produk</span>
