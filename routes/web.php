@@ -9,6 +9,7 @@ use App\Http\Controllers\KotaController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProvinsiController;
 use App\Http\Controllers\SubKategoriController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\VoucherUserController;
 use App\Http\Controllers\WishlistController;
@@ -34,6 +35,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.layouts.admin');
     });
+    Route::resource('/user', UserController::class);
     Route::resource('/kategori', KategoriController::class);
     Route::resource('/subKategori', SubKategoriController::class);
     Route::resource('/produk', ProdukController::class);
