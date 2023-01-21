@@ -1,6 +1,7 @@
-<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+<!-- Menu -->
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme" style="z-index: 10">
     <div class="app-brand demo">
-        <a href="index.html" class="app-brand-link">
+        <a href="/admin/dashboard" class="app-brand-link">
             <span class="app-brand-logo demo">
                 <svg width="25" viewBox="0 0 25 42" version="1.1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -45,7 +46,7 @@
                     </g>
                 </svg>
             </span>
-            <span class="app-brand-text demo menu-text fw-bolder ms-2">Sneat</span>
+            <span class="app-brand-text demo menu-text fw-bolder ms-2">Gakuniq</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -57,49 +58,129 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
-        <li class="menu-item active">
-            <a href="index.html" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard</div>
+        <li class="menu-item {{ Request::is('admin/dashboard*') ? 'active' : '' }}">
+            <a href="/admin/dashboard" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-store"></i>
+                <div>Dashboard</div>
             </a>
         </li>
+        {{-- EndDashboard --}}
 
-        <!-- Layouts -->
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-layout"></i>
-                <div data-i18n="Layouts">Layouts</div>
+        {{-- Akun --}}
+        <li class="menu-item {{ Request::is('admin/user*') ? 'active' : '' }}">
+            <a href="/admin/user" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-lock-open"></i>
+                <div>Akun Users</div>
             </a>
-
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="layouts-without-menu.html" class="menu-link">
-                        <div data-i18n="Without menu">Without menu</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="layouts-without-navbar.html" class="menu-link">
-                        <div data-i18n="Without navbar">Without navbar</div>
-                    </a>
-                </li>
-            </ul>
         </li>
+        {{-- EndAkun --}}
 
+        {{-- Data Produk --}}
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Pages</span>
+            <span class="menu-header-text">Data Produk</span>
         </li>
-        <li class="menu-item">
+        {{-- Kategori --}}
+        <li class="menu-item {{ Request::is('admin/kategori*', 'admin/sub_kategori*') ? 'active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Account Settings</div>
+                <i class='menu-icon tf-icons bx bx-receipt'></i>
+                <div>Kategori</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="pages-account-settings-account.html" class="menu-link">
-                        <div data-i18n="Account">Account</div>
+                <li class="menu-item {{ Request::is('admin/kategori*') ? 'active' : '' }}">
+                    <a href="/admin/kategori" class="menu-link">
+                        <div>Kategori</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ Request::is('admin/sub_kategori*') ? 'active' : '' }}">
+                    <a href="/admin/sub_kategori" class="menu-link">
+                        <div>Sub Kategori</div>
                     </a>
                 </li>
             </ul>
         </li>
+        {{-- EndKategori --}}
+
+        {{-- Produk --}}
+        <li class="menu-item {{ Request::is('admin/produk*') ? 'active' : '' }}">
+            <a href="/admin/produk" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-closet"></i>
+                <div>Produk</div>
+            </a>
+        </li>
+        {{-- EndProduk --}}
+
+        {{-- Riwayat --}}
+        <li class="menu-item {{ Request::is('admin/riwayat_produk*') ? 'active' : '' }}">
+            <a href="/admin/riwayat_produk" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-history"></i>
+                <div>Riwayat Produk</div>
+            </a>
+        </li>
+        {{-- EndRiwayat --}}
+
+        {{-- Voucher --}}
+        <li class="menu-item {{ Request::is('admin/voucher') ? 'active' : '' }}">
+            <a href="/admin/voucher" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-discount"></i>
+                <div>Voucher</div>
+            </a>
+        </li>
+        {{-- EndVoucher --}}
+
+        {{-- EndDataProduk --}}
+
+        {{-- Data User --}}
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Data users</span>
+        </li>
+
+        {{-- TopUp --}}
+        <li class="menu-item {{ Request::is('admin/top_up*') ? 'active' : '' }}">
+            <a href="/admin/top_up" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-wallet"></i>
+                <div>Top Up</div>
+            </a>
+        </li>
+        {{-- EndTopUp --}}
+
+        {{-- Transaksi --}}
+        <li class="menu-item {{ Request::is('admin/transaksi*') ? 'active' : '' }}">
+            <a href="/admin/transaksi" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-credit-card"></i>
+                <div>Transaksi</div>
+            </a>
+        </li>
+        {{-- EndTransaksi --}}
+
+        {{-- ReviewProduk --}}
+        <li class="menu-item {{ Request::is('admin/review_produk*') ? 'active' : '' }}">
+            <a href="/admin/review_produk" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-chat"></i>
+                <div>Review Produk</div>
+            </a>
+        </li>
+        {{-- EndReviewProduk --}}
+
+        {{-- RefundProduk --}}
+        <li class="menu-item {{ Request::is('admin/refund_produk*') ? 'active' : '' }}">
+            <a href="/admin/refund_produk" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-recycle"></i>
+                <div>Refund Produk</div>
+            </a>
+        </li>
+        {{-- EndRefundProduk --}}
+
+        {{-- Voucher --}}
+        <li class="menu-item {{ Request::is('admin/voucher_user*') ? 'active' : '' }}">
+            <a href="/admin/voucher_user" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-coupon"></i>
+                <div>Voucher User</div>
+            </a>
+        </li>
+        {{-- EndVoucher --}}
+
+        {{-- EndDataUser --}}
+
     </ul>
 </aside>
+<!-- / Menu -->
