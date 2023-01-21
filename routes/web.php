@@ -8,6 +8,7 @@ use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\KotaController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProvinsiController;
+use App\Http\Controllers\RiwayatProdukController;
 use App\Http\Controllers\SubKategoriController;
 use App\Http\Controllers\TopUpController;
 use App\Http\Controllers\UserController;
@@ -50,6 +51,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('/voucher', VoucherController::class);
     Route::resource('/voucherUser', VoucherUserController::class);
     Route::resource('/topUp', TopUpController::class);
+    Route::resource('/riwayatProduk', RiwayatProdukController::class);
     Route::get('getSub_kategori/{id}', [SubKategoriController::class, 'getSubKategori']);
     Route::get('getKota/{id}', [KotaController::class, 'getKota']);
     Route::get('getKecamatan/{id}', [KecamatanController::class, 'getKecamatan']);
