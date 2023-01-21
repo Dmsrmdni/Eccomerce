@@ -147,6 +147,5 @@ class AlamatController extends Controller
         $alamats->delete();
         return redirect()
             ->route('alamat.index')->with('success', 'Data has been deleted');
-
     }
 }
