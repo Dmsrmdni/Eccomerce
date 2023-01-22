@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Keranjang;
+use App\Models\ReviewProduk;
 use App\Models\Transaksi;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,4 +26,10 @@ class DetailTransaksi extends Model
     {
         return $this->belongsTo(Transaksi::class);
     }
+
+    public function reviewProduk()
+    {
+        return $this->hasMany(ReviewProduk::class);
+    }
+
 }

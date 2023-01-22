@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Models\Alamat;
 use App\Models\DetailTransaksi;
 use App\Models\Keranjang;
+use App\Models\ReviewProduk;
 use App\Models\TopUp;
 use App\Models\Transaksi;
 use App\Models\VoucherUser;
@@ -52,6 +53,11 @@ class User extends Authenticatable
     public function detailTransaksi()
     {
         return $this->hasMany(DetailTransaksi::class);
+    }
+
+    public function reviewProduk()
+    {
+        return $this->hasMany(ReviewProduk::class);
     }
 
     /**
