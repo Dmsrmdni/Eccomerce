@@ -4,7 +4,10 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Alamat;
+use App\Models\DetailTransaksi;
 use App\Models\Keranjang;
+use App\Models\TopUp;
+use App\Models\Transaksi;
 use App\Models\VoucherUser;
 use App\Models\Wishlist;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -39,6 +42,16 @@ class User extends Authenticatable
     public function topup()
     {
         return $this->hasMany(TopUp::class);
+    }
+
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class);
+    }
+
+    public function detailTransaksi()
+    {
+        return $this->hasMany(DetailTransaksi::class);
     }
 
     /**

@@ -13,4 +13,9 @@ class Voucher extends Model
     {
         return $this->hasMany(VoucherUser::class);
     }
+
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class);
+    }
 }

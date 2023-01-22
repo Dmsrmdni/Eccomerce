@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlamatController;
+use App\Http\Controllers\DetailTransaksiController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KecamatanController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\ProvinsiController;
 use App\Http\Controllers\RiwayatProdukController;
 use App\Http\Controllers\SubKategoriController;
 use App\Http\Controllers\TopUpController;
+use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\VoucherUserController;
@@ -52,6 +54,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('/voucherUser', VoucherUserController::class);
     Route::resource('/topUp', TopUpController::class);
     Route::resource('/riwayatProduk', RiwayatProdukController::class);
+    Route::resource('/transaksi', TransaksiController::class);
+    Route::resource('/detailTransaksi', DetailTransaksiController::class);
     Route::get('getSub_kategori/{id}', [SubKategoriController::class, 'getSubKategori']);
     Route::get('getKota/{id}', [KotaController::class, 'getKota']);
     Route::get('getKecamatan/{id}', [KecamatanController::class, 'getKecamatan']);
