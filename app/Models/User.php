@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Models\Alamat;
 use App\Models\DetailTransaksi;
 use App\Models\Keranjang;
+use App\Models\RefundProduk;
 use App\Models\ReviewProduk;
 use App\Models\TopUp;
 use App\Models\Transaksi;
@@ -58,6 +59,11 @@ class User extends Authenticatable
     public function reviewProduk()
     {
         return $this->hasMany(ReviewProduk::class);
+    }
+
+    public function refundProduk()
+    {
+        return $this->hasMany(RefundProduk::class);
     }
 
     /**

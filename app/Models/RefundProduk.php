@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\DetailTransaksi;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ReviewProduk extends Model
+class RefundProduk extends Model
 {
     use HasFactory;
 
