@@ -110,8 +110,8 @@
         {{-- EndProduk --}}
 
         {{-- Riwayat --}}
-        <li class="menu-item {{ Request::is('admin/riwayat_produk*') ? 'active' : '' }}">
-            <a href="/admin/riwayat_produk" class="menu-link">
+        <li class="menu-item {{ Request::is('admin/riwayatProduk*') ? 'active' : '' }}">
+            <a href="/admin/riwayatProduk" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-history"></i>
                 <div>Riwayat Produk</div>
             </a>
@@ -135,8 +135,8 @@
         </li>
 
         {{-- TopUp --}}
-        <li class="menu-item {{ Request::is('admin/top_up*') ? 'active' : '' }}">
-            <a href="/admin/top_up" class="menu-link">
+        <li class="menu-item {{ Request::is('admin/topUp*') ? 'active' : '' }}">
+            <a href="/admin/topUp" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-wallet"></i>
                 <div>Top Up</div>
             </a>
@@ -153,8 +153,8 @@
         {{-- EndTransaksi --}}
 
         {{-- ReviewProduk --}}
-        <li class="menu-item {{ Request::is('admin/review_produk*') ? 'active' : '' }}">
-            <a href="/admin/review_produk" class="menu-link">
+        <li class="menu-item {{ Request::is('admin/reviewProduk*') ? 'active' : '' }}">
+            <a href="/admin/reviewProduk" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-chat"></i>
                 <div>Review Produk</div>
             </a>
@@ -162,8 +162,8 @@
         {{-- EndReviewProduk --}}
 
         {{-- RefundProduk --}}
-        <li class="menu-item {{ Request::is('admin/refund_produk*') ? 'active' : '' }}">
-            <a href="/admin/refund_produk" class="menu-link">
+        <li class="menu-item {{ Request::is('admin/refundProduk*') ? 'active' : '' }}">
+            <a href="/admin/refundProduk" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-recycle"></i>
                 <div>Refund Produk</div>
             </a>
@@ -171,8 +171,8 @@
         {{-- EndRefundProduk --}}
 
         {{-- Voucher --}}
-        <li class="menu-item {{ Request::is('admin/voucher_user*') ? 'active' : '' }}">
-            <a href="/admin/voucher_user" class="menu-link">
+        <li class="menu-item {{ Request::is('admin/voucherUser*') ? 'active' : '' }}">
+            <a href="/admin/voucherUser" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-coupon"></i>
                 <div>Voucher User</div>
             </a>

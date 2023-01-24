@@ -51,16 +51,46 @@ class KeranjangController extends Controller
             'jumlah' => 'required',
         ]);
 
-        $keranjangs = new Keranjang();
-        $keranjangs->user_id = $request->user_id;
-        $keranjangs->produk_id = $request->produk_id;
-        $keranjangs->ukuran = $request->ukuran;
-        $keranjangs->jumlah = $request->jumlah;
-        $diskon = (($keranjangs->produk->diskon / 100) * $keranjangs->produk->harga);
-        $keranjangs->total_harga = ($keranjangs->produk->harga * $request->jumlah) - $diskon;
-        $keranjangs->save();
-        return redirect()
-            ->route('keranjang.index')->with('success', 'Data has been added');
+        // $cek_keranjangs = Keranjang::where('user_id',auth()->user()->id)->where('produk_id',$request->produk_id)->with('user', 'produk')->get();
+
+// if(empty($cek_keranjangs)){
+// }
+//     if(!empty($cek_keranjangs)){
+//         $keranjangs = Keranjang::where('user_id',auth()->user()->id)->where('produk_id',$request->produk_id);
+//         // $cek_keranjangs->user_id = auth()->user()->id;
+//         // $keranjangs2 = new Keranjang();
+//         $keranjangs = Keranjang::findOrFail($keranjangs->id);
+//         $keranjangs->jumlah += $request->jumlah;
+//         $diskon = (($keranjangs->produk->diskon / 100) * $keranjangs->produk->harga);
+//         $keranjangs->total_harga = ($keranjangs->produk->harga * $request->jumlah) - $diskon;
+//         $keranjangs->save();
+
+//         return response()->json([
+//             "status" => 201,
+//             "messaage" => "succesfully updated Keranjang",
+//         ]);
+//     }
+
+        $cek_keranjangs = Keranjang::where('user_id', $request->user_id)->where('produk_id', $request->produk_id)->first();
+
+        if (!empty($cek_keranjangs)) {
+            $keranjangs = Keranjang::where('user_id', $request->user_id)->where('produk_id', $request->produk_id)->first();
+            $keranjangs->jumlah += $request->jumlah;
+            $keranjangs->save();
+            return redirect()
+                ->route('keranjang.index')->with('success', 'Data has been added');
+        } else {
+            $keranjangs = new Keranjang();
+            $keranjangs->user_id = $request->user_id;
+            $keranjangs->produk_id = $request->produk_id;
+            $keranjangs->ukuran = $request->ukuran;
+            $keranjangs->jumlah = $request->jumlah;
+            $diskon = (($keranjangs->produk->diskon / 100) * $keranjangs->produk->harga);
+            $keranjangs->total_harga = ($keranjangs->produk->harga * $request->jumlah) - $diskon;
+            $keranjangs->save();
+            return redirect()
+                ->route('keranjang.index')->with('success', 'Data has been added');
+        }
 
     }
 

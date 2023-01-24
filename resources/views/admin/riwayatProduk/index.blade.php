@@ -15,9 +15,8 @@
                             <th>type</th>
                             <th>Qty</th>
                             <th>Note</th>
-                            <th>Waktu Riwayat</th>
+                            <th>Tanggal</th>
                             <th>Jam</th>
-                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-1">
@@ -37,10 +36,10 @@
                                     <td>
                                         <div class="d-flex">
                                             @if ($riwayatProduk->type == 'masuk')
-                                                <div class="badge rounded-pill bg-success w-75">{{ $riwayatProduk->type }}
+                                                <div class="badge rounded-pill bg-success w-100">{{ $riwayatProduk->type }}
                                                 </div>
                                             @elseif ($riwayatProduk->type == 'keluar')
-                                                <div class="badge rounded-pill bg-danger w-75">{{ $riwayatProduk->type }}
+                                                <div class="badge rounded-pill bg-danger w-100">{{ $riwayatProduk->type }}
                                                 </div>
                                             @endif
                                         </div>
@@ -65,7 +64,7 @@
                                             {{ $riwayatProduk->created_at->format('h:i:s A') }}
                                         </div>
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         <form action="{{ route('riwayatProduk.destroy', $riwayatProduk->id) }}"
                                             method="post">
                                             @csrf
@@ -101,7 +100,7 @@
                                                 </div>
                                             </div>
                                         </form>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @endforeach
                         @endif

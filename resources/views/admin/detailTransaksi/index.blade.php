@@ -20,6 +20,7 @@
                             <th>Kode Transaksi</th>
                             <th>Pembeli</th>
                             <th>Produk</th>
+                            <th>Jumlah</th>
                             <th>Harga</th>
                             <th>Metode Pembayaran</th>
                             <th>Actions</th>
@@ -47,6 +48,11 @@
                                     <td>
                                         <div class="d-flex">
                                             {{ $detailTransaksi->keranjang->produk->nama_produk }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            {{ $detailTransaksi->keranjang->jumlah }}
                                         </div>
                                     </td>
                                     <td>

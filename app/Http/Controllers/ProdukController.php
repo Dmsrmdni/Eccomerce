@@ -89,7 +89,8 @@ class ProdukController extends Controller
     public function show($id)
     {
         $produks = Produk::findOrFail($id);
-        return view('admin.produk.show', compact('produks'));
+        $images = Image::where('produk_id', $id)->get();
+        return view('admin.produk.show', compact('produks', 'images'));
     }
 
     /**

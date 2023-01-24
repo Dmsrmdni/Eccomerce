@@ -78,6 +78,11 @@ class TransaksiController extends Controller
             $detailTransaksi->user_id = $transaksis->user_id;
             $detailTransaksi->keranjang_id = $keranjang;
             $detailTransaksi->save();
+
+            // $produks = Produk::where('id', $detailTransaksi->keranjang->produk_id)->get();
+            // $produks->stok -= $request->jumlah;
+            // $produks->save();
+
         }
 
         return redirect()

@@ -17,8 +17,8 @@
                             <th>Saldo</th>
                             <th>Score</th>
                             <th>Status</th>
-                            <th>Dibuat</th>
-                            <th>Di update</th>
+                            <th>Create</th>
+                            <th>Update</th>
                             <th>Actions</th>
                         </tr>
                     </thead>

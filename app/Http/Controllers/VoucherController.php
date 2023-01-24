@@ -58,7 +58,7 @@ class VoucherController extends Controller
         $vouchers->waktu_berakhir = $request->waktu_berakhir;
 
         if ($vouchers->waktu_mulai > $vouchers->waktu_berakhir) {
-            $status = 'expired';
+            return back()->with('error', 'invalid date format');
         } else {
             $status = 'aktif';
         }

@@ -24,9 +24,9 @@ class Image extends Model
 
     public function deleteImage()
     {
-        // if ($this->gambar_produk && file_exists(public_path($this->gambar_produk))) {
-        return unlink(public_path($this->gambar_produk));
-        // }
+        if ($this->gambar_produk && file_exists(public_path($this->gambar_produk))) {
+            return unlink(public_path($this->gambar_produk));
+        }
     }
 
 }
