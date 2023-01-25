@@ -59,7 +59,6 @@ class KeranjangController extends Controller
             $diskon = (($keranjangs->produk->diskon / 100) * $keranjangs->produk->harga);
             $harga = ($keranjangs->produk->harga * $request->jumlah) - $diskon;
             $keranjangs->total_harga += $harga;
-
             $keranjangs->save();
             return redirect()
                 ->route('keranjang.index')->with('success', 'Data has been added');
