@@ -127,6 +127,15 @@
         </li>
         {{-- EndVoucher --}}
 
+        {{-- metodePembayaran --}}
+        <li class="menu-item {{ Request::is('admin/metodePembayaran') ? 'active' : '' }}">
+            <a href="/admin/metodePembayaran" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-money"></i>
+                <div>Metode Pembayaran</div>
+            </a>
+        </li>
+        {{-- EndmetodePembayaran --}}
+
         {{-- EndDataProduk --}}
 
         {{-- Data User --}}

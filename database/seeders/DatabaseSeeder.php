@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Database\Seeders\KategoriSeeder;
 use Database\Seeders\KotaSeeder;
+use Database\Seeders\MetodePembayaranSeeder;
 use Database\Seeders\ProvinsiSeeder;
 use Database\Seeders\SubKategoriSeeder;
 use Database\Seeders\UserSeeder;
@@ -33,6 +34,7 @@ class DatabaseSeeder extends Seeder
             ProvinsiSeeder::class,
             KotaSeeder::class,
             kecamatanSeeder::class,
+            MetodePembayaranSeeder::class,
         ]);
 
     }

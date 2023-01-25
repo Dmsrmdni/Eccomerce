@@ -101,7 +101,9 @@ class TransaksiController extends Controller
      */
     public function show($id)
     {
-        //
+        $transaksis = Transaksi::findOrFail($id);
+        $detailTransaksis = DetailTransaksi::where('transaksi_id', $id)->get();
+        return view('admin.transaksi.show', compact('transaksis', 'detailTransaksis'));
     }
 
     /**

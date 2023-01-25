@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="col-lg-6">
-            <div class="card mb-4 shadow-lg rounded card" style="margin: 2%; padding:1% ">
+        <div class="col-lg-12">
+            <div class="card mb-4 shadow-lg rounded card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="mb-0">{{ $transaksis->kode_transaksi }}</h4>
                 </div>
@@ -21,25 +21,35 @@
                                     <td>
                                         <strong>Nama Produk</strong>
                                     </td>
-                                    <td>{{ $transaksis->keranjang->produk->nama_produk }}</td>
+                                    @foreach ($detailTransaksis as $detailTransaksi)
+                                        <td>{{ $detailTransaksi->keranjang->produk->nama_produk }}</td>
+                                    @endforeach
                                 </tr>
                                 <tr>
                                     <td>
                                         <strong>Harga Produk</strong>
                                     </td>
-                                    <td>Rp. {{ number_format($transaksis->keranjang->produk->harga, 0, ',', '.') }}</td>
+                                    @foreach ($detailTransaksis as $detailTransaksi)
+                                        <td>Rp. {{ number_format($detailTransaksi->keranjang->produk->harga, 0, ',', '.') }}
+                                        </td>
+                                    @endforeach
                                 </tr>
                                 <tr>
                                     <td>
                                         <strong>Jumlah Produk</strong>
                                     </td>
-                                    <td>{{ $transaksis->keranjang->jumlah }}</td>
+                                    @foreach ($detailTransaksis as $detailTransaksi)
+                                        <td>{{ $detailTransaksi->keranjang->jumlah }}</td>
+                                    @endforeach
                                 </tr>
                                 <tr>
                                     <td>
                                         <strong>total Harga</strong>
                                     </td>
-                                    <td>Rp. {{ number_format($transaksis->keranjang->total_harga, 0, ',', '.') }}</td>
+                                    @foreach ($detailTransaksis as $detailTransaksi)
+                                        <td>Rp. {{ number_format($detailTransaksi->keranjang->total_harga, 0, ',', '.') }}
+                                        </td>
+                                    @endforeach
                                 </tr>
                                 <tr>
                                     @if (!$transaksis->voucher == '')
@@ -53,18 +63,18 @@
                                 </tr>
                             </tbody>
                             <tfoot class="table-border-bottom-0">
-                                <tr>
+                                {{-- <tr>
                                     <th><strong> Jumlah Total Harga </strong></th>
                                     <th><strong><i> Rp. {{ number_format($transaksis->total_harga, 0, ',', '.') }} </i>
                                         </strong></th>
-                                </tr>
+                                </tr> --}}
                                 <tr>
                                     <th><strong> Metode Pembayaran </strong></th>
                                     <th><strong>{{ $transaksis->metode_pembayaran }}</strong></th>
                                 </tr>
                                 <tr>
                                     <th><strong> Waktu Pemesanan </strong></th>
-                                    <th><strong>{{ $transaksis->waktu_pemesanan }}</strong></th>
+                                    <th><strong>{{ $transaksis->created_at }}</strong></th>
                                 </tr>
                             </tfoot>
                         </table>

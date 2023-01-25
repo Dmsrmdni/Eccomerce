@@ -23,7 +23,7 @@ class Keranjang extends Model
     }
     public function transaksi()
     {
-        return $this->hasMany(Transaksi::class);
+        return $this->hasMany(Transaksi::class, 'keranjang_id');
     }
     public function detailTransaksi()
     {
