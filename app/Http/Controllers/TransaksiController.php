@@ -89,6 +89,7 @@ class TransaksiController extends Controller
                 $produks->save();
             }
         }
+
         return redirect()
             ->route('transaksi.index')
             ->with('success', 'Data has been added');
@@ -105,7 +106,16 @@ class TransaksiController extends Controller
     {
         $transaksis = Transaksi::findOrFail($id);
         $detailTransaksis = DetailTransaksi::where('transaksi_id', $id)->get();
-        return view('admin.transaksi.show', compact('transaksis', 'detailTransaksis'));
+        $total_harga = DetailTransaksi::join('keranjangs', 'detail_transaksis.keranjang_id', '=', 'keranjangs.id')->
+            where('detail_transaksis.transaksi_id', $id)->
+            sum("keranjangs.total_harga");
+        if ($transaksis->voucher_id == '') {
+            $diskon = 0;
+        } else {
+            $diskon = ($transaksis->voucher->diskon / 100) * $total_harga;
+        }
+        $total_bayar = $total_harga - $diskon;
+        return view('admin.transaksi.show', compact('transaksis', 'detailTransaksis', 'total_harga', 'total_bayar', 'diskon'));
     }
 
     /**
