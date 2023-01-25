@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\TopUp;
+use App\Models\VoucherUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,5 +14,10 @@ class MetodePembayaran extends Model
     public function topUp()
     {
         return $this->hasMany(TopUp::class);
+    }
+
+    public function voucherUser()
+    {
+        return $this->hasMany(VoucherUser::class);
     }
 }

@@ -20,4 +20,9 @@ class VoucherUser extends Model
     {
         return $this->belongsTo(Voucher::class);
     }
+
+    public function metodePembayaran()
+    {
+        return $this->belongsTo(MetodePembayaran::class, 'metodePembayaran_id');
+    }
 }

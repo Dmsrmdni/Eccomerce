@@ -22,7 +22,7 @@
                             <th>Metode Pembayaran</th>
                             <th>Tanggal</th>
                             <th>Jam</th>
-                            <th>Actions</th>
+                            {{-- <th>Actions</th> --}}
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-1">
@@ -46,7 +46,7 @@
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            {{ $voucherUser->metode_pembayaran }}
+                                            {{ $voucherUser->metodePembayaran->metodePembayaran }}
                                         </div>
                                     </td>
                                     <td>
@@ -59,7 +59,7 @@
                                             {{ $voucherUser->created_at->format('h:i:s A') }}
                                         </div>
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
                                             data-bs-target="#modalCenter{{ $voucherUser->id }}"><svg
                                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -93,7 +93,7 @@
                                                 </div>
                                             </div>
                                         </form>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @endforeach
                         @endif

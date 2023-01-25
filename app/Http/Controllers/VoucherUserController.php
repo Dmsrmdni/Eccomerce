@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\MetodePembayaran;
 use App\Models\User;
 use App\Models\Voucher;
 use App\Models\VoucherUser;
@@ -17,7 +18,7 @@ class VoucherUserController extends Controller
      */
     public function index()
     {
-        $voucherUsers = VoucherUser::with('user', 'voucher')->latest()->get();
+        $voucherUsers = VoucherUser::with('user', 'voucher', 'metodePembayaran')->latest()->get();
         return view('admin.voucherUser.index', compact('voucherUsers'));
     }
 
@@ -29,9 +30,9 @@ class VoucherUserController extends Controller
     public function create()
     {
         $vouchers = Voucher::where('label', 'berbayar')->where('status', 'aktif')->get();
-        // $users = User::where('role', 'costumer')->get();
         $users = User::where('role', 'costumer')->get();
-        return view('admin.voucherUser.create', compact('vouchers', 'users'));
+        $metodePembayarans = MetodePembayaran::whereNot('metodePembayaran', 'GAKUNIQ WALLET')->get();
+        return view('admin.voucherUser.create', compact('vouchers', 'users', 'metodePembayarans'));
 
     }
 
@@ -47,13 +48,13 @@ class VoucherUserController extends Controller
         $validated = $request->validate([
             'user_id' => 'required',
             'voucher_id' => 'required',
-            'metode_pembayaran' => 'required',
+            'metodePembayaran_id' => 'required',
         ]);
 
         $voucherUsers = new VoucherUser();
         $voucherUsers->user_id = $request->user_id;
         $voucherUsers->voucher_id = $request->voucher_id;
-        $voucherUsers->metode_pembayaran = $request->metode_pembayaran;
+        $voucherUsers->metodePembayaran_id = $request->metodePembayaran_id;
         $voucherUsers->save();
         return redirect()
             ->route('voucherUser.index')->with('success', 'Data has been added');
