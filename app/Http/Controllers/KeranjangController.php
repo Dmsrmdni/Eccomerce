@@ -56,6 +56,10 @@ class KeranjangController extends Controller
         if (!empty($cek_keranjangs)) {
             $keranjangs = Keranjang::where('user_id', $request->user_id)->where('produk_id', $request->produk_id)->where('ukuran', $request->ukuran)->first();
             $keranjangs->jumlah += $request->jumlah;
+            $diskon = (($keranjangs->produk->diskon / 100) * $keranjangs->produk->harga);
+            $harga = ($keranjangs->produk->harga * $request->jumlah) - $diskon;
+            $keranjangs->total_harga += $harga;
+
             $keranjangs->save();
             return redirect()
                 ->route('keranjang.index')->with('success', 'Data has been added');

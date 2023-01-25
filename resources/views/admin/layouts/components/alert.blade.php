@@ -57,7 +57,7 @@
 @if ($message = Session::get('gagal'))
     <script>
         Swal.fire({
-            title: 'Tidak bisa di hapus',
+            title: '{{ $message }}',
             icon: 'error',
             showCancelButton: true,
             showConfirmButton: false,
