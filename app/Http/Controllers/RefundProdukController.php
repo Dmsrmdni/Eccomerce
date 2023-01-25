@@ -28,7 +28,7 @@ class RefundProdukController extends Controller
      */
     public function create()
     {
-        $detailTransaksis = DetailTransaksi::all();
+        $detailTransaksis = DetailTransaksi::where('status', 'proses')->get();
         $users = User::where('role', 'costumer')->get();
         return view('admin.refundProduk.create', compact('detailTransaksis', 'users'));
 
@@ -52,6 +52,9 @@ class RefundProdukController extends Controller
         $refundProduks->user_id = $request->user_id;
         $refundProduks->detailTransaksi_id = $request->detailTransaksi_id;
         $refundProduks->alasan = $request->alasan;
+        $detailTransaksis = DetailTransaksi::findOrFail($refundProduks->detailTransaksi_id);
+        $detailTransaksis->status = "pengajuan refund";
+        $detailTransaksis->save();
         $refundProduks->save();
         return redirect()
             ->route('refundProduk.index')->with('success', 'Data has been added');
