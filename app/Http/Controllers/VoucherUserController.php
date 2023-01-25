@@ -55,6 +55,19 @@ class VoucherUserController extends Controller
         $voucherUsers->user_id = $request->user_id;
         $voucherUsers->voucher_id = $request->voucher_id;
         $voucherUsers->metodePembayaran_id = $request->metodePembayaran_id;
+
+        // saldo
+        $users = User::findOrFail($voucherUsers->user_id);
+        $metodePembayarans = MetodePembayaran::where('id', $voucherUsers->metodePembayaran_id)->first();
+        if ($metodePembayarans->metodePembayaran == 'GAKUNIQ WALLET') {
+            if ($users->saldo < $voucherUsers->voucher->harga) {
+                return back()->with('error', 'Saldo Kurang');
+            } else {
+                $users->saldo -= $voucherUsers->voucher->harga;
+            }
+            $users->save();
+        }
+
         $voucherUsers->save();
         return redirect()
             ->route('voucherUser.index')->with('success', 'Data has been added');
