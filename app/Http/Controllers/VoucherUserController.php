@@ -31,7 +31,7 @@ class VoucherUserController extends Controller
     {
         $vouchers = Voucher::where('label', 'berbayar')->where('status', 'aktif')->get();
         $users = User::where('role', 'costumer')->get();
-        $metodePembayarans = MetodePembayaran::whereNot('metodePembayaran', 'GAKUNIQ WALLET')->get();
+        $metodePembayarans = MetodePembayaran::all();
         return view('admin.voucherUser.create', compact('vouchers', 'users', 'metodePembayarans'));
 
     }

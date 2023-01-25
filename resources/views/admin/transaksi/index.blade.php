@@ -62,7 +62,7 @@
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            {{ $transaksi->metode_pembayaran }}
+                                            {{ $transaksi->metodePembayaran->metodePembayaran }}
                                         </div>
                                     </td>
                                     <td>

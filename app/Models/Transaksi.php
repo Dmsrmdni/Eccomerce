@@ -31,4 +31,9 @@ class Transaksi extends Model
     {
         return $this->hasMany(DetailTransaksi::class);
     }
+
+    public function metodePembayaran()
+    {
+        return $this->belongsTo(MetodePembayaran::class, 'metodePembayaran_id');
+    }
 }

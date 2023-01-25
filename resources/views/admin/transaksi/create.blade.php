@@ -65,15 +65,15 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Metode Pembayaran</label>
-                            <select name="metode_pembayaran"
-                                class="form-select @error('metode_pembayaran') is-invalid @enderror">
-                                <option value="" hidden>Pilih Metode Pembayaran</option>
-                                <option value="BRI">BRI</option>
-                                <option value="BCA">BCA</option>
-                                <option value="CLIMB NIAGA">CLIMB NIAGA</option>
-                                <option value="gakuniq wallet">GAKUNIQ WALLET</option>
+                            <select name="metodePembayaran_id"
+                                class="form-select @error('metodePembayaran_id') is-invalid @enderror">
+                                @foreach ($metodePembayarans as $metodePembayaran)
+                                    <option value="" hidden>Pilih Metode Pembayaran</option>
+                                    <option value="{{ $metodePembayaran->id }}">{{ $metodePembayaran->metodePembayaran }}
+                                    </option>
+                                @endforeach
                             </select>
-                            @error('metode_pembayaran')
+                            @error('metodePembayaran_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

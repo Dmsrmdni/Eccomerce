@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\DetailTransaksi;
 use App\Models\Keranjang;
+use App\Models\MetodePembayaran;
 use App\Models\Produk;
 use App\Models\Transaksi;
 use App\Models\User;
@@ -22,7 +23,7 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        $transaksis = Transaksi::with('keranjang', 'voucher', 'user')->latest()->get();
+        $transaksis = Transaksi::with('metodePembayaran', 'voucher', 'user')->latest()->get();
 
         return view('admin.transaksi.index', compact('transaksis'));
 
@@ -39,7 +40,8 @@ class TransaksiController extends Controller
         $keranjangs = Keranjang::where('status', 'keranjang')->get();
         $voucherUsers = VoucherUser::all();
         $vouchers = Voucher::where('status', 'aktif')->where('label', 'gratis')->get();
-        return view('admin.transaksi.create', compact('keranjangs', 'vouchers', 'voucherUsers', 'users'));
+        $metodePembayarans = MetodePembayaran::all();
+        return view('admin.transaksi.create', compact('keranjangs', 'vouchers', 'voucherUsers', 'users', 'metodePembayarans'));
 
     }
 
@@ -54,7 +56,7 @@ class TransaksiController extends Controller
         //validasi
         $validated = $request->validate([
             'user_id' => 'required',
-            'metode_pembayaran' => 'required',
+            'metodePembayaran_id' => 'required',
         ]);
 
         $transaksis = new Transaksi();
@@ -70,7 +72,7 @@ class TransaksiController extends Controller
         $transaksis->kode_transaksi = 'GNQ-' . date('dmy') . $kode;
         $transaksis->user_id = $request->user_id;
         $transaksis->voucher_id = $request->voucher_id;
-        $transaksis->metode_pembayaran = $request->metode_pembayaran;
+        $transaksis->metodePembayaran_id = $request->metodePembayaran_id;
         $transaksis->save();
 
         foreach ($request->keranjang_id as $keranjang) {

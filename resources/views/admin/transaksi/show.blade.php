@@ -70,7 +70,7 @@
                                 </tr> --}}
                                 <tr>
                                     <th><strong> Metode Pembayaran </strong></th>
-                                    <th><strong>{{ $transaksis->metode_pembayaran }}</strong></th>
+                                    <th><strong>{{ $transaksis->metodePembayaran->metodePembayaran }}</strong></th>
                                 </tr>
                                 <tr>
                                     <th><strong> Waktu Pemesanan </strong></th>
