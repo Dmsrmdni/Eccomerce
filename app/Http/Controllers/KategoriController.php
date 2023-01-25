@@ -108,7 +108,7 @@ class KategoriController extends Controller
     {
 
         if (!Kategori::destroy($id)) {
-            return redirect()->back()->with('gagal', 'Data has been deleted');
+            return redirect()->back()->with('gagal', 'Data cannot be deleted');
         }
         $kategoris = Kategori::findOrFail($id);
         $kategoris->delete();

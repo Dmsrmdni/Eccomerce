@@ -62,6 +62,7 @@
             showCancelButton: true,
             showConfirmButton: false,
             cancelButtonColor: '#d33',
+            cancelButtonText: 'Oke',
         })
     </script>
 @endif
