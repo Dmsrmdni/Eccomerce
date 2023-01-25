@@ -177,8 +177,8 @@
                 <div>Pengajuan Refund</div>
             </a>
         </li>
-        <li class="menu-item {{ Request::is('admin/HistoryrefundProduk*') ? 'active' : '' }}">
-            <a href="/admin/HistoryrefundProduk" class="menu-link">
+        <li class="menu-item {{ Request::is('admin/HistoryRefundProduk*') ? 'active' : '' }}">
+            <a href="/admin/HistoryRefundProduk" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-recycle"></i>
                 <div>Refund Produk</div>
             </a>

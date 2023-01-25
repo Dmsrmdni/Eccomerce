@@ -3,7 +3,7 @@
 @section('content')
     <div class="card shadow-lg rounded card p-2">
         <div class="card-header" id="#atas">
-            <span class="fs-4 fw-700">Data Refund</span>
+            <span class="fs-4 fw-700">Data Refund Produk</span>
             <a href="{{ route('refundProduk.create') }}" class="btn btn-sm btn-primary float-end"><svg
                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
                     viewBox="0 0 16 16">
