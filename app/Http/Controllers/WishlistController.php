@@ -48,13 +48,19 @@ class WishlistController extends Controller
             'produk_id' => 'required',
         ]);
 
-        $wishlists = new Wishlist();
-        $wishlists->user_id = $request->user_id;
-        $wishlists->produk_id = $request->produk_id;
-        $wishlists->save();
-        return redirect()
-            ->route('wishlist.index')->with('success', 'Data has been added');
+        $cek_wishlists = Wishlist::where('user_id', $request->user_id)->where('produk_id', $request->produk_id)->first();
 
+        if (!empty($cek_wishlists)) {
+            return back()->with('error', 'Data telah di tambahkan');
+        } else {
+            $wishlists = new Wishlist();
+            $wishlists->user_id = $request->user_id;
+            $wishlists->produk_id = $request->produk_id;
+            $wishlists->save();
+            return redirect()
+                ->route('wishlist.index')->with('success', 'Data has been added');
+
+        }
     }
 
     /**
