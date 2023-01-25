@@ -74,7 +74,6 @@ class TransaksiController extends Controller
         $transaksis->voucher_id = $request->voucher_id;
         $transaksis->metodePembayaran_id = $request->metodePembayaran_id;
         $transaksis->save();
-
         foreach ($request->keranjang_id as $keranjang) {
             $detailTransaksi = new DetailTransaksi();
             $detailTransaksi->transaksi_id = $transaksis->id;
@@ -99,6 +98,8 @@ class TransaksiController extends Controller
         if ($metodePembayarans->metodePembayaran == 'GAKUNIQ WALLET') {
             $users = User::findOrFail($transaksis->user_id);
             if ($users->saldo < $total_harga) {
+                $transaksis = Transaksi::where('id', $transaksis->id)->first();
+                $transaksis->delete();
                 return redirect()->route('transaksi.create')->with('error', 'Saldo Kurang');
             } else {
                 $users->saldo -= $total_harga;

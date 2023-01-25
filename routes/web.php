@@ -61,6 +61,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('/detailTransaksi', DetailTransaksiController::class);
     Route::resource('/reviewProduk', ReviewProdukController::class);
     Route::resource('/refundProduk', RefundProdukController::class);
+    Route::get('/HistoryRefundProduk', [RefundProdukController::class, 'index2']);
     Route::resource('/metodePembayaran', MetodePembayaranController::class);
     Route::get('getSub_kategori/{id}', [SubKategoriController::class, 'getSubKategori']);
     Route::get('getKota/{id}', [KotaController::class, 'getKota']);

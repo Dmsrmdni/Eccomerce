@@ -22,6 +22,12 @@ class RefundProdukController extends Controller
         return view('admin.refundProduk.index', compact('refundProduks'));
     }
 
+    public function index2()
+    {
+        $refundProduks = RefundProduk::with('detailTransaksi', 'user')->whereNot('status', 'pengajuan refund')->latest()->get();
+        return view('admin.refundProduk.history', compact('refundProduks'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
