@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\DetailTransaksi;
 use App\Models\Keranjang;
+use App\Models\Produk;
 use App\Models\Transaksi;
 use App\Models\User;
 use App\Models\Voucher;
@@ -79,12 +80,13 @@ class TransaksiController extends Controller
             $detailTransaksi->keranjang_id = $keranjang;
             $detailTransaksi->save();
 
-            // $produks = Produk::where('id', $detailTransaksi->keranjang->produk_id)->get();
-            // $produks->stok -= $request->jumlah;
-            // $produks->save();
-
+            $keranjangs = Keranjang::where('id', $detailTransaksi->keranjang_id)->get();
+            foreach ($keranjangs as $keranjang) {
+                $produks = Produk::where('id', $keranjang->produk_id)->first();
+                $produks->stok -= $keranjang->jumlah;
+                $produks->save();
+            }
         }
-
         return redirect()
             ->route('transaksi.index')
             ->with('success', 'Data has been added');
