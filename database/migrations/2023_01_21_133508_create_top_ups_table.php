@@ -18,7 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('jumlah_saldo');
-            $table->string('metode_pembayaran');
+            $table->unsignedBigInteger('metodePembayaran_id');
+            $table->foreign('metodePembayaran_id')->references('id')->on('metode_pembayarans')->onDelete('cascade');
             $table->timestamps();
         });
     }

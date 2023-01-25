@@ -23,7 +23,7 @@
                             <th>Metode Pembayaran</th>
                             <th>Tanggal</th>
                             <th>Jam</th>
-                            <th>Actions</th>
+                            {{-- <th>Actions</th> --}}
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-1">
@@ -47,7 +47,7 @@
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            {{ $topUp->metode_pembayaran }}
+                                            {{ $topUp->metodePembayaran->metodePembayaran }}
                                         </div>
                                     </td>
                                     <td>
@@ -60,7 +60,7 @@
                                             {{ $topUp->created_at->format('h:i:s A') }}
                                         </div>
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         <form action="{{ route('topUp.destroy', $topUp->id) }}" method="post">
                                             @csrf
                                             @method('delete')
@@ -95,7 +95,7 @@
                                                 </div>
                                             </div>
                                         </form>
-                                    </td>
+                                    </td> --}}
                                     </tr>
                             @endforeach
                         @endif

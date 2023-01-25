@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\MetodePembayaran;
 use App\Models\TopUp;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class TopUpController extends Controller
      */
     public function index()
     {
-        $topUps = TopUp::with('user')->latest()->get();
+        $topUps = TopUp::with('user', 'metodePembayaran')->latest()->get();
         return view('admin.topUp.index', compact('topUps'));
 
     }
@@ -29,7 +30,8 @@ class TopUpController extends Controller
     public function create()
     {
         $users = User::where('role', 'costumer')->get();
-        return view('admin.topUp.create', compact('users'));
+        $metodePembayarans = MetodePembayaran::whereNot('metodePembayaran', 'GAKUNIQ WALLET')->get();
+        return view('admin.topUp.create', compact('users', 'metodePembayarans'));
 
     }
 
@@ -45,13 +47,13 @@ class TopUpController extends Controller
         $validated = $request->validate([
             'user_id' => 'required',
             'jumlah_saldo' => 'required',
-            'metode_pembayaran' => 'required',
+            'metodePembayaran_id' => 'required',
         ]);
 
         $topUps = new TopUp();
         $topUps->user_id = $request->user_id;
         $topUps->jumlah_saldo = $request->jumlah_saldo;
-        $topUps->metode_pembayaran = $request->metode_pembayaran;
+        $topUps->metodePembayaran_id = $request->metodePembayaran_id;
         $topUps->save();
 
         $users = User::findOrFail($topUps->user_id);
