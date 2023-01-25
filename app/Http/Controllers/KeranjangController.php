@@ -71,10 +71,10 @@ class KeranjangController extends Controller
 //         ]);
 //     }
 
-        $cek_keranjangs = Keranjang::where('user_id', $request->user_id)->where('produk_id', $request->produk_id)->first();
+        $cek_keranjangs = Keranjang::where('user_id', $request->user_id)->where('produk_id', $request->produk_id)->where('ukuran', $request->ukuran)->first();
 
         if (!empty($cek_keranjangs)) {
-            $keranjangs = Keranjang::where('user_id', $request->user_id)->where('produk_id', $request->produk_id)->first();
+            $keranjangs = Keranjang::where('user_id', $request->user_id)->where('produk_id', $request->produk_id)->where('ukuran', $request->ukuran)->first();
             $keranjangs->jumlah += $request->jumlah;
             $keranjangs->save();
             return redirect()
