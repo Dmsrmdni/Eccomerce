@@ -53,3 +53,15 @@
         })
     </script>
 @endif
+
+@if ($message = Session::get('gagal'))
+    <script>
+        Swal.fire({
+            title: 'Tidak bisa di hapus',
+            icon: 'error',
+            showCancelButton: true,
+            showConfirmButton: false,
+            cancelButtonColor: '#d33',
+        })
+    </script>
+@endif

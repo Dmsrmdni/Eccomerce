@@ -20,4 +20,14 @@ class Kategori extends Model
     {
         return $this->hasMany(Produk::class);
     }
+
+    public static function boot()
+    {
+        parent::boot();
+        self::deleting(function ($var) {
+            if ($var->subKategori->count() > 0) {
+                return false;
+            }
+        });
+    }
 }

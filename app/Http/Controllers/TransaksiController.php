@@ -90,6 +90,22 @@ class TransaksiController extends Controller
             }
         }
 
+        $total_harga = DetailTransaksi::join('keranjangs', 'detail_transaksis.keranjang_id', '=', 'keranjangs.id')->
+            where('detail_transaksis.transaksi_id', $transaksis->id)->
+            sum("keranjangs.total_harga");
+
+        // saldo
+        $metodePembayarans = MetodePembayaran::where('id', $transaksis->metodePembayaran_id)->first();
+        if ($metodePembayarans->metodePembayaran == 'GAKUNIQ WALLET') {
+            $users = User::findOrFail($transaksis->user_id);
+            if ($users->saldo < $total_harga) {
+                return redirect()->route('transaksi.create')->with('error', 'Saldo Kurang');
+            } else {
+                $users->saldo -= $total_harga;
+            }
+            $users->save();
+        }
+
         return redirect()
             ->route('transaksi.index')
             ->with('success', 'Data has been added');

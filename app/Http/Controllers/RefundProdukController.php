@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\DetailTransaksi;
+use App\Models\MetodePembayaran;
 use App\Models\RefundProduk;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class RefundProdukController extends Controller
      */
     public function index()
     {
-        $refundProduks = RefundProduk::with('detailTransaksi', 'user')->latest()->get();
+        $refundProduks = RefundProduk::with('detailTransaksi', 'user')->where('status', 'pengajuan refund')->latest()->get();
         return view('admin.refundProduk.index', compact('refundProduks'));
     }
 
@@ -80,7 +81,8 @@ class RefundProdukController extends Controller
      */
     public function edit($id)
     {
-        //
+        $refundProduks = RefundProduk::findOrFail($id);
+        return view('admin.refundProduk.edit', compact('refundProduks'));
     }
 
     /**
@@ -92,7 +94,34 @@ class RefundProdukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'status' => 'required',
+        ]);
+
+        $refundProduks = RefundProduk::findOrFail($id);
+        $refundProduks->status = $request->status;
+        $detailTransaksis = DetailTransaksi::findOrFail($refundProduks->detailTransaksi_id);
+        if ($refundProduks->status == 'disetujui') {
+            $detailTransaksis->status = "dikembalikan";
+            $detailTransaksis->save();
+            // saldo
+            $metodePembayarans = MetodePembayaran::where('id', $detailTransaksis->transaksi->metodePembayaran_id)->first();
+            if ($metodePembayarans->metodePembayaran == 'GAKUNIQ WALLET') {
+                $users = User::findOrFail($detailTransaksis->transaksi->user_id);
+                $users->saldo += $detailTransaksis->keranjang->total_harga;
+                $users->save();
+            }
+        }
+
+        if ($refundProduks->status == 'ditolak') {
+            $detailTransaksis->status = "ditolak";
+            $detailTransaksis->save();
+
+        }
+        $refundProduks->save();
+        return redirect()
+            ->route('refundProduk.index')->with('success', 'Data has been edited');
+
     }
 
     /**
