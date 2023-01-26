@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Alamat;
+use App\Models\DetailTransaksi;
 use App\Models\Keranjang;
+use App\Models\MetodePembayaran;
 use App\Models\User;
 use App\Models\Voucher;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -35,5 +38,10 @@ class Transaksi extends Model
     public function metodePembayaran()
     {
         return $this->belongsTo(MetodePembayaran::class, 'metodePembayaran_id');
+    }
+
+    public function alamat()
+    {
+        return $this->belongsTo(Alamat::class);
     }
 }

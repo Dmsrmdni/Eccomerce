@@ -26,6 +26,21 @@
                             @enderror
                         </div>
                         <div class="mb-3">
+                            <label class="form-label">alamats</label>
+                            <select name="alamat_id" class="form-select @error('alamat_id') is-invalid @enderror">
+                                @foreach ($alamats as $alamat)
+                                    <option value="" hidden>Pilih Alamat</option>
+                                    <option value="{{ $alamat->id }}">{{ $alamat->nama_lengkap }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('alamat_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label">Name Produk</label>
                             <select name="keranjang_id[]" class="form-select @error('keranjang_id') is-invalid @enderror"
                                 multiple>

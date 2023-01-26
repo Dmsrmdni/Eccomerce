@@ -32,7 +32,7 @@ class AlamatController extends Controller
     public function create()
     {
         $provinsis = Provinsi::all();
-        $users = User::all();
+        $users = User::where('role', 'costumer')->get();
         return view('admin.alamat.create', compact('provinsis', 'users'));
 
     }
@@ -93,7 +93,7 @@ class AlamatController extends Controller
     {
         $alamats = Alamat::findOrFail($id);
         $provinsis = Provinsi::all();
-        $users = User::all();
+        $users = User::where('role', 'costumer')->get();
         $kotas = Kota::where('provinsi_id', $alamats->provinsi_id)->get();
         $kecamatans = Kecamatan::where('kota_id', $alamats->kota_id)->get();
         return view('admin.alamat.edit', compact('alamats', 'provinsis', 'users', 'kecamatans', 'kotas'));

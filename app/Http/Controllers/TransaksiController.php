@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Alamat;
 use App\Models\DetailTransaksi;
 use App\Models\Keranjang;
 use App\Models\MetodePembayaran;
@@ -23,7 +24,7 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        $transaksis = Transaksi::with('metodePembayaran', 'voucher', 'user')->latest()->get();
+        $transaksis = Transaksi::with('metodePembayaran', 'voucher', 'user', 'alamat')->latest()->get();
 
         return view('admin.transaksi.index', compact('transaksis'));
 
@@ -41,7 +42,8 @@ class TransaksiController extends Controller
         $voucherUsers = VoucherUser::all();
         $vouchers = Voucher::where('status', 'aktif')->where('label', 'gratis')->get();
         $metodePembayarans = MetodePembayaran::all();
-        return view('admin.transaksi.create', compact('keranjangs', 'vouchers', 'voucherUsers', 'users', 'metodePembayarans'));
+        $alamats = Alamat::all();
+        return view('admin.transaksi.create', compact('keranjangs', 'vouchers', 'voucherUsers', 'users', 'metodePembayarans', 'alamats'));
 
     }
 
@@ -57,6 +59,7 @@ class TransaksiController extends Controller
         $validated = $request->validate([
             'user_id' => 'required',
             'metodePembayaran_id' => 'required',
+            'alamat_id' => 'required',
         ]);
 
         $transaksis = new Transaksi();
@@ -71,9 +74,11 @@ class TransaksiController extends Controller
         }
         $transaksis->kode_transaksi = 'GNQ-' . date('dmy') . $kode;
         $transaksis->user_id = $request->user_id;
+        $transaksis->alamat_id = $request->alamat_id;
         $transaksis->voucher_id = $request->voucher_id;
         $transaksis->metodePembayaran_id = $request->metodePembayaran_id;
         $transaksis->save();
+
         foreach ($request->keranjang_id as $keranjang) {
             $detailTransaksi = new DetailTransaksi();
             $detailTransaksi->transaksi_id = $transaksis->id;
@@ -132,7 +137,8 @@ class TransaksiController extends Controller
             $diskon = ($transaksis->voucher->diskon / 100) * $total_harga;
         }
         $total_bayar = $total_harga - $diskon;
-        return view('admin.transaksi.show', compact('transaksis', 'detailTransaksis', 'total_harga', 'total_bayar', 'diskon'));
+        $alamats = Alamat::findOrFail($transaksis->alamat_id);
+        return view('admin.transaksi.show', compact('transaksis', 'detailTransaksis', 'total_harga', 'total_bayar', 'diskon', 'alamats'));
     }
 
     /**
