@@ -25,7 +25,7 @@ class Kategori extends Model
     {
         parent::boot();
         self::deleting(function ($var) {
-            if ($var->subKategori->count() > 0) {
+            if ($var->subKategori->count() > 0 || $var->produk->count() > 0) {
                 return false;
             }
         });

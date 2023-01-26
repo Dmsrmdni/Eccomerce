@@ -49,7 +49,7 @@
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            {{ number_format($user->score, 0, ',', '.') }} Point
+                                            {{ number_format($user->point, 0, ',', '.') }} Point
                                         </div>
                                     </td>
                                     <td>
