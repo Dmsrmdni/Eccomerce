@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlamatController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DetailTransaksiController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\KategoriController;
@@ -39,9 +40,10 @@ Route::get('/', function () {
 });
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('admin.layouts.admin');
-    });
+    // Route::get('/dashboard', function () {
+    //     return view('admin.layouts.admin');
+    // });
+    Route::resource('/dashboard', DashboardController::class);
     Route::resource('/user', UserController::class);
     Route::resource('/kategori', KategoriController::class);
     Route::resource('/subKategori', SubKategoriController::class);

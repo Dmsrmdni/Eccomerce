@@ -90,7 +90,7 @@
                         <div class="mb-3">
                             <label class="form-label">alamat_lengkap</label>
                             <textarea name="alamat_lengkap" cols="30" rows="7"
-                                class="form-control mb-2  @error('alamat_lengkap') is-invalid @enderror" placeholder="alamat_lengkap"
+                                class="form-control mb-2 summernote  @error('alamat_lengkap') is-invalid @enderror" placeholder="alamat_lengkap"
                                 value="{{ old('alamat_lengkap') }}"></textarea>
                             @error('alamat_lengkap')
                                 <span class="invalid-feedback" role="alert">
