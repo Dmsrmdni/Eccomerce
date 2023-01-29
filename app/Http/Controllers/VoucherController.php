@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Voucher;
 use Illuminate\Http\Request;
 
@@ -62,7 +63,8 @@ class VoucherController extends Controller
         } else {
             $status = 'aktif';
         }
-
+        $durasi = (strtotime($request->waktu_berakhir) / 60 / 60 / 24) - (strtotime($request->waktu_mulai) / 60 / 60 / 24);
+        $vouchers->durasi = $durasi;
         $vouchers->status = $status;
         $vouchers->save();
         return redirect()

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('diskon');
             $table->date('waktu_mulai');
             $table->date('waktu_berakhir');
+            $table->integer('durasi');
             $table->enum('status', ['aktif', 'expired']);
             $table->timestamps();
         });

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DetailTransaksi;
 use App\Models\RefundProduk;
 use App\Models\RiwayatProduk;
+use App\Models\Transaksi;
 use App\Models\User;
 use App\Models\VoucherUser;
 
@@ -14,9 +15,10 @@ class DashboardController extends Controller
     public function index()
     {
         $pendapatan_voucher = VoucherUser::join('vouchers', 'voucher_users.voucher_id', '=', 'vouchers.id')->sum("vouchers.harga");
-        $pendapatan_transaksi = DetailTransaksi::join('keranjangs', 'detail_transaksis.keranjang_id', '=', 'keranjangs.id')->
-            whereIn('detail_transaksis.status', ['sukses', 'ditolak'])->
-            sum("keranjangs.total_harga");
+        // $pendapatan_transaksi = DetailTransaksi::join('keranjangs', 'detail_transaksis.keranjang_id', '=', 'keranjangs.id')->
+        //     whereIn('detail_transaksis.status', ['sukses', 'ditolak'])->
+        //     sum("keranjangs.total_harga");
+        $pendapatan_transaksi = Transaksi::sum('total_harga');
         $total_pendapatan = ($pendapatan_voucher + $pendapatan_transaksi);
 
         // pembelianVoucher

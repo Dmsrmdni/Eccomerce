@@ -24,6 +24,7 @@
                             <th>Diskon</th>
                             <th>Waktu Mulai</th>
                             <th>Waktu Berakhir</th>
+                            <th>Durasi</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -69,6 +70,11 @@
                                     <td>
                                         <div class="d-flex">
                                             {{ $voucher->waktu_berakhir }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            {{ $voucher->durasi }} hari
                                         </div>
                                     </td>
                                     <td>

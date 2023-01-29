@@ -22,6 +22,7 @@
                             <th>Jumlah Produk</th>
                             <th>Voucher</th>
                             <th>Metode Pembayaran</th>
+                            <th>Total Harga</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -63,6 +64,11 @@
                                     <td>
                                         <div class="d-flex">
                                             {{ $transaksi->metodePembayaran->metodePembayaran }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            Rp. {{ number_format($transaksi->total_harga, 0, ',', '.') }}
                                         </div>
                                     </td>
                                     <td>

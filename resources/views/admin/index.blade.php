@@ -30,7 +30,7 @@
             <div class="card p-3">
                 <figure class="p-3 mb-0">
                     <blockquote class="blockquote">
-                        <h5>Total pendapatan</h5>
+                        <h5>Total Pendapatan</h5>
                     </blockquote>
                     <figcaption class="blockquote-footer mb-0 text-success float-end fs-5">
                         RP. {{ number_format($total_pendapatan, 0, ',', '.') }}

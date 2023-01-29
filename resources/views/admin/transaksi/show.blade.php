@@ -8,12 +8,67 @@
         </div>
         <div class="table-responsive text-nowrap">
             <div class="container">
-                <table class="table table-hover table-bordered" id="dataTable">
+                <table class="table mb-3">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong>Nama Lengkap</strong>
+                            </td>
+                            <td>{{ $alamats->nama_lengkap }}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Nama Produk</strong>
+                            </td>
+                            <td>{{ $alamats->no_telepon }}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Provinsi</strong>
+                            </td>
+                            <td>{{ $alamats->provinsi->provinsi }}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>kota/kabupaten</strong>
+                            </td>
+                            <td>{{ $alamats->kota->kota }}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>kecamatan</strong>
+                            </td>
+                            <td>{{ $alamats->kecamatan->kecamatan }}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Alamat Lengkap</strong>
+                            </td>
+                            <td>{{ $alamats->alamat_lengkap }}</td>
+                        </tr>
+                        @if (!$alamats->detail_lainnya == '')
+                            <tr>
+                                <td>
+                                    <strong>Detail lainnya</strong>
+                                </td>
+                                <td>{{ $alamats->detail_lainnya }}</td>
+                            </tr>
+                        @endif
+                        <tr>
+                            <td>
+                                <strong>Label Alamat</strong>
+                            </td>
+                            <td>{{ $alamats->label_alamat }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-hover table-bordered mb-3">
                     <thead>
                         <tr>
                             <th>NO</th>
                             {{-- <th>Kode Transaksi</th> --}}
-                            <th>Pembeli</th>
+                            {{-- <th>Pembeli</th> --}}
                             <th>Produk</th>
                             <th>Jumlah</th>
                             <th>Harga</th>
@@ -36,11 +91,11 @@
                                             {{ $detailTransaksi->transaksi->kode_transaksi }}
                                         </div>
                                     </td> --}}
-                                    <td>
+                                    {{-- <td>
                                         <div class="d-flex">
                                             {{ $detailTransaksi->transaksi->user->name }}
                                         </div>
-                                    </td>
+                                    </td> --}}
                                     <td>
                                         <div class="d-flex">
                                             {{ $detailTransaksi->keranjang->produk->nama_produk }}
@@ -87,28 +142,26 @@
                     </tbody>
                     <tfoot class="table-border-bottom-0">
                         <tr>
-                            <th colspan="5">Total</th>
+                            <th colspan="4">Total</th>
                             <th>Rp. {{ number_format($total_harga, 0, ',', '.') }}</th>
                         </tr>
                         @if (!$transaksis->voucher == '')
                             <tr>
-                                <th colspan="5">voucher</th>
+                                <th colspan="4">voucher</th>
                                 <th>({{ $transaksis->voucher->diskon }}% ) / Rp. {{ number_format($diskon, 0, ',', '.') }}
                                 </th>
                             </tr>
                             <tr>
-                                <th colspan="5">Total Harga</th>
+                                <th colspan="4">Total Harga</th>
                                 <th>Rp. {{ number_format($total_bayar, 0, ',', '.') }}</th>
                             </tr>
                         @endif
                         <tr>
-                            <th colspan="5">Metode Pembayaran</th>
+                            <th colspan="4">Metode Pembayaran</th>
                             <th>{{ $detailTransaksis[0]->transaksi->metodePembayaran->metodePembayaran }}</th>
                         </tr>
                     </tfoot>
                 </table>
-                <div>{{ $alamats->nama_lengkap }}</div>
-                <div>{{ $alamats->no_telepon }}</div>
             </div>
         </div>
     </div>

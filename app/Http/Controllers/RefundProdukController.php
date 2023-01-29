@@ -114,7 +114,20 @@ class RefundProdukController extends Controller
             $metodePembayarans = MetodePembayaran::where('id', $detailTransaksis->transaksi->metodePembayaran_id)->first();
             if ($metodePembayarans->metodePembayaran == 'GAKUNIQ WALLET') {
                 $users = User::findOrFail($detailTransaksis->transaksi->user_id);
-                $users->saldo += $detailTransaksis->keranjang->total_harga;
+
+                $total_harga = DetailTransaksi::join('keranjangs', 'detail_transaksis.keranjang_id', '=', 'keranjangs.id')->
+                    where('detail_transaksis.id', $detailTransaksis->id)->
+                    sum("keranjangs.total_harga");
+
+                if ($detailTransaksis->transaksi->voucher_id == '') {
+                    $diskon = 0;
+                } else {
+                    $diskon = ($detailTransaksis->transaksi->voucher->diskon / 100) * $total_harga;
+                }
+
+                $total_bayar = $total_harga - $diskon;
+
+                $users->saldo += $total_bayar;
                 $users->save();
             }
         }
