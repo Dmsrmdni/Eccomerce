@@ -18,7 +18,7 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (Auth::user()->role === 'costumer') {
-            return redirect('/home');
+            return redirect('/home')->with('gagal', 'Tidak dapat mengakses');
         }
         return $next($request);
 
