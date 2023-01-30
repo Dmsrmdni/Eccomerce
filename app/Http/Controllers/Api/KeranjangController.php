@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Keranjang;
-use App\Models\Produk;
-use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class KeranjangController extends Controller
 {
@@ -17,9 +17,11 @@ class KeranjangController extends Controller
      */
     public function index()
     {
-        $keranjangs = Keranjang::where('status', 'keranjang')->with('produk', 'user')->latest()->get();
-        return view('admin.keranjang.index', compact('keranjangs'));
-
+        $keranjang = Keranjang::where('user_id', Auth::user()->id)->get();
+        return response()->json([
+            'success' => true,
+            'data' => $keranjang,
+        ]);
     }
 
     /**
@@ -29,10 +31,7 @@ class KeranjangController extends Controller
      */
     public function create()
     {
-        $produks = Produk::all();
-        $users = User::where('role', 'costumer')->get();
-        return view('admin.keranjang.create', compact('produks', 'users'));
-
+        //
     }
 
     /**
@@ -44,24 +43,27 @@ class KeranjangController extends Controller
     public function store(Request $request)
     {
         //validasi
-        $validated = $request->validate([
-            'user_id' => 'required',
+        $validator = Validator::make($request->all(), [
             'produk_id' => 'required',
             'ukuran' => 'required',
             'jumlah' => 'required',
         ]);
 
-        $cek_keranjangs = Keranjang::where('user_id', $request->user_id)->where('produk_id', $request->produk_id)->where('ukuran', $request->ukuran)->first();
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+        $cek_keranjangs = Keranjang::where('user_id', Auth::user()->id)->where('produk_id', $request->produk_id)->where('ukuran', $request->ukuran)->first();
 
         if (!empty($cek_keranjangs)) {
-            $keranjangs = Keranjang::where('user_id', $request->user_id)->where('produk_id', $request->produk_id)->where('ukuran', $request->ukuran)->first();
+            $keranjangs = Keranjang::where('user_id', Auth::user()->id)->where('produk_id', $request->produk_id)->where('ukuran', $request->ukuran)->first();
             $keranjangs->jumlah += $request->jumlah;
             $diskon = (($keranjangs->produk->diskon / 100) * $keranjangs->produk->harga);
             $harga = ($keranjangs->produk->harga * $request->jumlah) - $diskon;
             $keranjangs->total_harga += $harga;
         } else {
             $keranjangs = new Keranjang();
-            $keranjangs->user_id = $request->user_id;
+            $keranjangs->user_id = Auth::user()->id;
             $keranjangs->produk_id = $request->produk_id;
             $keranjangs->ukuran = $request->ukuran;
             $keranjangs->jumlah = $request->jumlah;
@@ -69,15 +71,19 @@ class KeranjangController extends Controller
             $keranjangs->total_harga = ($keranjangs->produk->harga * $request->jumlah) - $diskon;
         }
         $keranjangs->save();
-        return redirect()
-            ->route('keranjang.index')->with('success', 'Data has been added');
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Berhasil Ditambahkan',
+            'data' => $keranjangs,
+        ]);
 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Keranjang  $keranjang
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -88,60 +94,39 @@ class KeranjangController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Keranjang  $keranjang
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $keranjangs = Keranjang::findOrFail($id);
-        $produks = Produk::all();
-        $users = User::all();
-        return view('admin.keranjang.edit', compact('keranjangs', 'produks', 'users'));
-
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Keranjang  $keranjang
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //validasi
-        $validated = $request->validate([
-            'user_id' => 'required',
-            'produk_id' => 'required',
-            'ukuran' => 'required',
-            'jumlah' => 'required',
-        ]);
-
-        $keranjangs = Keranjang::findOrFail($id);
-        $keranjangs->user_id = $request->user_id;
-        $keranjangs->produk_id = $request->produk_id;
-        $keranjangs->ukuran = $request->ukuran;
-        $keranjangs->jumlah = $request->jumlah;
-        $diskon = (($keranjangs->produk->diskon / 100) * $keranjangs->produk->harga);
-        $keranjangs->total_harga = ($keranjangs->produk->harga * $request->jumlah) - $diskon;
-        $keranjangs->save();
-        return redirect()
-            ->route('keranjang.index')->with('success', 'Data has been edited');
-
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Keranjang  $keranjang
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         $keranjangs = Keranjang::findOrFail($id);
         $keranjangs->delete();
-        return redirect()
-            ->route('keranjang.index')->with('success', 'Data has been deleted');
-
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Berhasil DiHapus',
+        ]);
     }
 }
