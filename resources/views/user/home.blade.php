@@ -54,60 +54,97 @@
     </section>
     <!-- Categories Section End -->
 
-    <!-- Product Section Begin -->
-    <section class="product spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-4">
-                    <div class="section-title">
-                        <h4>New product</h4>
-                    </div>
-                </div>
-            </div>
-
-            {{-- @if (count($new_produks))
-                <div class="row property__gallery">
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="{{ asset($new_produks[1]->gambar_produk) }}">
-                                <div class="row">
-                                    <div class="col-8">
-                                        <div class="label new float-start">New</div>
-                                    </div>
-                                    @if ($new_produks[1]->diskon > 0)
-                                        <div class="col-4">
-                                            <div class="label sale float-end">-{{ $new_produks[1]->diskon }}%</div>
-                                        </div>
-                                    @endif
-                                </div>
-                                <ul class="product__hover">
-                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                    <li><a href="#"><span class="arrow_expand"></span></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <h6 class="mb-2"><a href="#">{{ $new_produks[1]->nama_produk }}</a></h6>
-                                @if ($new_produks[1]->diskon > 0)
-                                    @php
-                                        $diskon = ($new_produks[1]->diskon / 100) * $new_produks[1]->harga;
-                                        $harga = $new_produks[1]->harga - $diskon;
-                                    @endphp
-                                    <div class="product__price">Rp.
-                                        {{ number_format($harga, 0, ',', '.') }}<span>
-                                            {{ number_format($new_produks[1]->harga, 0, ',', '.') }}</span></div>
-                                @else
-                                    <div class="product__price"> RP.
-                                        Rp. {{ number_format($new_produks[1]->harga, 0, ',', '.') }}
-                                    </div>
-                                @endif
-                            </div>
+    <!-- NewProduct Section Begin -->
+    @if (count($new_produks))
+        <section class="product spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4">
+                        <div class="section-title">
+                            <h4>New product</h4>
                         </div>
                     </div>
                 </div>
-            @endif --}}
-        </div>
-    </section>
-    <!-- Product Section End -->
+                <div class="row property__gallery">
+                    @foreach ($new_produks as $new_produk)
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg"
+                                    data-setbg="{{ asset($new_produk->image[0]->gambar_produk) }}">
+                                    <div class="label new float-start">New</div>
+                                    <ul class="product__hover">
+                                        <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                        <li><a href="#"><span class="arrow_expand"></span></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6 class="mb-2"><a href="#">{{ $new_produk->nama_produk }}</a></h6>
+                                    @if ($new_produk->diskon > 0)
+                                        @php
+                                            $diskon = ($new_produk->diskon / 100) * $new_produk->harga;
+                                            $harga = $new_produk->harga - $diskon;
+                                        @endphp
+                                        <div class="product__price">Rp.
+                                            {{ number_format($harga, 0, ',', '.') }}<span>
+                                                {{ number_format($new_produk->harga, 0, ',', '.') }}</span></div>
+                                    @else
+                                        <div class="product__price"> RP.
+                                            Rp. {{ number_format($new_produk->harga, 0, ',', '.') }}
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
+    <!-- NewProduct Section End -->
+
+    <!-- NewProduct Section Begin -->
+    @if (count($on_diskons))
+        <section class="product spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4">
+                        <div class="section-title">
+                            <h4>On Discount</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row property__gallery">
+                    @foreach ($on_diskons as $on_diskon)
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg"
+                                    data-setbg="{{ asset($on_diskon->image[0]->gambar_produk) }}">
+                                    <div class="label sale float-end">-{{ $on_diskon->diskon }}%</div>
+                                    <ul class="product__hover">
+                                        <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                        <li><a href="#"><span class="arrow_expand"></span></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6 class="mb-2"><a href="#">{{ $on_diskon->nama_produk }}</a></h6>
+                                    @php
+                                        $diskon = ($on_diskon->diskon / 100) * $on_diskon->harga;
+                                        $harga = $on_diskon->harga - $diskon;
+                                    @endphp
+                                    <div class="product__price">Rp.
+                                        {{ number_format($harga, 0, ',', '.') }}<span>
+                                            {{ number_format($on_diskon->harga, 0, ',', '.') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
+    <!-- NewProduct Section End -->
+
 
     <!-- Banner Section Begin -->
     <section class="banner set-bg" data-setbg="{{ asset('users/assets/img/banner/banner-1.jpg') }}">
