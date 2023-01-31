@@ -13,11 +13,15 @@
                         @php
                             $kategoris = App\Models\Kategori::all();
                         @endphp
-
-                        @foreach ($kategoris as $kategori)
-                            <li class="{{ Request::is('/kategori/' . $kategori->name) ? 'active' : '' }}"><a
-                                    href="/kategori/{{ $kategori->name }}">{{ $kategori->name }}</a></li>
-                        @endforeach
+                        <li><a href="#">Shop</a>
+                            <ul class="dropdown">
+                                @foreach ($kategoris as $kategori)
+                                    <li class="{{ Request::is('/kategori/' . $kategori->name) ? 'active' : '' }}"><a
+                                            href="/kategori/{{ $kategori->name }}">{{ $kategori->name }}</a></li>
+                                @endforeach
+                            </ul>
+                        </li>
+                        <li><a href="/about">About</a></li>
                     </ul>
                 </nav>
             </div>
@@ -25,7 +29,6 @@
                 <div class="header__right">
                     <div class="header__right__auth">
                         <a href="#">Login</a>
-                        <a href="#">Register</a>
                     </div>
                     <ul class="header__right__widget">
                         <li><span class="icon_search search-switch"></span></li>

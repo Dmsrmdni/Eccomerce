@@ -10,8 +10,8 @@
                         data-setbg="{{ asset('users/assets/img/categories/category-1.jpg') }}">
                         <div class="categories__text">
                             <h1>Women’s fashion</h1>
-                            <p>792 items</p>
-                            <a href="#">Shop now</a>
+                            <p>{{ $wanitas }} items</p>
+                            <a href="/kategori/WANITA">Shop now</a>
                         </div>
                     </div>
                 </div>
@@ -22,8 +22,8 @@
                                 data-setbg="{{ asset('users/assets/img/categories/category-2.jpg') }}">
                                 <div class="categories__text">
                                     <h4>Men’s fashion</h4>
-                                    <p>358 items</p>
-                                    <a href="#">Shop now</a>
+                                    <p>{{ $prias }} items</p>
+                                    <a href="/kategori/PRIA">Shop now</a>
                                 </div>
                             </div>
                         </div>
@@ -32,8 +32,8 @@
                                 data-setbg="{{ asset('users/assets/img/categories/category-3.jpg') }}">
                                 <div class="categories__text">
                                     <h4>Kid’s fashion</h4>
-                                    <p>273 items</p>
-                                    <a href="#">Shop now</a>
+                                    <p>{{ $anaks }} items</p>
+                                    <a href="/kategori/ANAK">Shop now</a>
                                 </div>
                             </div>
                         </div>
@@ -42,8 +42,8 @@
                                 data-setbg="{{ asset('users/assets/img/categories/category-5.jpg') }}">
                                 <div class="categories__text">
                                     <h4>All Produks</h4>
-                                    <p>792 items</p>
-                                    <a href="#">Shop now</a>
+                                    <p>{{ $alls }} items</p>
+                                    <a href="/kategori/">Shop now</a>
                                 </div>
                             </div>
                         </div>
