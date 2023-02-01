@@ -328,6 +328,7 @@ ol {
 
 .header__logo a {
 	display: inline-block;
+    text-decoration: none;
 }
 
 .header__menu {
@@ -339,6 +340,10 @@ ol {
 	display: inline-block;
 	margin-right: 40px;
 	position: relative;
+}
+
+.header__menu ul li a{
+    text-decoration: none;
 }
 
 .header__menu ul li.active a:after {
@@ -390,6 +395,7 @@ ol {
 	font-weight: 400;
 	padding: 8px 20px;
 	text-transform: capitalize;
+    text-decoration: none;
 }
 
 .header__menu ul li .dropdown li a:after {
@@ -437,6 +443,7 @@ ol {
 	color: #666666;
 	position: relative;
 	margin-right: 8px;
+    text-decoration: none;
 }
 
 .header__right__auth a:last-child {
@@ -476,6 +483,7 @@ ol {
 	font-size: 18px;
 	color: #111111;
 	position: relative;
+    text-decoration: none;
 }
 
 .header__right__widget li a .tip {
@@ -1086,6 +1094,7 @@ ol {
 	position: relative;
 	padding: 0 0 3px;
 	display: inline-block;
+    text-decoration: none;
 }
 
 .categories__text a:after {
@@ -1276,6 +1285,7 @@ ol {
 .product__item__text h6 a {
 	font-size: 14px;
 	color: #111111;
+    text-decoration: none;
 }
 
 .product__item__text .rating {

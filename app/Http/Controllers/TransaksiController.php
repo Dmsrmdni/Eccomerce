@@ -126,7 +126,7 @@ class TransaksiController extends Controller
         }
 
         $transaksis->findOrFail($transaksis->id);
-        $transaksis->total_harga = $total_bayar;
+        $transaksis->total_harga += $total_bayar;
         $transaksis->save();
 
         if ($total_harga >= 100000) {

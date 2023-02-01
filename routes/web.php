@@ -38,6 +38,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('/', App\Http\Controllers\frontend\HomeController::class);
 Route::resource('/home', HomeController::class);
+Route::get('/kategori', [App\Http\Controllers\frontend\KategoriController::class, 'index']);
+Route::get('/kategori/{id}', [App\Http\Controllers\frontend\KategoriController::class, 'kategori']);
+Route::get('/kategori/{kategori_id}/subKategori/{id}', [App\Http\Controllers\frontend\KategoriController::class, 'subKategori']);
+Route::get('/produk/{id}', [App\Http\Controllers\frontend\KategoriController::class, 'detailProduk']);
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('/dashboard', DashboardController::class);
