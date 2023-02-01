@@ -12,6 +12,7 @@
                         <li class="active"><a href="/">Home</a></li>
                         @php
                             $kategoris = App\Models\Kategori::all();
+                            $wishlists = App\Models\Wishlist::where('user_id', Auth::user()->id)->count();
                         @endphp
                         <li><a href="#">Shop</a>
                             <ul class="dropdown">
@@ -46,8 +47,8 @@
                     @endguest
                     <ul class="header__right__widget">
                         <li><span class="icon_search search-switch"></span></li>
-                        <li><a href="#"><span class="icon_heart_alt"></span>
-                                <div class="tip">2</div>
+                        <li><a href="/wishlist"><span class="icon_heart_alt"></span>
+                                <div class="tip">{{ $wishlists }}</div>
                             </a></li>
                         <li><a href="#"><span class="icon_bag_alt"></span>
                                 <div class="tip">2</div>

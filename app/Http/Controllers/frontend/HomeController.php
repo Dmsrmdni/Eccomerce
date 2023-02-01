@@ -16,14 +16,6 @@ class HomeController extends Controller
         $anaks = Produk::where('kategori_id', 3)->count();
         $alls = Produk::count();
 
-        // $bestSeller = Image::with('produk')
-        //     ->select('produk_id', DB::raw('COUNT(produk_id) as count'))
-        //     ->groupBy('produk_id')
-        //     ->orderBy('count', 'desc')
-        //     ->get();
-
-        // dd($bestSeller);
-
         return view('user.home', compact(
             'new_produks',
             'on_diskons',

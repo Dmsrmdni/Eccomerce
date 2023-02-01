@@ -73,7 +73,13 @@
                                     data-setbg="{{ asset($new_produk->image[0]->gambar_produk) }}">
                                     <div class="label new float-start">New</div>
                                     <ul class="product__hover">
-                                        <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+
+                                        <form action="{{ route('wishlist.store') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="produk_id" value="{{ $new_produk->id }}">
+                                            <li> <button type="submit"><span class="icon_heart_alt"></span></a></button>
+                                            </li>
+                                        </form>
                                         <li><a href="produk/{{ $new_produk->id }}"><span class="arrow_expand"></span></a>
                                         </li>
                                     </ul>

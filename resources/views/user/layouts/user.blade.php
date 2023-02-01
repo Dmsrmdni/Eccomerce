@@ -11,6 +11,9 @@
 </head>
 
 <body>
+
+    @include('admin.layouts.components.alert')
+
     <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>

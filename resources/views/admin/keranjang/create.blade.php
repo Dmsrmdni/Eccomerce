@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <form action="{{ route('keranjang.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('keranjangAdmin.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="col-lg-12">
                 <div class="card mb-4 shadow-lg rounded card">
@@ -69,7 +69,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <a href="{{ url('/admin/keranjang') }}" class="btn btn-danger me-3"><svg
+                    <a href="{{ url('/admin/keranjangAdmin') }}" class="btn btn-danger me-3"><svg
                             xmlns="http://www.w3.org/2000/svg" width="20" fill="currentColor"
                             class="bi bi-arrow-return-left" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"

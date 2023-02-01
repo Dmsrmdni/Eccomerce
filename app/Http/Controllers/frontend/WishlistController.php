@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Produk;
-use App\Models\User;
-use App\Models\Wishlist;
+use App\Models\wishlist;
 use Illuminate\Http\Request;
 
 class WishlistController extends Controller
@@ -17,8 +15,8 @@ class WishlistController extends Controller
      */
     public function index()
     {
-        $wishlists = Wishlist::with('produk', 'user')->latest()->get();
-        return view('admin.wishlist.index', compact('wishlists'));
+        $wishlists = Wishlist::where('user_id', auth()->user()->id)->get();
+        return view('user.wishlist', compact('wishlists'));
     }
 
     /**
@@ -28,10 +26,7 @@ class WishlistController extends Controller
      */
     public function create()
     {
-        $produks = Produk::all();
-        $users = User::where('role', 'costumer')->get();
-        return view('admin.wishlist.create', compact('produks', 'users'));
-
+        //
     }
 
     /**
@@ -44,29 +39,26 @@ class WishlistController extends Controller
     {
         //validasi
         $validated = $request->validate([
-            'user_id' => 'required',
             'produk_id' => 'required',
         ]);
 
-        $cek_wishlists = Wishlist::where('user_id', $request->user_id)->where('produk_id', $request->produk_id)->first();
+        $cek_wishlists = Wishlist::where('user_id', auth()->user()->id)->where('produk_id', $request->produk_id)->first();
 
         if (!empty($cek_wishlists)) {
-            return back()->with('error', 'Data telah di tambahkan');
+            return back()->with('gagal', 'Data telah di tambahkan');
         } else {
             $wishlists = new Wishlist();
-            $wishlists->user_id = $request->user_id;
+            $wishlists->user_id = auth()->user()->id;
             $wishlists->produk_id = $request->produk_id;
             $wishlists->save();
-            return redirect()
-                ->route('wishlistAdmin.index')->with('success', 'Data has been added');
-
+            return back()->with('success', 'Data has been added');
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Wishlist  $wishlist
+     * @param  \App\Models\wishlist  $wishlist
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -77,7 +69,7 @@ class WishlistController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Wishlist  $wishlist
+     * @param  \App\Models\wishlist  $wishlist
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -89,7 +81,7 @@ class WishlistController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Wishlist  $wishlist
+     * @param  \App\Models\wishlist  $wishlist
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -100,15 +92,14 @@ class WishlistController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Wishlist  $wishlist
+     * @param  \App\Models\wishlist  $wishlist
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         $wishlists = Wishlist::findOrFail($id);
         $wishlists->delete();
-        return redirect()
-            ->route('wishlistAdmin.index')->with('success', 'Data has been deleted');
+        return back()->with('success', 'Data has been deleted');
 
     }
 }

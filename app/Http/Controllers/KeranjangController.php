@@ -70,7 +70,7 @@ class KeranjangController extends Controller
         }
         $keranjangs->save();
         return redirect()
-            ->route('keranjang.index')->with('success', 'Data has been added');
+            ->route('keranjangAdmin.index')->with('success', 'Data has been added');
 
     }
 
@@ -126,7 +126,7 @@ class KeranjangController extends Controller
         $keranjangs->total_harga = ($keranjangs->produk->harga * $request->jumlah) - $diskon;
         $keranjangs->save();
         return redirect()
-            ->route('keranjang.index')->with('success', 'Data has been edited');
+            ->route('keranjangAdmin.index')->with('success', 'Data has been edited');
 
     }
 
@@ -141,7 +141,7 @@ class KeranjangController extends Controller
         $keranjangs = Keranjang::findOrFail($id);
         $keranjangs->delete();
         return redirect()
-            ->route('keranjang.index')->with('success', 'Data has been deleted');
+            ->route('keranjangAdmin.index')->with('success', 'Data has been deleted');
 
     }
 }

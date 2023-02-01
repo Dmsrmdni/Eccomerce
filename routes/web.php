@@ -38,10 +38,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('/', App\Http\Controllers\frontend\HomeController::class);
 Route::resource('/home', HomeController::class);
+Route::resource('/profil', App\Http\Controllers\frontend\UserController::class);
 Route::get('/kategori', [App\Http\Controllers\frontend\KategoriController::class, 'index']);
 Route::get('/kategori/{id}', [App\Http\Controllers\frontend\KategoriController::class, 'kategori']);
 Route::get('/kategori/{kategori_id}/subKategori/{id}', [App\Http\Controllers\frontend\KategoriController::class, 'subKategori']);
 Route::get('/produk/{id}', [App\Http\Controllers\frontend\KategoriController::class, 'detailProduk']);
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::resource('/wishlist', App\Http\Controllers\frontend\WishlistController::class);
+});
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('/dashboard', DashboardController::class);
@@ -50,8 +55,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('/subKategori', SubKategoriController::class);
     Route::resource('/produk', ProdukController::class);
     Route::resource('/image', ImageController::class);
-    Route::resource('/wishlist', WishlistController::class);
-    Route::resource('/keranjang', KeranjangController::class);
+    Route::resource('/wishlistAdmin', WishlistController::class);
+    Route::resource('/keranjangAdmin', KeranjangController::class);
     Route::resource('/provinsi', ProvinsiController::class);
     Route::resource('/kota', KotaController::class);
     Route::resource('/kecamatan', KecamatanController::class);

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\keranjang;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class KeranjangController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::where('id', Auth()->user()->id)->first();
-        return view('user.profil', compact('users'));
+        //
     }
 
     /**
@@ -43,10 +42,10 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\keranjang  $keranjang
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(keranjang $keranjang)
     {
         //
     }
@@ -54,10 +53,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\keranjang  $keranjang
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(keranjang $keranjang)
     {
         //
     }
@@ -66,10 +65,10 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\keranjang  $keranjang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, keranjang $keranjang)
     {
         //
     }
@@ -77,10 +76,10 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\keranjang  $keranjang
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(keranjang $keranjang)
     {
         //
     }
