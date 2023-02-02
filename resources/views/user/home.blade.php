@@ -148,6 +148,9 @@
                         </div>
                     @endforeach
                 </div>
+                <div class="col-lg-12 text-center">
+                    <a href="#" class="primary-btn load-btn">Load more posts</a>
+                </div>
             </div>
         </section>
     @endif

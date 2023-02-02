@@ -44,8 +44,10 @@ Route::get('/kategori/{id}', [App\Http\Controllers\frontend\KategoriController::
 Route::get('/kategori/{kategori_id}/subKategori/{id}', [App\Http\Controllers\frontend\KategoriController::class, 'subKategori']);
 Route::get('/produk/{id}', [App\Http\Controllers\frontend\KategoriController::class, 'detailProduk']);
 
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware('auth')->group(function () {
     Route::resource('/wishlist', App\Http\Controllers\frontend\WishlistController::class);
+    Route::resource('/keranjang', App\Http\Controllers\frontend\KeranjangController::class);
+    Route::resource('/checkout', App\Http\Controllers\frontend\TransaksiController::class);
 });
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {

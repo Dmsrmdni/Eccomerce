@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Alamat;
@@ -24,10 +24,15 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        $transaksis = Transaksi::with('metodePembayaran', 'voucher', 'user', 'alamat')->latest()->get();
+        $keranjangs = Keranjang::where('user_id', auth()->user()->id)->where('status', 'keranjang')->get();
+        $total_harga = Keranjang::where('user_id', auth()->user()->id)->where('status', 'keranjang')->sum("total_harga");
 
-        return view('admin.transaksi.index', compact('transaksis'));
+        $voucherUsers = VoucherUser::where('user_id', auth()->user()->id)->get();
+        $vouchers = Voucher::where('status', 'aktif')->where('label', 'gratis')->get();
+        $metodePembayarans = MetodePembayaran::all();
+        $alamats = Alamat::where('user_id', auth()->user()->id)->get();
 
+        return view('user.transaksi', compact('keranjangs', 'total_harga', 'voucherUsers', 'vouchers', 'metodePembayarans', 'alamats'));
     }
 
     /**
@@ -37,14 +42,7 @@ class TransaksiController extends Controller
      */
     public function create()
     {
-        $users = User::where('role', 'costumer')->get();
-        $keranjangs = Keranjang::where('status', 'keranjang')->get();
-        $voucherUsers = VoucherUser::all();
-        $vouchers = Voucher::where('status', 'aktif')->where('label', 'gratis')->get();
-        $metodePembayarans = MetodePembayaran::all();
-        $alamats = Alamat::all();
-        return view('admin.transaksi.create', compact('keranjangs', 'vouchers', 'voucherUsers', 'users', 'metodePembayarans', 'alamats'));
-
+        //
     }
 
     /**
@@ -57,7 +55,6 @@ class TransaksiController extends Controller
     {
         //validasi
         $validated = $request->validate([
-            'user_id' => 'required',
             'metodePembayaran_id' => 'required',
             'alamat_id' => 'required',
         ]);
@@ -73,7 +70,7 @@ class TransaksiController extends Controller
             $kode = '001';
         }
         $transaksis->kode_transaksi = 'GNQ-' . date('dmy') . $kode;
-        $transaksis->user_id = $request->user_id;
+        $transaksis->user_id = auth()->user()->id;
         $transaksis->alamat_id = $request->alamat_id;
         $transaksis->voucher_id = $request->voucher_id;
         $transaksis->metodePembayaran_id = $request->metodePembayaran_id;
@@ -90,11 +87,12 @@ class TransaksiController extends Controller
             foreach ($keranjangs as $keranjang) {
                 $keranjang->status = 'checkout';
                 $keranjang->save();
+
                 $produks = Produk::where('id', $keranjang->produk_id)->first();
                 if ($produks->stok < $keranjang->jumlah) {
                     $transaksis = Transaksi::where('id', $transaksis->id)->first();
                     $transaksis->delete();
-                    return redirect()->route('transaksi.create')->with('error', 'Stok Kurang');
+                    return back()->with('error', 'Stok Kurang');
                 } else {
                     $produks->stok -= $keranjang->jumlah;
 
@@ -142,42 +140,28 @@ class TransaksiController extends Controller
         }
         $users->save();
 
-        return redirect()
-            ->route('transaksi.index')
-            ->with('success', 'Data has been added');
+        return redirect('/profil')->with('success', 'Data has been added');
 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Transaksi  $transaksi
+     * @param  \App\Models\transaksi  $transaksi
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(transaksi $transaksi)
     {
-        $transaksis = Transaksi::findOrFail($id);
-        $detailTransaksis = DetailTransaksi::where('transaksi_id', $id)->get();
-        $total_harga = DetailTransaksi::join('keranjangs', 'detail_transaksis.keranjang_id', '=', 'keranjangs.id')->
-            where('detail_transaksis.transaksi_id', $id)->
-            sum("keranjangs.total_harga");
-        if ($transaksis->voucher_id == '') {
-            $diskon = 0;
-        } else {
-            $diskon = ($transaksis->voucher->diskon / 100) * $total_harga;
-        }
-        $total_bayar = $total_harga - $diskon;
-        $alamats = Alamat::findOrFail($transaksis->alamat_id);
-        return view('admin.transaksi.show', compact('transaksis', 'detailTransaksis', 'total_harga', 'total_bayar', 'diskon', 'alamats'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Transaksi  $transaksi
+     * @param  \App\Models\transaksi  $transaksi
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(transaksi $transaksi)
     {
         //
     }
@@ -186,10 +170,10 @@ class TransaksiController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Transaksi  $transaksi
+     * @param  \App\Models\transaksi  $transaksi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, transaksi $transaksi)
     {
         //
     }
@@ -197,16 +181,11 @@ class TransaksiController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Transaksi  $transaksi
+     * @param  \App\Models\transaksi  $transaksi
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(transaksi $transaksi)
     {
-        $transaksis = Transaksi::findOrFail($id);
-        $transaksis->delete();
-        return redirect()
-            ->route('transaksi.index')
-            ->with('success', 'Data has been deleted');
-
+        //
     }
 }

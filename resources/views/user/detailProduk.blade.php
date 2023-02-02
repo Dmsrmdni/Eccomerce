@@ -44,7 +44,9 @@
                             </div>
                         @endif
                         <p>{{ $produks->deskripsi }}</p>
-                        <form action="">
+                        <form action="{{ route('keranjang.store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="produk_id" value="{{ $produks->id }}">
                             <div class="product__details__button">
                                 <div class="mb-3">
                                     <label class="form-label">Ukuran Produk</label>
@@ -72,7 +74,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <a href="#" class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</a>
+                                <button type="submit" class="btn-danger rounded">Tambah Keranjang</button>
                             </div>
                         </form>
                     </div>

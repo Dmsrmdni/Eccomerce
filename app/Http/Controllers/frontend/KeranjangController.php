@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\keranjang;
+use App\Models\Keranjang;
 use Illuminate\Http\Request;
 
 class KeranjangController extends Controller
@@ -15,7 +15,9 @@ class KeranjangController extends Controller
      */
     public function index()
     {
-        //
+        $keranjangs = Keranjang::where('status', 'keranjang')->where('user_id', auth()->user()->id)->latest()->get();
+        return view('user.keranjang', compact('keranjangs'));
+
     }
 
     /**
@@ -36,7 +38,32 @@ class KeranjangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validasi
+        $validated = $request->validate([
+            'produk_id' => 'required',
+            'ukuran' => 'required',
+            'jumlah' => 'required',
+        ]);
+
+        $cek_keranjangs = Keranjang::where('user_id', auth()->user()->id)->where('produk_id', $request->produk_id)->where('ukuran', $request->ukuran)->first();
+        if (!empty($cek_keranjangs)) {
+            $keranjangs = Keranjang::where('user_id', auth()->user()->id)->where('produk_id', $request->produk_id)->where('ukuran', $request->ukuran)->first();
+            $keranjangs->jumlah += $request->jumlah;
+            $diskon = (($keranjangs->produk->diskon / 100) * $keranjangs->produk->harga);
+            $harga = ($keranjangs->produk->harga * $request->jumlah) - $diskon;
+            $keranjangs->total_harga += $harga;
+        } else {
+            $keranjangs = new Keranjang();
+            $keranjangs->user_id = auth()->user()->id;
+            $keranjangs->produk_id = $request->produk_id;
+            $keranjangs->ukuran = $request->ukuran;
+            $keranjangs->jumlah = $request->jumlah;
+            $diskon = (($keranjangs->produk->diskon / 100) * $keranjangs->produk->harga);
+            $keranjangs->total_harga = ($keranjangs->produk->harga * $request->jumlah) - $diskon;
+        }
+        $keranjangs->save();
+        return back()->with('success', 'Data has been added');
+
     }
 
     /**
@@ -45,7 +72,7 @@ class KeranjangController extends Controller
      * @param  \App\Models\keranjang  $keranjang
      * @return \Illuminate\Http\Response
      */
-    public function show(keranjang $keranjang)
+    public function show($id)
     {
         //
     }
@@ -56,7 +83,7 @@ class KeranjangController extends Controller
      * @param  \App\Models\keranjang  $keranjang
      * @return \Illuminate\Http\Response
      */
-    public function edit(keranjang $keranjang)
+    public function edit($id)
     {
         //
     }
@@ -68,7 +95,7 @@ class KeranjangController extends Controller
      * @param  \App\Models\keranjang  $keranjang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, keranjang $keranjang)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -79,8 +106,11 @@ class KeranjangController extends Controller
      * @param  \App\Models\keranjang  $keranjang
      * @return \Illuminate\Http\Response
      */
-    public function destroy(keranjang $keranjang)
+    public function destroy($id)
     {
-        //
+        $keranjangs = Keranjang::findOrFail($id);
+        $keranjangs->delete();
+        return back()->with('success', 'Data has been deleted');
+
     }
 }

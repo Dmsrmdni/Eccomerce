@@ -36,7 +36,19 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col">
+                    <h3>Riwayat Transaksi</h3>
+                    @foreach ($transaksis as $transaksi)
+                        <div class="card">
+                            <div class="card-body">
+                                {{ $transaksi->transaksi->kode_transaksi }} /
+                                {{ $transaksi->keranjang->produk->nama_produk }}
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
-
     </div>
 @endsection
