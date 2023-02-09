@@ -18,7 +18,6 @@ class ProdukController extends Controller
      */
     public function produk(Request $request)
     {
-        // $data = $request->all();
         $kategoris = Kategori::all();
         $produks = Produk::latest()->paginate(9);
         if ($request->kategori) {
@@ -33,7 +32,12 @@ class ProdukController extends Controller
             $produks = Produk::whereBetween('harga', [$request->min, $request->max])->paginate(9);
         }
 
-        return view('user.produk', compact('produks', 'kategoris'));
+        $keyword = $request->keyword;
+        if ($keyword) {
+            $produks = Produk::where('nama_produk', 'LIKE', '%' . $keyword . '%')->paginate(9);
+        }
+
+        return view('user.produk', compact('produks', 'kategoris', 'keyword'));
     }
 
     public function detailProduk($id)

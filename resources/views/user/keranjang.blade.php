@@ -39,9 +39,8 @@
                             </thead>
                             <tbody>
                                 @if (count($keranjangs))
-                                    <form id="transaksi" action="{{ route('checkout.index') }}">
+                                    <form id="transaksi" method="GET" action="{{ route('checkout.index') }}">
                                         @foreach ($keranjangs as $keranjang)
-                                            @csrf
                                             <tr>
                                                 <td>
                                                     <input type="checkbox" name="keranjang_id[]"
@@ -73,7 +72,7 @@
                                                 <td class="cart__price">Rp.
                                                     {{ number_format($keranjang->total_harga, 0, ',', '.') }}</td>
                                                 <td class="cart__close">
-                                                    <form id="delete{{ $keranjang->id }}"
+                                                    {{-- <form id="delete{{ $keranjang->id }}"
                                                         action="{{ route('keranjang.destroy', $keranjang->id) }}"
                                                         method="POST">
                                                         @csrf
@@ -83,7 +82,7 @@
                                                     document.getElementById('delete{{ $keranjang->id }}').submit();">
                                                             <i class="fa fa-close"></i>
                                                         </a>
-                                                    </form>
+                                                    </form> --}}
                                                 </td>
                                             </tr>
                                         @endforeach

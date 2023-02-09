@@ -7,12 +7,12 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="shop__sidebar">
-                        {{-- <div class="shop__sidebar__search">
-                            <form action="#">
-                                <input type="text" placeholder="Search...">
+                        <div class="shop__sidebar__search">
+                            <form action="{{ url('/produk') }}" method="GET">
+                                <input type="text" name="keyword" placeholder="Search..." value="{{ $keyword }}">
                                 <button type="submit"><span class="icon_search"></span></button>
                             </form>
-                        </div> --}}
+                        </div>
                         <div class="shop__sidebar__accordion">
                             <div class="accordion" id="accordionExample">
                                 <div class="card">
@@ -68,7 +68,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card">
+                                {{-- <div class="card">
                                     <div class="card-heading">
                                         <a data-toggle="collapse" data-target="#collapseFour">Size</a>
                                     </div>
@@ -102,7 +102,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 {{-- <div class="card">
                                     <div class="card-heading">
                                         <a data-toggle="collapse" data-target="#collapseFive">Colors</a>
@@ -184,14 +184,7 @@
                                         </ul>
                                     </div>
                                     <div class="product__item__text">
-                                        <h6>Piqué Biker Jacket</h6>
-                                        {{-- <div class="rating">
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                    </div> --}}
+                                        <h6>{{ $produk->nama_produk }}</h6>
                                         @if ($produk->diskon > 0)
                                             @php
                                                 $diskon = ($produk->diskon / 100) * $produk->harga;
@@ -209,6 +202,8 @@
                             </div>
                         @endforeach
                     </div>
+                    {{ $produks->links() }}
+
                     {{-- <div class="row">
                         <div class="col-lg-12">
                             <div class="product__pagination">
