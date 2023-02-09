@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('detailTransaksi_id');
             $table->foreign('detailTransaksi_id')->references('id')->on('detail_transaksis')->onDelete('cascade');
+            $table->unsignedBigInteger('produk_id');
+            $table->foreign('produk_id')->references('id')->on('produks')->onDelete('cascade');
             $table->integer('rating');
             $table->text('komen');
             $table->timestamps();

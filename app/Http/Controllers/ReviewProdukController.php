@@ -53,6 +53,7 @@ class ReviewProdukController extends Controller
         $reviewProduks->user_id = $request->user_id;
         $reviewProduks->detailTransaksi_id = $request->detailTransaksi_id;
         $reviewProduks->rating = $request->rating;
+        $reviewProduks->produk_id = $reviewProduks->detailTransaksi->keranjang->produk_id;
         $reviewProduks->komen = $request->komen;
         $reviewProduks->save();
         return redirect()

@@ -22,15 +22,19 @@ class TransaksiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $keranjangs = Keranjang::where('user_id', auth()->user()->id)->where('status', 'keranjang')->get();
-        $total_harga = Keranjang::where('user_id', auth()->user()->id)->where('status', 'keranjang')->sum("total_harga");
+        $keranjangs = Keranjang::whereIn('id', $request->keranjang_id)->get();
+        $total_harga = Keranjang::whereIn('id', $request->keranjang_id)->where('status', 'keranjang')->sum("total_harga");
 
         $voucherUsers = VoucherUser::where('user_id', auth()->user()->id)->get();
         $vouchers = Voucher::where('status', 'aktif')->where('label', 'gratis')->get();
         $metodePembayarans = MetodePembayaran::all();
         $alamats = Alamat::where('user_id', auth()->user()->id)->get();
+
+        // $cobain = Keranjang::where('id', $request->keranjang_id)->get();
+
+        // dd($keranjangs);
 
         return view('user.transaksi', compact('keranjangs', 'total_harga', 'voucherUsers', 'vouchers', 'metodePembayarans', 'alamats'));
     }

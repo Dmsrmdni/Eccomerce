@@ -17,11 +17,23 @@
         Swal.fire({
             toast: true,
             position: 'top-right',
-            icon: 'error',
+            icon: 'success',
             title: '{{ $message }}',
             showConfirmButton: false,
             timer: 2500,
             timerProgressBar: true
+        })
+    </script>
+@endif
+
+@if ($message = Session::get('berhasil'))
+    <script>
+        Swal.fire({
+            title: '{{ $message }}',
+            icon: 'success',
+            showCancelButton: true,
+            showConfirmButton: false,
+            cancelButtonText: 'Oke',
         })
     </script>
 @endif

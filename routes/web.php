@@ -3,7 +3,6 @@
 use App\Http\Controllers\AlamatController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DetailTransaksiController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KecamatanController;
@@ -36,18 +35,28 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
+Route::get('/coba', function () {
+    return view('user.coba');
+});
+
 Route::resource('/', App\Http\Controllers\frontend\HomeController::class);
-Route::resource('/home', HomeController::class);
-Route::resource('/profil', App\Http\Controllers\frontend\UserController::class);
-Route::get('/kategori', [App\Http\Controllers\frontend\KategoriController::class, 'index']);
-Route::get('/kategori/{id}', [App\Http\Controllers\frontend\KategoriController::class, 'kategori']);
-Route::get('/kategori/{kategori_id}/subKategori/{id}', [App\Http\Controllers\frontend\KategoriController::class, 'subKategori']);
-Route::get('/produk/{id}', [App\Http\Controllers\frontend\KategoriController::class, 'detailProduk']);
+// Route::resource('/home', HomeController::class);
+// Route::resource('/profil', App\Http\Controllers\frontend\UserController::class);
+// Route::get('/kategori', [App\Http\Controllers\frontend\KategoriController::class, 'index']);
+// Route::get('/kategori/{id}', [App\Http\Controllers\frontend\KategoriController::class, 'kategori']);
+// Route::get('/kategori/{kategori_id}/subKategori/{id}', [App\Http\Controllers\frontend\KategoriController::class, 'subKategori']);
+
+Route::get('/produk/{slug}', [App\Http\Controllers\frontend\ProdukController::class, 'produk']);
+Route::get('/produk', [App\Http\Controllers\frontend\ProdukController::class, 'produk']);
+Route::get('/detailProduk/{id}', [App\Http\Controllers\frontend\ProdukController::class, 'detailProduk']);
 
 Route::middleware('auth')->group(function () {
     Route::resource('/wishlist', App\Http\Controllers\frontend\WishlistController::class);
+    Route::get('/deleteAllWishlist', [App\Http\Controllers\frontend\WishlistController::class, 'destroyAll']);
     Route::resource('/keranjang', App\Http\Controllers\frontend\KeranjangController::class);
+    Route::get('/deleteAllKeranjang', [App\Http\Controllers\frontend\KeranjangController::class, 'destroyAll']);
     Route::resource('/checkout', App\Http\Controllers\frontend\TransaksiController::class);
+    // Route::get('/checkout/{slug}', [App\Http\Controllers\frontend\TransaksiController::class, 'index']);
 });
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {

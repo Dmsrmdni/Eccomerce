@@ -1,60 +1,108 @@
-@extends('user.layouts.user')
+@extends('user.layouts.users')
 
 @section('content')
-    <!-- Shop Cart Section Begin -->
-    <section class="shop-cart spad">
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-option">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="shop__cart__table">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th>Harga</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($wishlists as $wishlist)
-                                    <tr>
-                                        <td class="cart__product__item">
-                                            <img src="{{ asset($wishlist->produk->image[0]->gambar_produk) }}" class="w-25"
-                                                alt="">
-                                            <div class="cart__product__item__title my-5">
-                                                <h6>{{ $wishlist->produk->nama_produk }}</h6>
-                                            </div>
-                                        </td>
-                                        <td class="cart__price">Rp. {{ number_format($wishlist->produk->harga) }}</td>
-                                        <td>
-                                            <form action="{{ route('wishlist.destroy', $wishlist->id) }}" method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                                    data-bs-target="#modalCenter{{ $wishlist->id }}"><svg
-                                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                        fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                                    </svg>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="cart__btn">
-                        <a href="/kategori">Continue Shopping</a>
+                    <div class="breadcrumb__text">
+                        <h4>My Wishlist</h4>
+                        <div class="breadcrumb__links">
+                            <a href="./index.html">Home</a>
+                            <a href="./shop.html">Shop</a>
+                            <span>Shopping Cart</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Shop Cart Section End -->
+    <!-- Breadcrumb Section End -->
+
+    <section class="shopping-wishlist spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="shopping__wishlist__table shadow p-4 bg-white rounded">
+                        <table class="">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Harga</th>
+                                    <th>Diskon</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (count($wishlists))
+                                    @foreach ($wishlists as $wishlist)
+                                        <tr>
+                                            <td class="product__wishlist__item">
+                                                <div class="product__wishlist__item__pic">
+                                                    <img src="{{ asset($wishlist->produk->image[0]->gambar_produk) }}"
+                                                        class="rounded" alt="">
+                                                </div>
+                                                <div class="product__wishlist__item__text">
+                                                    <h6><a
+                                                            href="/produk/{{ $wishlist->produk_id }}">{{ $wishlist->produk->nama_produk }}</a>
+                                                    </h6>
+                                                </div>
+                                            </td>
+                                            <td class="cart__price">
+                                                Rp. {{ number_format($wishlist->produk->harga, 0, ',', '.') }}</td>
+                                            <td class="cart__diskon">{{ $wishlist->produk->diskon }}%</td>
+                                            <td class="cart__close">
+                                                <form id="delete{{ $wishlist->id }}"
+                                                    action="{{ route('wishlist.destroy', $wishlist->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <a
+                                                        onclick="event.preventDefault();
+                                                    document.getElementById('delete{{ $wishlist->id }}').submit();">
+                                                        <i class="fa fa-close"></i>
+                                                    </a>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td colspan="5" class="text-center">
+                                            <div class="alert alert-dark" role="alert">
+                                                Wishlist Kosong
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="continue__btn">
+                                <a href="/produk">Continue Shopping</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="continue__btn update__btn">
+                                <form id="deleteAll" action="/deleteAllWishlist">
+                                    @csrf
+                                    <a
+                                        onclick="event.preventDefault();
+                                                    document.getElementById('deleteAll').submit();">
+                                        Delete All Wishlist
+                                    </a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <img class="shadow rounded-lg p-0" src="{{ asset('images/logo.png') }}" alt="...">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Shopping Cart Section End -->
 @endsection

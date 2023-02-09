@@ -51,7 +51,7 @@ class WishlistController extends Controller
             $wishlists->user_id = auth()->user()->id;
             $wishlists->produk_id = $request->produk_id;
             $wishlists->save();
-            return back()->with('success', 'Data has been added');
+            return back()->with('berhasil', 'Data has been added');
         }
     }
 
@@ -99,7 +99,12 @@ class WishlistController extends Controller
     {
         $wishlists = Wishlist::findOrFail($id);
         $wishlists->delete();
-        return back()->with('success', 'Data has been deleted');
+        return back()->with('berhasil', 'Data has been deleted');
+    }
 
+    public function destroyAll()
+    {
+        $wishlists = Wishlist::where('user_id', auth()->user()->id)->delete();
+        return back()->with('berhasil', 'Data has been deleted');
     }
 }

@@ -62,7 +62,7 @@ class KeranjangController extends Controller
             $keranjangs->total_harga = ($keranjangs->produk->harga * $request->jumlah) - $diskon;
         }
         $keranjangs->save();
-        return back()->with('success', 'Data has been added');
+        return back()->with('berhasil', 'Data has been added');
 
     }
 
@@ -110,7 +110,12 @@ class KeranjangController extends Controller
     {
         $keranjangs = Keranjang::findOrFail($id);
         $keranjangs->delete();
-        return back()->with('success', 'Data has been deleted');
+        return back()->with('berhasil', 'Data has been deleted');
+    }
 
+    public function destroyAll()
+    {
+        $keranjangs = Keranjang::where('user_id', auth()->user()->id)->where('status', 'keranjang')->delete();
+        return back()->with('berhasil', 'Data has been deleted');
     }
 }
