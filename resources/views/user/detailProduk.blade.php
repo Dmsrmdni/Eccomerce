@@ -8,9 +8,9 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="product__details__breadcrumb">
-                            <a href="./index.html">Home</a>
-                            <a href="./shop.html">Shop</a>
-                            <span>Product Details</span>
+                            <a href="/">Home</a>
+                            <a href="/produk">produk</a>
+                            <span>Detail Produk</span>
                         </div>
                     </div>
                 </div>
