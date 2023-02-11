@@ -59,6 +59,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/keranjang/{id}/delete', [App\Http\Controllers\frontend\KeranjangController::class, 'destroy']);
     Route::resource('/checkout', App\Http\Controllers\frontend\TransaksiController::class);
     Route::resource('/topUps', App\Http\Controllers\frontend\TopUpController::class);
+    Route::get('/histori', [App\Http\Controllers\frontend\HistoryController::class, 'history']);
+    Route::get('/histori/proses', [App\Http\Controllers\frontend\HistoryController::class, 'proses']);
+    Route::get('/histori/refund', [App\Http\Controllers\frontend\HistoryController::class, 'refund']);
 });
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {

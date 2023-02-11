@@ -317,7 +317,7 @@
                                                                                                                                                                                 } */
     </style>
 
-    <div class="container">
+    <div class="container spad">
         <div class="main main-raised">
             <div class="profile-content">
                 <div class="container-fluid">
@@ -457,9 +457,9 @@
                     </div>
                     <div class="row">
                         <div class="col-md-8 ml-auto mr-auto mb-4">
-                            <a href="" class="btn btn-primary m-1">history barang</a>
-                            <a href="" class="btn btn-primary m-1">dalam proses</a>
-                            <a href="" class="btn btn-primary m-1">refund produk</a>
+                            <a href="/histori" class="btn btn-primary m-1">history barang</a>
+                            <a href="/histori/proses" class="btn btn-primary m-1">dalam proses</a>
+                            <a href="/histori/refund" class="btn btn-primary m-1">refund produk</a>
                             <a href="" class="btn btn-primary m-1">alamat</a>
                             <a href="" class="btn btn-primary m-1">Voucher Saya</a>
                         </div>

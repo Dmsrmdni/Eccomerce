@@ -17,7 +17,6 @@ class KeranjangController extends Controller
     {
         $keranjangs = Keranjang::where('status', 'keranjang')->where('user_id', auth()->user()->id)->latest()->get();
         return view('user.keranjang', compact('keranjangs'));
-
     }
 
     /**
