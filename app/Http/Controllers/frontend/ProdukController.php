@@ -37,6 +37,9 @@ class ProdukController extends Controller
             $produks = Produk::where('nama_produk', 'LIKE', '%' . $keyword . '%')->paginate(9);
         }
 
+        if ($request->diskon) {
+            $produks = Produk::where('diskon', '>', 0)->paginate(9);
+        }
         return view('user.produk', compact('produks', 'kategoris', 'keyword'));
     }
 

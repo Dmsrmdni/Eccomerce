@@ -41,7 +41,6 @@ Route::get('/coba', function () {
 
 Route::resource('/', App\Http\Controllers\frontend\HomeController::class);
 // Route::resource('/home', HomeController::class);
-// Route::resource('/profil', App\Http\Controllers\frontend\UserController::class);
 // Route::get('/kategori', [App\Http\Controllers\frontend\KategoriController::class, 'index']);
 // Route::get('/kategori/{id}', [App\Http\Controllers\frontend\KategoriController::class, 'kategori']);
 // Route::get('/kategori/{kategori_id}/subKategori/{id}', [App\Http\Controllers\frontend\KategoriController::class, 'subKategori']);
@@ -49,14 +48,17 @@ Route::resource('/', App\Http\Controllers\frontend\HomeController::class);
 Route::get('/produk/{slug}', [App\Http\Controllers\frontend\ProdukController::class, 'produk']);
 Route::get('/produk', [App\Http\Controllers\frontend\ProdukController::class, 'produk']);
 Route::get('/detailProduk/{id}', [App\Http\Controllers\frontend\ProdukController::class, 'detailProduk']);
+Route::get('/ulasan/{id}', [App\Http\Controllers\frontend\ReviewController::class, 'review']);
 
 Route::middleware('auth')->group(function () {
+    Route::resource('/profil', App\Http\Controllers\frontend\UserController::class);
     Route::resource('/wishlist', App\Http\Controllers\frontend\WishlistController::class);
     Route::get('/deleteAllWishlist', [App\Http\Controllers\frontend\WishlistController::class, 'destroyAll']);
     Route::resource('/keranjang', App\Http\Controllers\frontend\KeranjangController::class);
     Route::get('/deleteAllKeranjang', [App\Http\Controllers\frontend\KeranjangController::class, 'destroyAll']);
+    Route::get('/keranjang/{id}/delete', [App\Http\Controllers\frontend\KeranjangController::class, 'destroy']);
     Route::resource('/checkout', App\Http\Controllers\frontend\TransaksiController::class);
-    // Route::get('/checkout/{slug}', [App\Http\Controllers\frontend\TransaksiController::class, 'index']);
+    Route::resource('/topUps', App\Http\Controllers\frontend\TopUpController::class);
 });
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {

@@ -24,8 +24,17 @@ class TransaksiController extends Controller
      */
     public function index(Request $request)
     {
-        $keranjangs = Keranjang::whereIn('id', $request->keranjang_id)->get();
-        $total_harga = Keranjang::whereIn('id', $request->keranjang_id)->where('status', 'keranjang')->sum("total_harga");
+
+        $validated = $request->validate([
+            'keranjang_id' => 'required',
+        ]);
+
+        $keranjangs = [];
+        $total_harga = 0;
+        if ($request->keranjang_id) {
+            $keranjangs = Keranjang::whereIn('id', $request->keranjang_id)->get();
+            $total_harga = Keranjang::whereIn('id', $request->keranjang_id)->where('status', 'keranjang')->sum("total_harga");
+        }
 
         $voucherUsers = VoucherUser::where('user_id', auth()->user()->id)->get();
         $vouchers = Voucher::where('status', 'aktif')->where('label', 'gratis')->get();
@@ -59,6 +68,7 @@ class TransaksiController extends Controller
     {
         //validasi
         $validated = $request->validate([
+            'keranjang_id' => 'required',
             'metodePembayaran_id' => 'required',
             'alamat_id' => 'required',
         ]);

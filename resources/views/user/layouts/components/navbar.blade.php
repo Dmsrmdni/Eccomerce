@@ -12,7 +12,7 @@
                     <ul>
                         <li class="{{ Request::is('/') ? 'active' : '' }}"><a href="/">Home</a></li>
                         <li class="{{ Request::is('produk*') ? 'active' : '' }}"><a href="produk">Shop</a></li>
-                        <li><a href="#">Pages</a>
+                        {{-- <li><a href="#">Pages</a>
                             <ul class="dropdown">
                                 <li><a href="./about.html">About Us</a></li>
                                 <li><a href="./shop-details.html">Shop Details</a></li>
@@ -22,7 +22,7 @@
                             </ul>
                         </li>
                         <li><a href="./blog.html">Blog</a></li>
-                        <li><a href="./contact.html">Contacts</a></li>
+                        <li><a href="./contact.html">Contacts</a></li> --}}
                     </ul>
                 </nav>
             </div>
@@ -31,7 +31,9 @@
                     @auth
                         @php
                             $wishlists = App\Models\Wishlist::where('user_id', Auth::user()->id)->count();
-                            $keranjangs = App\Models\Keranjang::where('user_id', Auth::user()->id)->count();
+                            $keranjangs = App\Models\Keranjang::where('user_id', Auth::user()->id)
+                                ->where('status', 'keranjang')
+                                ->count();
                         @endphp
                         <a href="/wishlist"><i class='bx bx-heart bx-sm'></i>
                             <div class="tip">{{ $wishlists }}</div>

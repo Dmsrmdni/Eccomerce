@@ -97,7 +97,6 @@ class TransaksiController extends Controller
                     return redirect()->route('transaksi.create')->with('error', 'Stok Kurang');
                 } else {
                     $produks->stok -= $keranjang->jumlah;
-
                 }
                 $produks->save();
             }

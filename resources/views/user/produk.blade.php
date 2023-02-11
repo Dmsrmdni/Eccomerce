@@ -57,15 +57,20 @@
                                         <div class="card-body">
                                             <div class="shop__sidebar__price">
                                                 <ul>
-                                                    <li><a href="/produk/?min=0&&max=100000">0 -
+                                                    <li><a href="/produk/?min=0&max=100000">0 -
                                                             100.000</a></li>
-                                                    <li><a href="/produk/?min=100000&&max=200000">100.000 -
+                                                    <li><a href="/produk/?min=100000&max=200000">100.000 -
                                                             200.000</a></li>
-                                                    <li><a href="/produk/?min=200000&&max=300000">200.000 -
+                                                    <li><a href="/produk/?min=200000&max=300000">200.000 -
                                                             300.000</a></li>
                                                 </ul>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-heading">
+                                        <a href="/produk/?diskon=true">on Diskon</a>
                                     </div>
                                 </div>
                                 {{-- <div class="card">

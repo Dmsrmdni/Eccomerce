@@ -4,6 +4,7 @@ namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\DetailTransaksi;
+use App\Models\MetodePembayaran;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,8 @@ class UserController extends Controller
     {
         $users = User::where('id', Auth()->user()->id)->first();
         $transaksis = DetailTransaksi::where('user_id', auth()->user()->id)->get();
-        return view('user.profil', compact('users', 'transaksis'));
+        $metodePembayarans = MetodePembayaran::whereNot('metodePembayaran', 'GAKUNIQ WALLET')->get();
+        return view('user.profil', compact('users', 'transaksis', 'metodePembayarans'));
     }
 
     /**
@@ -73,7 +75,16 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //validasi
+        $validated = $request->validate([
+            'name' => 'required',
+        ]);
+
+        $users = User::findOrFail($id);
+        $users->name = $request->name;
+        $users->save();
+        return back()->with('berhasil', 'Data has been added');
+
     }
 
     /**

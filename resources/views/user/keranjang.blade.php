@@ -9,9 +9,9 @@
                     <div class="breadcrumb__text">
                         <h4>Shopping Cart</h4>
                         <div class="breadcrumb__links">
-                            <a href="./index.html">Home</a>
-                            <a href="./shop.html">Shop</a>
-                            <span>Shopping Cart</span>
+                            <a href="/">Home</a>
+                            <a href="/produk">Produk</a>
+                            <span>Keranjang</span>
                         </div>
                     </div>
                 </div>
@@ -42,9 +42,9 @@
                                     <form id="transaksi" method="GET" action="{{ route('checkout.index') }}">
                                         @foreach ($keranjangs as $keranjang)
                                             <tr>
-                                                <td>
-                                                    <input type="checkbox" name="keranjang_id[]"
-                                                        value="{{ $keranjang->id }}">
+                                                <td class="p-2">
+                                                    <input type="checkbox" class="{{ $keranjang->total_harga }}"
+                                                        name="keranjang_id[]" value="{{ $keranjang->id }}" required>
                                                 </td>
                                                 <td class="product__cart__item">
                                                     <div class="product__cart__item__pic">
@@ -76,13 +76,11 @@
                                                         action="{{ route('keranjang.destroy', $keranjang->id) }}"
                                                         method="POST">
                                                         @csrf
-                                                        @method('delete')
-                                                        <a
-                                                            onclick="event.preventDefault();
-                                                    document.getElementById('delete{{ $keranjang->id }}').submit();">
-                                                            <i class="fa fa-close"></i>
-                                                        </a>
-                                                    </form> --}}
+                                                        @method('delete') --}}
+                                                    <a href="/keranjang/{{ $keranjang->id }}/delete">
+                                                        <i class="fa fa-close"></i>
+                                                    </a>
+                                                    {{-- </form> --}}
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -123,58 +121,41 @@
                     <div class="cart__total shadow p-4 bg-white rounded">
                         <h6>Cart total</h6>
                         <ul>
-                            <li>jumlah <span>0</span></li>
-                            <li>Total <span id="total">0</span></li>
+                            <li>jumlah <span id="jumlah">0</span></li>
+                            <li>Total(Rp)<span id="total">0</span></li>
                         </ul>
-                        <a class="primary-btn"
-                            onclick="event.preventDefault();
-                                                    document.getElementById('transaksi').submit();">
-                            Proceed to checkout
-                        </a>
+                        <div class="continue__btn update__btn">
+                            <a
+                                onclick="event.preventDefault();
+                                                        document.getElementById('transaksi').submit();">
+                                Proceed to checkout
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-
-    <script>
-        function tugas2() {
-            var jumlah = 0;
-            var harga;
-
-            // if (document.getElementById("menu1").checked) {
-            //     harga = document.getElementById("menu1").value;
-            //     jumlah = jumlah + parseInt(harga);
-            // }
-            document.getElementById("total").value = 1;
-        }
-    </script>
-    <!-- Shopping Cart Section End -->
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    {{-- <script>
-        $(document).ready(function() {
-            $('#check').prop('checked', function() {
-                var keranjang_id = $(this).val();
-                $('#total').append(5);
-            });
-        });
-    </script> --}}
+    <!-- Shopping Cart Section End -->
+
 
     <script>
         $(document).ready(function() {
             $('input[type="checkbox"]').click(function() {
                 var jumlah = 0;
-                var keranjang_id = $(this).val();
-                if ($(this).prop("checked") == true) {
-                    total = jumlah + parseInt(1);
-                    $('#total').append(total);
-                } else if ($(this).prop("checked") == false) {
-                    jumlah = jumlah - 1;
-                    $('#total').append(jumlah);
-                }
+                var total_harga = 0;
+                $('input[type="checkbox"]').each(function() {
+                    if ($(this).prop("checked") == true) {
+                        jumlah++;
+                        var keranjang = $(this).attr('class');
+                        total_harga += parseInt(keranjang);
+                    }
+                });
+                $('#jumlah').html(jumlah);
+                $('#total').html(total_harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
             });
         });
     </script>

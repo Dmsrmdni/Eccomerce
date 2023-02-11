@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="{{ asset('assets2/css/font-awesome.min.css') }}" type="text/css">
 <link rel="stylesheet" href="{{ asset('assets2/css/elegant-icons.css') }}" type="text/css">
 <link rel="stylesheet" href="{{ asset('assets2/css/magnific-popup.css') }}" type="text/css">
-{{-- <link rel="stylesheet" href="{{ asset('assets2/css/nice-select.css') }}" type="text/css"> --}}
+<link rel="stylesheet" href="{{ asset('assets2/css/nice-select.css') }}" type="text/css">
 <link rel="stylesheet" href="{{ asset('assets2/css/owl.carousel.min.css') }}" type="text/css">
 <link rel="stylesheet" href="{{ asset('assets2/css/slicknav.min.css') }}" type="text/css">
 <link rel="stylesheet" href="{{ asset('assets2/css/style.css') }}" type="text/css">
