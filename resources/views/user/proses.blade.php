@@ -23,8 +23,11 @@
                         </div>
                     </div>
                     <div class="col mt-5">
-                        <a href="" class="btn btn-primary mx-2">selesai</a>
-                        <a href="" class="btn btn-danger">refund</a>
+                        <form action="/histori/konfirmasi/{{ $proses->id }}" method="post">
+                            @csrf
+                            <input type="submit" class="btn btn-primary mx-2" name="konfirmasi" value="selesai">
+                            <input type="submit" class="btn btn-danger" name="konfirmasi" value="refund">
+                        </form>
                     </div>
                 </div>
             </div>

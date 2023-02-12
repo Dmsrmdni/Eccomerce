@@ -62,6 +62,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/histori', [App\Http\Controllers\frontend\HistoryController::class, 'history']);
     Route::get('/histori/proses', [App\Http\Controllers\frontend\HistoryController::class, 'proses']);
     Route::get('/histori/refund', [App\Http\Controllers\frontend\HistoryController::class, 'refund']);
+    Route::post('/histori/konfirmasi/{id}', [App\Http\Controllers\frontend\HistoryController::class, 'konfirmasi']);
+    Route::post('/ulasan/create', [App\Http\Controllers\frontend\ReviewController::class, 'store']);
 });
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {

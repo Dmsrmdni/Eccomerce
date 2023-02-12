@@ -23,7 +23,46 @@
                         </div>
                     </div>
                     <div class="col mt-5">
-                        <a href="" class="btn btn-primary">Review</a>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                            data-target="#review{{ $histori->id }}">
+                            Review
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="review{{ $histori->id }}" tabindex="-1" role="dialog"
+                            aria-labelledby="reviewLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="reviewLabel">Modal {{ $histori->id }}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="/ulasan/create" method="POST">
+                                        @csrf
+                                        <div class="modal-body">
+                                            <input type="hidden" name="detailTransaksi_id" value="{{ $histori->id }}">
+                                            <div class="form-group">
+                                                <label for="recipient-name" class="col-form-label">rating:</label>
+                                                <input type="number" class="form-control" max="5" name="rating"
+                                                    value="">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="recipient-name" class="col-form-label">komen:</label>
+                                                <input type="text" class="form-control" name="komen" value="">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Kirim</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
