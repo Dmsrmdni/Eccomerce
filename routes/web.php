@@ -49,6 +49,7 @@ Route::get('/produk/{slug}', [App\Http\Controllers\frontend\ProdukController::cl
 Route::get('/produk', [App\Http\Controllers\frontend\ProdukController::class, 'produk']);
 Route::get('/detailProduk/{id}', [App\Http\Controllers\frontend\ProdukController::class, 'detailProduk']);
 Route::get('/ulasan/{id}', [App\Http\Controllers\frontend\ReviewController::class, 'review']);
+Route::resource('/voucher', App\Http\Controllers\frontend\VoucherController::class);
 
 Route::middleware('auth')->group(function () {
     Route::resource('/profil', App\Http\Controllers\frontend\UserController::class);
@@ -65,6 +66,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/histori/konfirmasi/{id}', [App\Http\Controllers\frontend\HistoryController::class, 'konfirmasi']);
     Route::post('/ulasan/create', [App\Http\Controllers\frontend\ReviewController::class, 'store']);
     Route::resource('/alamat', App\Http\Controllers\frontend\AlamatController::class);
+    Route::resource('/voucherSaya', App\Http\Controllers\frontend\VoucherUserController::class);
 });
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
