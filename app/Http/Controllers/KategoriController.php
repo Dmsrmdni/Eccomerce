@@ -47,7 +47,6 @@ class KategoriController extends Controller
         $kategoris->save();
         return redirect()
             ->route('kategori.index')->with('success', 'Data has been added');
-
     }
 
     /**

@@ -101,6 +101,15 @@
         {{-- EndKategori --}}
 
         {{-- Produk --}}
+        <li class="menu-item {{ Request::is('admin/ukuran*') ? 'active' : '' }}">
+            <a href="/admin/ukuran" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-closet"></i>
+                <div>Ukuran</div>
+            </a>
+        </li>
+        {{-- EndProduk --}}
+
+        {{-- Produk --}}
         <li class="menu-item {{ Request::is('admin/produk*') ? 'active' : '' }}">
             <a href="/admin/produk" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-closet"></i>

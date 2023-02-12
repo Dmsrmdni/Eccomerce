@@ -17,6 +17,7 @@ use App\Http\Controllers\RiwayatProdukController;
 use App\Http\Controllers\SubKategoriController;
 use App\Http\Controllers\TopUpController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\UkuranController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\VoucherUserController;
@@ -74,6 +75,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('/user', UserController::class);
     Route::resource('/kategori', KategoriController::class);
     Route::resource('/subKategori', SubKategoriController::class);
+    Route::resource('/ukuran', UkuranController::class);
     Route::resource('/produk', ProdukController::class);
     Route::resource('/image', ImageController::class);
     Route::resource('/wishlistAdmin', WishlistController::class);
