@@ -19,7 +19,6 @@
 
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js')}}"></script>
-<script src="{{ asset('assets/js/jquery-3.5.1.js') }}"></script>
 <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
 <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
 <script>
