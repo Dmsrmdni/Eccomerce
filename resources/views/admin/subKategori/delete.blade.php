@@ -2,7 +2,7 @@
     //button create post event
     $('body').on('click', '#btn-delete', function() {
 
-        let kategori_id = $(this).data('id');
+        let subKategori_id = $(this).data('id');
 
         Swal.fire({
             title: 'Apakah Kamu Yakin?',
@@ -15,8 +15,9 @@
             confirmButtonText: 'YA, HAPUS!'
         }).then((result) => {
             if (result.isConfirmed) {
-                $("#deleted" + kategori_id).submit()
+                $("#deleted" + subKategori_id).submit()
             }
         })
+
     });
 </script>

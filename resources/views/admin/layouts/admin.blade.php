@@ -57,7 +57,7 @@ data-template="vertical-menu-template-free"
         <!-- / Content -->
 
         <!-- Footer -->
-        @include('admin.layouts.components.footer')
+        {{-- @include('admin.layouts.components.footer') --}}
         <!-- / Footer -->
 
         <div class="content-backdrop fade"></div>
