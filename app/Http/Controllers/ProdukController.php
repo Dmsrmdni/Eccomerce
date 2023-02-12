@@ -51,6 +51,7 @@ class ProdukController extends Controller
             'harga' => 'required',
             'stok' => 'required',
             'deskripsi' => 'required',
+            'gambar_produk' => 'required',
         ]);
 
         $produks = new Produk();
@@ -77,7 +78,6 @@ class ProdukController extends Controller
 
         return redirect()
             ->route('produk.index')->with('success', 'Data has been added');
-
     }
 
     /**
