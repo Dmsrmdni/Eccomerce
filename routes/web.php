@@ -64,6 +64,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/histori/refund', [App\Http\Controllers\frontend\HistoryController::class, 'refund']);
     Route::post('/histori/konfirmasi/{id}', [App\Http\Controllers\frontend\HistoryController::class, 'konfirmasi']);
     Route::post('/ulasan/create', [App\Http\Controllers\frontend\ReviewController::class, 'store']);
+    Route::resource('/alamat', App\Http\Controllers\frontend\AlamatController::class);
 });
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
@@ -78,7 +79,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('/provinsi', ProvinsiController::class);
     Route::resource('/kota', KotaController::class);
     Route::resource('/kecamatan', KecamatanController::class);
-    Route::resource('/alamat', AlamatController::class);
+    Route::resource('/alamats', AlamatController::class);
     Route::resource('/voucher', VoucherController::class);
     Route::resource('/voucherUser', VoucherUserController::class);
     Route::resource('/topUp', TopUpController::class);
@@ -90,9 +91,9 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/HistoryRefundProduk', [RefundProdukController::class, 'index2']);
     Route::resource('/metodePembayaran', MetodePembayaranController::class);
     Route::get('getSub_kategori/{id}', [SubKategoriController::class, 'getSubKategori']);
-    Route::get('getKota/{id}', [KotaController::class, 'getKota']);
-    Route::get('getKecamatan/{id}', [KecamatanController::class, 'getKecamatan']);
 });
+Route::get('/getKota/{id}', [KotaController::class, 'getKota']);
+Route::get('/getKecamatan/{id}', [KecamatanController::class, 'getKecamatan']);
 
 Auth::routes();
 

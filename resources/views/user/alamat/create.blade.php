@@ -1,10 +1,9 @@
-@extends('admin.layouts.admin')
+{{-- @extends('user.layouts.users')
 
-@section('content')
+@section('content') --}}
 <div class="container-fluid">
-    <form action="{{ route('alamats.update', $alamats->id) }}" method="post">
+    <form action="{{ route('alamat.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @method('put')
         <div class="col-lg-12">
             <div class="card mb-4 shadow-lg rounded card">
                 <div class="card-header d-flex justify-content-between align-items-center">
@@ -12,28 +11,10 @@
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
-                        <label class="form-label">Name User</label>
-                        <select name="user_id" class="form-select @error('user_id') is-invalid @enderror">
-                            @foreach ($users as $user)
-                            @if (old('user_id', $user->id) == $alamats->user_id)
-                            <option value="{{ $user->id }}" selected hidden>{{ $user->name }}
-                            </option>
-                            @else
-                            <option value="{{ $user->id }}">{{ $user->name }}</option>
-                            @endif
-                            @endforeach
-                        </select>
-                        @error('user_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
                         <label class="form-label">Nama Lengkap</label>
                         <input type="text" name="nama_lengkap"
                             class="form-control mb-2  @error('nama_lengkap') is-invalid @enderror"
-                            placeholder="Nama Lengkap" value="{{ $alamats->nama_lengkap }}">
+                            placeholder="Nama Lengkap" value="{{ old('nama_lengkap') }}">
                         @error('nama_lengkap')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -44,7 +25,7 @@
                         <label class="form-label">No Telepon</label>
                         <input type="number" name="no_telepon"
                             class="form-control mb-2  @error('no_telepon') is-invalid @enderror"
-                            placeholder="No Telepon" value="{{ $alamats->no_telepon }}">
+                            placeholder="No Telepon" value="{{ old('no_telepon') }}">
                         @error('no_telepon')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -56,12 +37,9 @@
                         <select name="provinsi_id" id="provinsi"
                             class="form-select @error('provinsi_id') is-invalid @enderror">
                             @foreach ($provinsis as $provinsi)
-                            @if (old('provinsi_id', $provinsi->id) == $alamats->provinsi_id)
-                            <option value="{{ $provinsi->id }}" selected hidden>{{ $provinsi->provinsi }}
+                            <option value="" hidden>Pilih provinsi</option>
+                            <option value="{{ $provinsi->id }}">{{ $provinsi->provinsi }}
                             </option>
-                            @else
-                            <option value="{{ $provinsi->id }}">{{ $provinsi->provinsi }}</option>
-                            @endif
                             @endforeach
                         </select>
                         @error('provinsi_id')
@@ -73,14 +51,7 @@
                     <div class="mb-3">
                         <label class="form-label">Kota</label>
                         <select name="kota_id" id="kota" class="form-select @error('kota_id') is-invalid @enderror">
-                            @foreach ($kotas as $kota)
-                            @if (old('kota_id', $kota->id) == $alamats->kota_id)
-                            <option value="{{ $kota->id }}" selected hidden>{{ $kota->kota }}
-                            </option>
-                            @else
-                            <option value="{{ $kota->id }}">{{ $kota->kota }}</option>
-                            @endif
-                            @endforeach
+                            <option value="" hidden>Pilih Provinsi Terlebih dulu</option>
                         </select>
                         @error('kota_id')
                         <span class="invalid-feedback" role="alert">
@@ -92,14 +63,7 @@
                         <label class="form-label">kecamatan</label>
                         <select name="kecamatan_id" id="kecamatan"
                             class="form-select @error('kecamatan_id') is-invalid @enderror">
-                            @foreach ($kecamatans as $kecamatan)
-                            @if (old('kecamatan_id', $kecamatan->id) == $alamats->kecamatan_id)
-                            <option value="{{ $kecamatan->id }}" selected hidden>{{ $kecamatan->kecamatan }}
-                            </option>
-                            @else
-                            <option value="{{ $kecamatan->id }}">{{ $kecamatan->kecamatan }}</option>
-                            @endif
-                            @endforeach
+                            <option value="" hidden>Pilih kota Terlebih dulu</option>
                         </select>
                         @error('kecamatan_id')
                         <span class="invalid-feedback" role="alert">
@@ -110,8 +74,8 @@
                     <div class="mb-3">
                         <label class="form-label">alamat_lengkap</label>
                         <textarea name="alamat_lengkap" cols="30" rows="7"
-                            class="form-control mb-2  @error('alamat_lengkap') is-invalid @enderror"
-                            placeholder="alamat_lengkap">{{ $alamats->alamat_lengkap }}</textarea>
+                            class="form-control mb-2 summernote  @error('alamat_lengkap') is-invalid @enderror"
+                            placeholder="alamat_lengkap" value="{{ old('alamat_lengkap') }}"></textarea>
                         @error('alamat_lengkap')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -122,7 +86,7 @@
                         <label class="form-label">Detail Lainnya</label>
                         <input type="text" name="detail_lainnya"
                             class="form-control mb-2  @error('detail_lainnya') is-invalid @enderror"
-                            placeholder="No Telepon" value="{{ $alamats->detail_lainnya }}">
+                            placeholder="No Telepon" value="{{ old('detail_lainnya') }}">
                         @error('detail_lainnya')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -132,7 +96,7 @@
                     <div class="mb-3">
                         <label class="form-label">Label Alamat</label>
                         <select name="label_alamat" class="form-select @error('label_alamat') is-invalid @enderror">
-                            <option value="{{ $alamats->label_alamat }}" hidden>{{ $alamats->label_alamat }}</option>
+                            <option value="" hidden>Pilih Label Alamat</option>
                             <option value="rumah">Rumah</option>
                             <option value="kantor">Kantor</option>
                         </select>
@@ -145,7 +109,7 @@
                 </div>
             </div>
             <div class="d-flex float-start">
-                <a href="/admin/alamat" class="btn btn-danger me-3"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+                <a href="/alamat" class="btn btn-danger me-3"><svg xmlns="http://www.w3.org/2000/svg" width="20"
                         fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
                             d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z" />
@@ -182,7 +146,7 @@
                 var provinsi_id = $(this).val();
                 if (provinsi_id) {
                     $.ajax({
-                        url: '/admin/getKota/' + provinsi_id,
+                        url: '/getKota/' + provinsi_id,
                         type: "GET",
                         data: {
                             "_token": "{{ csrf_token() }}"
@@ -215,7 +179,7 @@
                 var kota_id = $(this).val();
                 if (kota_id) {
                     $.ajax({
-                        url: '/admin/getKecamatan/' + kota_id,
+                        url: '/getKecamatan/' + kota_id,
                         type: "GET",
                         data: {
                             "_token": "{{ csrf_token() }}"
@@ -242,4 +206,4 @@
             });
         });
 </script>
-@endsection
+{{-- @endsection --}}

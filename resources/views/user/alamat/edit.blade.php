@@ -1,8 +1,8 @@
-@extends('admin.layouts.admin')
+{{-- @extends('admin.layouts.admin')
 
-@section('content')
+@section('content') --}}
 <div class="container-fluid">
-    <form action="{{ route('alamats.update', $alamats->id) }}" method="post">
+    <form action="{{ route('alamat.update', $alamats->id) }}" method="post">
         @csrf
         @method('put')
         <div class="col-lg-12">
@@ -11,24 +11,6 @@
                     <h4 class="mb-0">Data alamat</h4>
                 </div>
                 <div class="card-body">
-                    <div class="mb-3">
-                        <label class="form-label">Name User</label>
-                        <select name="user_id" class="form-select @error('user_id') is-invalid @enderror">
-                            @foreach ($users as $user)
-                            @if (old('user_id', $user->id) == $alamats->user_id)
-                            <option value="{{ $user->id }}" selected hidden>{{ $user->name }}
-                            </option>
-                            @else
-                            <option value="{{ $user->id }}">{{ $user->name }}</option>
-                            @endif
-                            @endforeach
-                        </select>
-                        @error('user_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
                     <div class="mb-3">
                         <label class="form-label">Nama Lengkap</label>
                         <input type="text" name="nama_lengkap"
@@ -145,7 +127,7 @@
                 </div>
             </div>
             <div class="d-flex float-start">
-                <a href="/admin/alamat" class="btn btn-danger me-3"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+                <a href="/alamat" class="btn btn-danger me-3"><svg xmlns="http://www.w3.org/2000/svg" width="20"
                         fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
                             d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z" />
@@ -182,7 +164,7 @@
                 var provinsi_id = $(this).val();
                 if (provinsi_id) {
                     $.ajax({
-                        url: '/admin/getKota/' + provinsi_id,
+                        url: '/getKota/' + provinsi_id,
                         type: "GET",
                         data: {
                             "_token": "{{ csrf_token() }}"
@@ -215,7 +197,7 @@
                 var kota_id = $(this).val();
                 if (kota_id) {
                     $.ajax({
-                        url: '/admin/getKecamatan/' + kota_id,
+                        url: '/getKecamatan/' + kota_id,
                         type: "GET",
                         data: {
                             "_token": "{{ csrf_token() }}"
@@ -242,4 +224,4 @@
             });
         });
 </script>
-@endsection
+{{-- @endsection --}}

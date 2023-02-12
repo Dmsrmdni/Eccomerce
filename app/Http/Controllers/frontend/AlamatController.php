@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Alamat;
 use App\Models\Kecamatan;
 use App\Models\Kota;
 use App\Models\Provinsi;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class AlamatController extends Controller
@@ -19,9 +18,8 @@ class AlamatController extends Controller
      */
     public function index()
     {
-        $alamats = Alamat::with('user', 'provinsi', 'kota', 'kecamatan')->latest()->get();
-        return view('admin.alamat.index', compact('alamats'));
-
+        $alamats = Alamat::where('user_id', auth()->user()->id)->latest()->get();
+        return view('user.alamat.index', compact('alamats'));
     }
 
     /**
@@ -32,9 +30,7 @@ class AlamatController extends Controller
     public function create()
     {
         $provinsis = Provinsi::all();
-        $users = User::where('role', 'costumer')->get();
-        return view('admin.alamat.create', compact('provinsis', 'users'));
-
+        return view('user.alamat.create', compact('provinsis'));
     }
 
     /**
@@ -47,7 +43,6 @@ class AlamatController extends Controller
     {
         //validasi
         $validated = $request->validate([
-            'user_id' => 'required',
             'nama_lengkap' => 'required',
             'no_telepon' => 'required',
             'provinsi_id' => 'required',
@@ -57,7 +52,7 @@ class AlamatController extends Controller
         ]);
 
         $alamats = new Alamat();
-        $alamats->user_id = $request->user_id;
+        $alamats->user_id = auth()->user()->id;
         $alamats->nama_lengkap = $request->nama_lengkap;
         $alamats->no_telepon = $request->no_telepon;
         $alamats->provinsi_id = $request->provinsi_id;
@@ -68,7 +63,7 @@ class AlamatController extends Controller
         $alamats->label_alamat = $request->label_alamat;
         $alamats->save();
         return redirect()
-            ->route('alamat.index')->with('success', 'Data has been added');
+            ->route('alamat.index')->with('berhasil', 'Data has been added');
     }
 
     /**
@@ -77,7 +72,7 @@ class AlamatController extends Controller
      * @param  \App\Models\Alamat  $alamat
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Alamat $alamat)
     {
         //
     }
@@ -92,10 +87,10 @@ class AlamatController extends Controller
     {
         $alamats = Alamat::findOrFail($id);
         $provinsis = Provinsi::all();
-        $users = User::where('role', 'costumer')->get();
         $kotas = Kota::where('provinsi_id', $alamats->provinsi_id)->get();
         $kecamatans = Kecamatan::where('kota_id', $alamats->kota_id)->get();
-        return view('admin.alamat.edit', compact('alamats', 'provinsis', 'users', 'kecamatans', 'kotas'));
+        return view('user.alamat.edit', compact('alamats', 'provinsis', 'kecamatans', 'kotas'));
+
     }
 
     /**
@@ -109,7 +104,6 @@ class AlamatController extends Controller
     {
         //validasi
         $validated = $request->validate([
-            'user_id' => 'required',
             'nama_lengkap' => 'required',
             'no_telepon' => 'required',
             'provinsi_id' => 'required',
@@ -119,7 +113,6 @@ class AlamatController extends Controller
         ]);
 
         $alamats = Alamat::findOrFail($id);
-        $alamats->user_id = $request->user_id;
         $alamats->nama_lengkap = $request->nama_lengkap;
         $alamats->no_telepon = $request->no_telepon;
         $alamats->provinsi_id = $request->provinsi_id;
@@ -130,7 +123,7 @@ class AlamatController extends Controller
         $alamats->label_alamat = $request->label_alamat;
         $alamats->save();
         return redirect()
-            ->route('alamat.index')->with('success', 'Data has been edited');
+            ->route('alamat.index')->with('berhasil', 'Data has been edited');
 
     }
 
@@ -145,6 +138,6 @@ class AlamatController extends Controller
         $alamats = Alamat::findOrFail($id);
         $alamats->delete();
         return redirect()
-            ->route('alamat.index')->with('success', 'Data has been deleted');
+            ->route('alamat.index')->with('berhasil', 'Data has been deleted');
     }
 }
