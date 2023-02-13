@@ -43,24 +43,46 @@
                         </div>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Nama Produk</label>
-                    <input type="text" name="nama_produk"
-                        class="form-control mb-2  @error('nama_produk') is-invalid @enderror" placeholder="Nama Produk"
-                        value="{{ old('name_produk') }}">
-                    @error('nama_produk')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label class="form-label">Nama Produk</label>
+                            <input type="text" name="nama_produk"
+                                class="form-control mb-2  @error('nama_produk') is-invalid @enderror"
+                                placeholder="Nama Produk" value="{{ old('name_produk') }}">
+                            @error('nama_produk')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label class="form-label">Ukuran</label>
+                            <select name="ukuran[]" id="ukuran"
+                                class="form-control w-100 @error('kategori_id') is-invalid @enderror"
+                                data-placeholder="Pilih Ukuran" data-allow-clear="true" multiple="multiple">
+                                @foreach ($ukurans as $ukuran)
+                                <option value="{{ $ukuran->id }}">{{ $ukuran->ukuran }}
+                                </option>
+                                @endforeach
+                            </select>
+                            @error('ukuran')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="mb-3">
                             <label class="form-label">Hpp Produk</label>
                             <input type="number" name="hpp"
-                                class="form-control mb-2  @error('hpp') is-invalid @enderror" placeholder="hpp Produk"
-                                value="0" min="0">
+                                class="form-control numbers mb-2  @error('hpp') is-invalid @enderror"
+                                placeholder="hpp Produk" value="0" min="0">
                             @error('hpp')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -72,7 +94,7 @@
                         <div class="mb-3">
                             <label class="form-label">Harga Produk</label>
                             <input type="number" name="harga"
-                                class="form-control mb-2  @error('harga') is-invalid @enderror"
+                                class="form-control numbers mb-2  @error('harga') is-invalid @enderror"
                                 placeholder="Harga Produk" value="0" min="0">
                             @error('harga')
                             <span class="invalid-feedback" role="alert">
@@ -87,8 +109,8 @@
                         <div class="mb-3">
                             <label class="form-label">Stok Produk</label>
                             <input type="number" name="stok"
-                                class="form-control mb-2  @error('stok') is-invalid @enderror" placeholder="stok Produk"
-                                value="0" min="0">
+                                class="form-control numbers mb-2  @error('stok') is-invalid @enderror"
+                                placeholder="stok Produk" value="0" min="0">
                             @error('stok')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -101,7 +123,7 @@
                             <label class="form-label">Diskon Produk</label>
                             <div class="input-group mb-3">
                                 <input type="number" name="diskon"
-                                    class="form-control mb-2  @error('diskon') is-invalid @enderror"
+                                    class="form-control numbers mb-2  @error('diskon') is-invalid @enderror"
                                     placeholder="diskon Produk" value="0" min="0" max="100">
                                 <button class="btn btn-secondary mb-2" type="button">%</button>
                                 @error('diskon')
@@ -197,5 +219,16 @@
                 }
             });
         });
+</script>
+
+<script>
+    $(".numbers").keypress(function(event) {
+    return /\d/.test(String.fromCharCode(event.keyCode));
+    });
+
+    $(document).ready(function() {
+        $('#ukuran').select2({
+        });
+    });
 </script>
 @endsection

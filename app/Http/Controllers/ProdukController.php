@@ -7,6 +7,8 @@ use App\Models\Image;
 use App\Models\Kategori;
 use App\Models\Produk;
 use App\Models\SubKategori;
+use App\Models\Ukuran;
+use App\Models\UkuranProduk;
 use Illuminate\Http\Request;
 
 class ProdukController extends Controller
@@ -31,7 +33,8 @@ class ProdukController extends Controller
     public function create()
     {
         $kategoris = Kategori::all();
-        return view('admin.produk.create', compact('kategoris'));
+        $ukurans = Ukuran::all();
+        return view('admin.produk.create', compact('kategoris', 'ukurans'));
     }
 
     /**
@@ -52,6 +55,7 @@ class ProdukController extends Controller
             'stok' => 'required',
             'deskripsi' => 'required',
             'gambar_produk' => 'required',
+            'ukuran' => 'required',
         ]);
 
         $produks = new Produk();
@@ -74,6 +78,13 @@ class ProdukController extends Controller
                 $images->gambar_produk = 'images/gambar_produk/' . $name;
                 $images->save();
             }
+        }
+
+        foreach ($request->ukuran as $ukuran) {
+            $ukuranProduks = new UkuranProduk();
+            $ukuranProduks->produk_id = $produks->id;
+            $ukuranProduks->ukuran_id = $ukuran;
+            $ukuranProduks->save();
         }
 
         return redirect()
@@ -105,7 +116,8 @@ class ProdukController extends Controller
         $produks = Produk::findOrFail($id);
         $subKategoris = SubKategori::where('kategori_id', $produks->kategori_id)->get();
         $images = Image::where('produk_id', $id)->get();
-        return view('admin.produk.edit', compact('kategoris', 'produks', 'subKategoris', 'images'));
+        $ukurans = Ukuran::get(['id', 'ukuran']);
+        return view('admin.produk.edit', compact('kategoris', 'produks', 'subKategoris', 'images', 'ukurans'));
 
     }
 
@@ -139,6 +151,14 @@ class ProdukController extends Controller
         $produks->diskon = $request->diskon;
         $produks->deskripsi = $request->deskripsi;
         $produks->save();
+
+        $ukuranProduks = UkuranProduk::where('produk_id', $produks->id)->delete();
+        foreach ($request->ukuran as $ukuran) {
+            $ukuranProduks = new UkuranProduk();
+            $ukuranProduks->produk_id = $produks->id;
+            $ukuranProduks->ukuran_id = $ukuran;
+            $ukuranProduks->save();
+        }
         return redirect()
             ->route('produk.index')->with('success', 'Data has been edited');
 
