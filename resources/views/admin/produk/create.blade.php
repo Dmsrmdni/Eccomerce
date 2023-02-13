@@ -222,10 +222,6 @@
 </script>
 
 <script>
-    $(".numbers").keypress(function(event) {
-    return /\d/.test(String.fromCharCode(event.keyCode));
-    });
-
     $(document).ready(function() {
         $('#ukuran').select2({
         });

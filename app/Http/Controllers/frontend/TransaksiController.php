@@ -99,15 +99,14 @@ class TransaksiController extends Controller
 
             $keranjangs = Keranjang::where('id', $detailTransaksi->keranjang_id)->get();
             foreach ($keranjangs as $keranjang) {
-                $keranjang->status = 'checkout';
-                $keranjang->save();
-
                 $produks = Produk::where('id', $keranjang->produk_id)->first();
                 if ($produks->stok < $keranjang->jumlah) {
                     $transaksis = Transaksi::where('id', $transaksis->id)->first();
                     $transaksis->delete();
                     return back()->with('error', 'Stok Kurang');
                 } else {
+                    $keranjang->status = 'checkout';
+                    $keranjang->save();
                     $produks->stok -= $keranjang->jumlah;
 
                 }

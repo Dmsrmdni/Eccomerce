@@ -8,6 +8,7 @@ use App\Models\DetailTransaksi;
 use App\Models\Keranjang;
 use App\Models\MetodePembayaran;
 use App\Models\Produk;
+use App\Models\RiwayatProduk;
 use App\Models\Transaksi;
 use App\Models\User;
 use App\Models\Voucher;
@@ -88,17 +89,25 @@ class TransaksiController extends Controller
 
             $keranjangs = Keranjang::where('id', $detailTransaksi->keranjang_id)->get();
             foreach ($keranjangs as $keranjang) {
-                $keranjang->status = 'checkout';
-                $keranjang->save();
                 $produks = Produk::where('id', $keranjang->produk_id)->first();
                 if ($produks->stok < $keranjang->jumlah) {
                     $transaksis = Transaksi::where('id', $transaksis->id)->first();
                     $transaksis->delete();
                     return redirect()->route('transaksi.create')->with('error', 'Stok Kurang');
                 } else {
+                    $keranjang->status = 'checkout';
+                    $keranjang->save();
                     $produks->stok -= $keranjang->jumlah;
                 }
                 $produks->save();
+
+                $riwayatProduks = new RiwayatProduk();
+                $riwayatProduks->produk_id = $produks->id;
+                $riwayatProduks->type = 'keluar';
+                $riwayatProduks->qty = $keranjang->jumlah;
+                $riwayatProduks->note = 'Barang terjual';
+                $riwayatProduks->save();
+
             }
         }
 
@@ -144,7 +153,6 @@ class TransaksiController extends Controller
         return redirect()
             ->route('transaksi.index')
             ->with('success', 'Data has been added');
-
     }
 
     /**

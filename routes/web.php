@@ -15,6 +15,7 @@ use App\Http\Controllers\RefundProdukController;
 use App\Http\Controllers\ReviewProdukController;
 use App\Http\Controllers\RiwayatProdukController;
 use App\Http\Controllers\SubKategoriController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TopUpController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UkuranController;
@@ -80,6 +81,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('/ukuranProduk', UkuranProdukController::class);
     Route::resource('/produk', ProdukController::class);
     Route::resource('/image', ImageController::class);
+    Route::resource('/supplier', SupplierController::class);
     Route::resource('/wishlistAdmin', WishlistController::class);
     Route::resource('/keranjangAdmin', KeranjangController::class);
     Route::resource('/provinsi', ProvinsiController::class);

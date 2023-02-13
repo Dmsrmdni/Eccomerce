@@ -3,16 +3,17 @@
 namespace App\Models;
 
 use App\Models\Image;
-use App\Models\Ukuran;
 use App\Models\Kategori;
-use App\Models\Wishlist;
 use App\Models\Keranjang;
-use App\Models\SubKategori;
 use App\Models\ReviewProduk;
-use App\Models\UkuranProduk;
 use App\Models\RiwayatProduk;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\SubKategori;
+use App\Models\Supplier;
+use App\Models\Ukuran;
+use App\Models\UkuranProduk;
+use App\Models\Wishlist;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Produk extends Model
 {
@@ -60,6 +61,12 @@ class Produk extends Model
 
     public function ukuran()
     {
-        return $this->belongsToMany(Ukuran::class,'ukuran_produks');
+        return $this->belongsToMany(Ukuran::class, 'ukuran_produks');
     }
+
+    public function supplier()
+    {
+        return $this->hasMany(Supplier::class);
+    }
+
 }
