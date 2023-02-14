@@ -2,43 +2,46 @@
 
 @section('content')
 
-<div class="row">
-    <div class="col-lg-3">
-        <div class="mb-3">
-            <div class="form-floating">
-                <input type="date" class="form-control" id="floatingInput" placeholder="John Doe"
-                    aria-describedby="floatingInputHelp" />
-                <label for="floatingInput">Tanggal Awal</label>
+<form action="/admin/export" method="post">
+    @csrf
+    <div class="row mb-2">
+        <div class="col-lg-3">
+            <div class="mb-3">
+                <div class="form-floating">
+                    <input type="date" class="form-control" id="floatingInput" name="tanggal_awal"
+                        aria-describedby="floatingInputHelp" required />
+                    <label for="floatingInput">Tanggal Awal</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="mb-3">
+                <div class="form-floating">
+                    <input type="date" class="form-control" id="floatingInput" name="tanggal_akhir"
+                        aria-describedby="floatingInputHelp" required />
+                    <label for="floatingInput">Tanggal Akhir</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="mb-3">
+                <div class="form-floating">
+                    <select id="defaultSelect" class="form-select" name="type" required>
+                        <option selected hidden value="">Pilih Export</option>
+                        <option value="pdf">PDF</option>
+                        <option value="excel">EXCEL</option>
+                    </select>
+                    <label for="floatingInput">Export</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="mb-3 mt-2">
+                <button type="submit" class="btn btn-secondary col-6">Cetak</button>
             </div>
         </div>
     </div>
-    <div class="col-lg-3">
-        <div class="mb-3">
-            <div class="form-floating">
-                <input type="date" class="form-control" id="floatingInput" placeholder="John Doe"
-                    aria-describedby="floatingInputHelp" />
-                <label for="floatingInput">Tanggal Akhir</label>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3">
-        <div class="mb-3">
-            <div class="form-floating">
-                <select id="defaultSelect" class="form-select">
-                    <option selected hidden>Pilih Export</option>
-                    <option value="pdf">PDF</option>
-                    <option value="excel">EXCEL</option>
-                </select>
-                <label for="floatingInput">Export</label>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-2">
-        <div class="mb-3 mt-2">
-            <button type="submit" class="btn btn-danger">Export</button>
-        </div>
-    </div>
-</div>
+</form>
 <div class="card shadow-lg rounded card p-2 pb-3">
     <div class="card-header" id="#atas">
         <span class="fs-4 fw-700">Data Riwayat Produk</span>

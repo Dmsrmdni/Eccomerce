@@ -3,6 +3,7 @@
 use App\Http\Controllers\AlamatController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DetailTransaksiController;
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KecamatanController;
@@ -98,6 +99,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('/refundProduk', RefundProdukController::class);
     Route::get('/HistoryRefundProduk', [RefundProdukController::class, 'index2']);
     Route::resource('/metodePembayaran', MetodePembayaranController::class);
+    Route::post('/export', [ExportController::class, 'export']);
     Route::get('getSub_kategori/{id}', [SubKategoriController::class, 'getSubKategori']);
 });
 Route::get('/getKota/{id}', [KotaController::class, 'getKota']);
