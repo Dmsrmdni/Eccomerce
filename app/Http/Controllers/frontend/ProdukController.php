@@ -19,13 +19,13 @@ class ProdukController extends Controller
     public function produk(Request $request)
     {
         $kategoris = Kategori::all();
-        $produks = Produk::latest()->paginate(9);
+        $produks = Produk::latest()->paginate(1);
         if ($request->kategori) {
             $produks = Produk::where('kategori_id', $request->kategori)->latest()->paginate(9);
         }
 
         if ($request->subKategori) {
-            $produks = Produk::where('sub_kategori_id', $request->subKategori)->latest()->paginate(9);
+            $produks = Produk::where('sub_kategori_id', $request->subKategori)->latest()->paginate(1);
         }
 
         if ($request->min || $request->max) {

@@ -7,6 +7,7 @@
     </div>
 
     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+        {{--
         <!-- Search -->
         <div class="navbar-nav align-items-center">
             <div class="nav-item d-flex align-items-center">
@@ -15,7 +16,7 @@
                     aria-label="Search..." />
             </div>
         </div>
-        <!-- /Search -->
+        <!-- /Search --> --}}
 
         <ul class="navbar-nav flex-row align-items-center ms-auto">
             <!-- User -->
@@ -53,9 +54,9 @@
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                             @php
-                                $users = App\Models\User::findOrFail(auth()->user()->id);
-                                $users->status = 'tidak aktif';
-                                $users->save();
+                            $users = App\Models\User::findOrFail(auth()->user()->id);
+                            $users->status = 'tidak aktif';
+                            $users->save();
                             @endphp
                         </form>
                         </a>
