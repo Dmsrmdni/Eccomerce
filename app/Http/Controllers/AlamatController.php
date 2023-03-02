@@ -68,7 +68,7 @@ class AlamatController extends Controller
         $alamats->label_alamat = $request->label_alamat;
         $alamats->save();
         return redirect()
-            ->route('alamat.index')->with('success', 'Data has been added');
+            ->route('alamats.index')->with('success', 'Data has been added');
     }
 
     /**
@@ -130,7 +130,7 @@ class AlamatController extends Controller
         $alamats->label_alamat = $request->label_alamat;
         $alamats->save();
         return redirect()
-            ->route('alamat.index')->with('success', 'Data has been edited');
+            ->route('alamats.index')->with('success', 'Data has been edited');
 
     }
 
@@ -145,6 +145,6 @@ class AlamatController extends Controller
         $alamats = Alamat::findOrFail($id);
         $alamats->delete();
         return redirect()
-            ->route('alamat.index')->with('success', 'Data has been deleted');
+            ->route('alamats.index')->with('success', 'Data has been deleted');
     }
 }

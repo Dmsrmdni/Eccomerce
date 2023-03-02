@@ -2,7 +2,7 @@
 
 @section('content') --}}
 <div class="container-fluid">
-    <form action="{{ route('alamat.update', $alamats->id) }}" method="post">
+    <form action="{{ route('alamat.update', $alamat->id) }}" method="post">
         @csrf
         @method('put')
         <div class="col-lg-12">
@@ -17,9 +17,9 @@
                             class="form-control mb-2  @error('nama_lengkap') is-invalid @enderror"
                             placeholder="Nama Lengkap" value="{{ $alamats->nama_lengkap }}">
                         @error('nama_lengkap')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
                     </div>
                     <div class="mb-3">
@@ -28,9 +28,9 @@
                             class="form-control mb-2  @error('no_telepon') is-invalid @enderror"
                             placeholder="No Telepon" value="{{ $alamats->no_telepon }}">
                         @error('no_telepon')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
                     </div>
                     <div class="mb-3">
@@ -38,36 +38,37 @@
                         <select name="provinsi_id" id="provinsi"
                             class="form-select @error('provinsi_id') is-invalid @enderror">
                             @foreach ($provinsis as $provinsi)
-                            @if (old('provinsi_id', $provinsi->id) == $alamats->provinsi_id)
-                            <option value="{{ $provinsi->id }}" selected hidden>{{ $provinsi->provinsi }}
-                            </option>
-                            @else
-                            <option value="{{ $provinsi->id }}">{{ $provinsi->provinsi }}</option>
-                            @endif
+                                @if (old('provinsi_id', $provinsi->id) == $alamats->provinsi_id)
+                                    <option value="{{ $provinsi->id }}" selected hidden>{{ $provinsi->provinsi }}
+                                    </option>
+                                @else
+                                    <option value="{{ $provinsi->id }}">{{ $provinsi->provinsi }}</option>
+                                @endif
                             @endforeach
                         </select>
                         @error('provinsi_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Kota</label>
-                        <select name="kota_id" id="kota" class="form-select @error('kota_id') is-invalid @enderror">
+                        <select name="kota_id" id="kota"
+                            class="form-select @error('kota_id') is-invalid @enderror">
                             @foreach ($kotas as $kota)
-                            @if (old('kota_id', $kota->id) == $alamats->kota_id)
-                            <option value="{{ $kota->id }}" selected hidden>{{ $kota->kota }}
-                            </option>
-                            @else
-                            <option value="{{ $kota->id }}">{{ $kota->kota }}</option>
-                            @endif
+                                @if (old('kota_id', $kota->id) == $alamats->kota_id)
+                                    <option value="{{ $kota->id }}" selected hidden>{{ $kota->kota }}
+                                    </option>
+                                @else
+                                    <option value="{{ $kota->id }}">{{ $kota->kota }}</option>
+                                @endif
                             @endforeach
                         </select>
                         @error('kota_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
                     </div>
                     <div class="mb-3">
@@ -75,29 +76,28 @@
                         <select name="kecamatan_id" id="kecamatan"
                             class="form-select @error('kecamatan_id') is-invalid @enderror">
                             @foreach ($kecamatans as $kecamatan)
-                            @if (old('kecamatan_id', $kecamatan->id) == $alamats->kecamatan_id)
-                            <option value="{{ $kecamatan->id }}" selected hidden>{{ $kecamatan->kecamatan }}
-                            </option>
-                            @else
-                            <option value="{{ $kecamatan->id }}">{{ $kecamatan->kecamatan }}</option>
-                            @endif
+                                @if (old('kecamatan_id', $kecamatan->id) == $alamats->kecamatan_id)
+                                    <option value="{{ $kecamatan->id }}" selected hidden>{{ $kecamatan->kecamatan }}
+                                    </option>
+                                @else
+                                    <option value="{{ $kecamatan->id }}">{{ $kecamatan->kecamatan }}</option>
+                                @endif
                             @endforeach
                         </select>
                         @error('kecamatan_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <label class="form-label">alamat_lengkap</label>
                         <textarea name="alamat_lengkap" cols="30" rows="7"
-                            class="form-control mb-2  @error('alamat_lengkap') is-invalid @enderror"
-                            placeholder="alamat_lengkap">{{ $alamats->alamat_lengkap }}</textarea>
+                            class="form-control mb-2  @error('alamat_lengkap') is-invalid @enderror" placeholder="alamat_lengkap">{{ $alamats->alamat_lengkap }}</textarea>
                         @error('alamat_lengkap')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
                     </div>
                     <div class="mb-3">
@@ -106,9 +106,9 @@
                             class="form-control mb-2  @error('detail_lainnya') is-invalid @enderror"
                             placeholder="No Telepon" value="{{ $alamats->detail_lainnya }}">
                         @error('detail_lainnya')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
                     </div>
                     <div class="mb-3">
@@ -119,9 +119,9 @@
                             <option value="kantor">Kantor</option>
                         </select>
                         @error('label_alamat')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
                     </div>
                 </div>
@@ -160,68 +160,68 @@
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function() {
-            $('#provinsi').on('change', function() {
-                var provinsi_id = $(this).val();
-                if (provinsi_id) {
-                    $.ajax({
-                        url: '/getKota/' + provinsi_id,
-                        type: "GET",
-                        data: {
-                            "_token": "{{ csrf_token() }}"
-                        },
-                        dataType: "json",
-                        success: function(data) {
-                            if (data) {
-                                $('#kota').empty();
-                                $('#kota').append(
-                                    '<option hidden>Pilih Kota</option>');
-                                $.each(data, function(key, kotas) {
-                                    $('select[name="kota_id"]').append(
-                                        '<option value="' + kotas.id + '">' +
-                                        kotas.kota + '</option>');
-                                });
-                            } else {
-                                $('#kota').empty();
-                            }
+        $('#provinsi').on('change', function() {
+            var provinsi_id = $(this).val();
+            if (provinsi_id) {
+                $.ajax({
+                    url: '/getKota/' + provinsi_id,
+                    type: "GET",
+                    data: {
+                        "_token": "{{ csrf_token() }}"
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        if (data) {
+                            $('#kota').empty();
+                            $('#kota').append(
+                                '<option hidden>Pilih Kota</option>');
+                            $.each(data, function(key, kotas) {
+                                $('select[name="kota_id"]').append(
+                                    '<option value="' + kotas.id + '">' +
+                                    kotas.kota + '</option>');
+                            });
+                        } else {
+                            $('#kota').empty();
                         }
-                    });
-                } else {
-                    $('#kota').empty();
-                }
-            });
+                    }
+                });
+            } else {
+                $('#kota').empty();
+            }
         });
+    });
 </script>
 <script>
     $(document).ready(function() {
-            $('#kota').on('change', function() {
-                var kota_id = $(this).val();
-                if (kota_id) {
-                    $.ajax({
-                        url: '/getKecamatan/' + kota_id,
-                        type: "GET",
-                        data: {
-                            "_token": "{{ csrf_token() }}"
-                        },
-                        dataType: "json",
-                        success: function(data) {
-                            if (data) {
-                                $('#kecamatan').empty();
-                                $('#kecamatan').append(
-                                    '<option hidden>Pilih kecamatan</option>');
-                                $.each(data, function(key, kecamatans) {
-                                    $('select[name="kecamatan_id"]').append(
-                                        '<option value="' + kecamatans.id + '">' +
-                                        kecamatans.kecamatan + '</option>');
-                                });
-                            } else {
-                                $('#kecamatan').empty();
-                            }
+        $('#kota').on('change', function() {
+            var kota_id = $(this).val();
+            if (kota_id) {
+                $.ajax({
+                    url: '/getKecamatan/' + kota_id,
+                    type: "GET",
+                    data: {
+                        "_token": "{{ csrf_token() }}"
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        if (data) {
+                            $('#kecamatan').empty();
+                            $('#kecamatan').append(
+                                '<option hidden>Pilih kecamatan</option>');
+                            $.each(data, function(key, kecamatans) {
+                                $('select[name="kecamatan_id"]').append(
+                                    '<option value="' + kecamatans.id + '">' +
+                                    kecamatans.kecamatan + '</option>');
+                            });
+                        } else {
+                            $('#kecamatan').empty();
                         }
-                    });
-                } else {
-                    $('#kecamatan').empty();
-                }
-            });
+                    }
+                });
+            } else {
+                $('#kecamatan').empty();
+            }
         });
+    });
 </script>
 {{-- @endsection --}}

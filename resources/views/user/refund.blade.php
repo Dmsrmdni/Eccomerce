@@ -34,6 +34,10 @@
             {{-- {{ $refunds->links() }} --}}
         </div>
     </div>
+    @else
+    <div class="alert alert-dark" role="alert">
+        Data Kosong
+    </div>
     @endif
 </section>
 @endsection

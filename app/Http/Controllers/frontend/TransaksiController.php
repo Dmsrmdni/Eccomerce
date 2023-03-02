@@ -29,23 +29,24 @@ class TransaksiController extends Controller
             'keranjang_id' => 'required',
         ]);
 
-        $keranjangs = [];
-        $total_harga = 0;
         if ($request->keranjang_id) {
             $keranjangs = Keranjang::whereIn('id', $request->keranjang_id)->get();
             $total_harga = Keranjang::whereIn('id', $request->keranjang_id)->where('status', 'keranjang')->sum("total_harga");
+            $total = $total_harga;
         }
 
-        $voucherUsers = VoucherUser::where('user_id', auth()->user()->id)->get();
-        $vouchers = Voucher::where('status', 'aktif')->where('label', 'gratis')->get();
+        $voucher_saya = '';
+        if ($request->voucher_id) {
+            $voucher_saya = VoucherUser::where('id', $request->voucher_id)->first();
+            $vouchers = Voucher::where('id', $voucher_saya->voucher_id)->first();
+            $diskon = $total_harga * ($vouchers->diskon / 100);
+            $total_harga -= $diskon;
+        }
+
+        $voucher_users = VoucherUser::where('user_id', auth()->user()->id)->where('status', 'belum dipakai')->get();
         $metodePembayarans = MetodePembayaran::all();
         $alamats = Alamat::where('user_id', auth()->user()->id)->get();
-
-        // $cobain = Keranjang::where('id', $request->keranjang_id)->get();
-
-        // dd($keranjangs);
-
-        return view('user.transaksi', compact('keranjangs', 'total_harga', 'voucherUsers', 'vouchers', 'metodePembayarans', 'alamats'));
+        return view('user.transaksi', compact('keranjangs', 'total', 'total_harga', 'voucher_users', 'voucher_saya', 'metodePembayarans', 'alamats'));
     }
 
     /**
@@ -66,6 +67,7 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
+
         //validasi
         $validated = $request->validate([
             'keranjang_id' => 'required',
@@ -89,6 +91,12 @@ class TransaksiController extends Controller
         $transaksis->voucher_id = $request->voucher_id;
         $transaksis->metodePembayaran_id = $request->metodePembayaran_id;
         $transaksis->save();
+
+        if ($transaksis->voucher_id != '') {
+            $voucher_users = VoucherUser::findOrFail($transaksis->voucher_id);
+            $voucher_users->status = 'dipakai';
+            $voucher_users->save();
+        }
 
         foreach ($request->keranjang_id as $keranjang) {
             $detailTransaksi = new DetailTransaksi();
@@ -153,7 +161,7 @@ class TransaksiController extends Controller
         }
         $users->save();
 
-        return redirect('/profil')->with('success', 'Data has been added');
+        return redirect('/profil/pesanan')->with('success', 'Data has been added');
 
     }
 

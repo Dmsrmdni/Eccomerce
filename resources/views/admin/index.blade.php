@@ -17,7 +17,7 @@
     </div>
 </div>
 <div class="row mb">
-    <div class="col-sm-6 col-lg-4 mb-4">
+    {{-- <div class="col-sm-6 col-lg-4 mb-4">
         <div class="card p-3">
             <figure class="p-3 mb-0">
                 <blockquote class="blockquote">
@@ -28,7 +28,7 @@
                 </figcaption>
             </figure>
         </div>
-    </div>
+    </div> --}}
     <div class="col-sm-6 col-lg-4 mb-4">
         <div class="card p-3">
             <figure class="p-3 mb-0">
@@ -41,7 +41,7 @@
             </figure>
         </div>
     </div>
-    <div class="col-sm-6 col-lg-4 mb-4">
+    {{-- <div class="col-sm-6 col-lg-4 mb-4">
         <div class="card p-3">
             <figure class="p-3 mb-0">
                 <blockquote class="blockquote">
@@ -52,7 +52,7 @@
                 </figcaption>
             </figure>
         </div>
-    </div>
+    </div> --}}
 </div>
 
 <div class="row mb-4">
@@ -70,7 +70,7 @@
     {{-- EndData Transaksi --}}
 
     {{-- Data Transaksi --}}
-    <div class="col-xl-6">
+    {{-- <div class="col-xl-6">
         <div class="card p-3 mb-0">
             <h5 class="m-0 me-2">Data Pembelian Voucher/bulan</h5>
             <div class="card-body">
@@ -79,7 +79,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     {{-- EndData Transaksi --}}
 </div>
 
@@ -197,7 +197,7 @@
 {{-- EndPembelianProduk --}}
 
 {{-- PembelianVoucher --}}
-<script>
+{{-- <script>
     const pembelian_voucher = document.getElementById('pembelian_voucher');
         const voucher = new Chart(pembelian_voucher, {
             type: 'line',
@@ -238,7 +238,7 @@
                 }
             }
         });
-</script>
+</script> --}}
 {{-- EndPembelianVoucher --}}
 
 {{-- BarangMasukKeluarBulan --}}

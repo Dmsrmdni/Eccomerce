@@ -30,7 +30,7 @@ class DetailTransaksi extends Model
 
     public function reviewProduk()
     {
-        return $this->hasMany(ReviewProduk::class);
+        return $this->hasMany(ReviewProduk::class, 'detailTransaksi_id');
     }
 
     public function refundProduk()

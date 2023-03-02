@@ -53,9 +53,17 @@ Route::get('/produk/{slug}', [App\Http\Controllers\frontend\ProdukController::cl
 Route::get('/produk', [App\Http\Controllers\frontend\ProdukController::class, 'produk']);
 Route::get('/detailProduk/{id}', [App\Http\Controllers\frontend\ProdukController::class, 'detailProduk']);
 Route::get('/ulasan/{id}', [App\Http\Controllers\frontend\ReviewController::class, 'review']);
-Route::resource('/voucher', App\Http\Controllers\frontend\VoucherController::class);
+Route::get('/voucher', [App\Http\Controllers\frontend\VoucherController::class, 'voucher']);
+Route::post('/voucher/klaim', [App\Http\Controllers\frontend\VoucherController::class, 'klaim']);
 
 Route::middleware('auth')->group(function () {
+    Route::get('/profil/akun', [App\Http\Controllers\frontend\UserController::class, 'akun']);
+    Route::get('/profil/alamat', [App\Http\Controllers\frontend\UserController::class, 'alamat']);
+    Route::get('/profil/voucher', [App\Http\Controllers\frontend\UserController::class, 'voucher']);
+    Route::get('/profil/pesanan', [App\Http\Controllers\frontend\UserController::class, 'pesanan']);
+    Route::post('/histori/konfirmasi/{id}', [App\Http\Controllers\frontend\UserController::class, 'konfirmasiPesanan']);
+    Route::post('/histori/refund', [App\Http\Controllers\frontend\UserController::class, 'refundProduk']);
+    Route::post('/histori/review', [App\Http\Controllers\frontend\UserController::class, 'reviewProduk']);
     Route::resource('/profil', App\Http\Controllers\frontend\UserController::class);
     Route::resource('/wishlist', App\Http\Controllers\frontend\WishlistController::class);
     Route::get('/deleteAllWishlist', [App\Http\Controllers\frontend\WishlistController::class, 'destroyAll']);
@@ -65,9 +73,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('/checkout', App\Http\Controllers\frontend\TransaksiController::class);
     Route::resource('/topUps', App\Http\Controllers\frontend\TopUpController::class);
     Route::get('/histori', [App\Http\Controllers\frontend\HistoryController::class, 'history']);
-    Route::get('/histori/proses', [App\Http\Controllers\frontend\HistoryController::class, 'proses']);
-    Route::get('/histori/refund', [App\Http\Controllers\frontend\HistoryController::class, 'refund']);
-    Route::post('/histori/konfirmasi/{id}', [App\Http\Controllers\frontend\HistoryController::class, 'konfirmasi']);
     Route::post('/ulasan/create', [App\Http\Controllers\frontend\ReviewController::class, 'store']);
     Route::resource('/alamat', App\Http\Controllers\frontend\AlamatController::class);
     Route::resource('/voucherSaya', App\Http\Controllers\frontend\VoucherUserController::class);

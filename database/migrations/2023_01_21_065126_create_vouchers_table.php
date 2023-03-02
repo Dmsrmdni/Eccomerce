@@ -16,8 +16,6 @@ return new class extends Migration
         Schema::create('vouchers', function (Blueprint $table) {
             $table->id();
             $table->string('kode_voucher');
-            $table->integer('harga');
-            $table->enum('label', ['gratis', 'berbayar']);
             $table->integer('diskon');
             $table->date('waktu_mulai');
             $table->date('waktu_berakhir');

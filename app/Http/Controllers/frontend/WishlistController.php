@@ -15,7 +15,7 @@ class WishlistController extends Controller
      */
     public function index()
     {
-        $wishlists = Wishlist::where('user_id', auth()->user()->id)->get();
+        $wishlists = Wishlist::where('user_id', auth()->user()->id)->paginate(4)->withQueryString();
         return view('user.wishlist', compact('wishlists'));
     }
 
@@ -45,13 +45,13 @@ class WishlistController extends Controller
         $cek_wishlists = Wishlist::where('user_id', auth()->user()->id)->where('produk_id', $request->produk_id)->first();
 
         if (!empty($cek_wishlists)) {
-            return back()->with('gagal', 'Data telah di tambahkan');
+            return back()->with('gagal', 'sudah di tambahkan');
         } else {
             $wishlists = new Wishlist();
             $wishlists->user_id = auth()->user()->id;
             $wishlists->produk_id = $request->produk_id;
             $wishlists->save();
-            return back()->with('berhasil', 'Data has been added');
+            return back()->with('berhasil', 'berhasil di tambahkan');
         }
     }
 

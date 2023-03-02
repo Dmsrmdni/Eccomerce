@@ -4,6 +4,7 @@ namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Keranjang;
+use App\Models\VoucherUser;
 use Illuminate\Http\Request;
 
 class KeranjangController extends Controller
@@ -16,7 +17,8 @@ class KeranjangController extends Controller
     public function index()
     {
         $keranjangs = Keranjang::where('status', 'keranjang')->where('user_id', auth()->user()->id)->latest()->get();
-        return view('user.keranjang', compact('keranjangs'));
+        $voucher_users = VoucherUser::where('user_id', auth()->user()->id)->where('status', 'belum dipakai')->get();
+        return view('user.keranjang', compact('keranjangs', 'voucher_users'));
     }
 
     /**
@@ -44,9 +46,9 @@ class KeranjangController extends Controller
             'jumlah' => 'required',
         ]);
 
-        $cek_keranjangs = Keranjang::where('user_id', auth()->user()->id)->where('produk_id', $request->produk_id)->where('ukuran', $request->ukuran)->first();
+        $cek_keranjangs = Keranjang::where('user_id', auth()->user()->id)->where('produk_id', $request->produk_id)->where('ukuran', $request->ukuran)->where('status', 'keranjang')->first();
         if (!empty($cek_keranjangs)) {
-            $keranjangs = Keranjang::where('user_id', auth()->user()->id)->where('produk_id', $request->produk_id)->where('ukuran', $request->ukuran)->first();
+            $keranjangs = Keranjang::where('user_id', auth()->user()->id)->where('produk_id', $request->produk_id)->where('ukuran', $request->ukuran)->where('status', 'keranjang')->first();
             $keranjangs->jumlah += $request->jumlah;
             $diskon = (($keranjangs->produk->diskon / 100) * $keranjangs->produk->harga);
             $harga = ($keranjangs->produk->harga * $request->jumlah) - $diskon;

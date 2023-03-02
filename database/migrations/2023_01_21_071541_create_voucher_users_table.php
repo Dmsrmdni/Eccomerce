@@ -19,8 +19,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('voucher_id');
             $table->foreign('voucher_id')->references('id')->on('vouchers')->onDelete('cascade');
-            $table->unsignedBigInteger('metodePembayaran_id');
-            $table->foreign('metodePembayaran_id')->references('id')->on('metode_pembayarans')->onDelete('cascade');
+            $table->enum('status', ['dipakai', 'belum dipakai'])->default('belum dipakai');
             $table->timestamps();
         });
     }

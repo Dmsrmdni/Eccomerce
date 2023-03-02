@@ -8,7 +8,6 @@ use App\Models\RefundProduk;
 use App\Models\RiwayatProduk;
 use App\Models\Transaksi;
 use App\Models\User;
-use App\Models\VoucherUser;
 use DateTime;
 use Illuminate\Http\Request;
 
@@ -18,9 +17,9 @@ class DashboardController extends Controller
     {
 
         $date = new DateTime();
-        $pendapatan_voucher = VoucherUser::join('vouchers', 'voucher_users.voucher_id', '=', 'vouchers.id')->whereYear('voucher_users.created_at', $date->format('Y'))->sum("vouchers.harga");
+        // $pendapatan_voucher = VoucherUser::join('vouchers', 'voucher_users.voucher_id', '=', 'vouchers.id')->whereYear('voucher_users.created_at', $date->format('Y'))->sum("vouchers.harga");
         $pendapatan_transaksi = Transaksi::whereYear('created_at', $date->format('Y'))->sum('total_harga');
-        $total_pendapatan = ($pendapatan_voucher + $pendapatan_transaksi);
+        // $total_pendapatan = ($pendapatan_voucher + $pendapatan_transaksi);
 
         // pembelianVoucher
         $pembelian_produk_jan = DetailTransaksi::whereMonth('created_at', '01')->whereYear('created_at', $date->format('Y'))->count();
@@ -38,18 +37,18 @@ class DashboardController extends Controller
         //endPembelianVoucher
 
         // pembelianVoucher
-        $pembelian_voucher_jan = VoucherUser::whereMonth('created_at', '01')->whereYear('created_at', $date->format('Y'))->count();
-        $pembelian_voucher_feb = VoucherUser::whereMonth('created_at', '02')->whereYear('created_at', $date->format('Y'))->count();
-        $pembelian_voucher_mar = VoucherUser::whereMonth('created_at', '03')->whereYear('created_at', $date->format('Y'))->count();
-        $pembelian_voucher_apr = VoucherUser::whereMonth('created_at', '04')->whereYear('created_at', $date->format('Y'))->count();
-        $pembelian_voucher_mei = VoucherUser::whereMonth('created_at', '05')->whereYear('created_at', $date->format('Y'))->count();
-        $pembelian_voucher_jun = VoucherUser::whereMonth('created_at', '06')->whereYear('created_at', $date->format('Y'))->count();
-        $pembelian_voucher_jul = VoucherUser::whereMonth('created_at', '07')->whereYear('created_at', $date->format('Y'))->count();
-        $pembelian_voucher_agu = VoucherUser::whereMonth('created_at', '08')->whereYear('created_at', $date->format('Y'))->count();
-        $pembelian_voucher_sep = VoucherUser::whereMonth('created_at', '09')->whereYear('created_at', $date->format('Y'))->count();
-        $pembelian_voucher_okt = VoucherUser::whereMonth('created_at', '10')->whereYear('created_at', $date->format('Y'))->count();
-        $pembelian_voucher_nov = VoucherUser::whereMonth('created_at', '11')->whereYear('created_at', $date->format('Y'))->count();
-        $pembelian_voucher_des = VoucherUser::whereMonth('created_at', '12')->whereYear('created_at', $date->format('Y'))->count();
+        // $pembelian_voucher_jan = VoucherUser::whereMonth('created_at', '01')->whereYear('created_at', $date->format('Y'))->count();
+        // $pembelian_voucher_feb = VoucherUser::whereMonth('created_at', '02')->whereYear('created_at', $date->format('Y'))->count();
+        // $pembelian_voucher_mar = VoucherUser::whereMonth('created_at', '03')->whereYear('created_at', $date->format('Y'))->count();
+        // $pembelian_voucher_apr = VoucherUser::whereMonth('created_at', '04')->whereYear('created_at', $date->format('Y'))->count();
+        // $pembelian_voucher_mei = VoucherUser::whereMonth('created_at', '05')->whereYear('created_at', $date->format('Y'))->count();
+        // $pembelian_voucher_jun = VoucherUser::whereMonth('created_at', '06')->whereYear('created_at', $date->format('Y'))->count();
+        // $pembelian_voucher_jul = VoucherUser::whereMonth('created_at', '07')->whereYear('created_at', $date->format('Y'))->count();
+        // $pembelian_voucher_agu = VoucherUser::whereMonth('created_at', '08')->whereYear('created_at', $date->format('Y'))->count();
+        // $pembelian_voucher_sep = VoucherUser::whereMonth('created_at', '09')->whereYear('created_at', $date->format('Y'))->count();
+        // $pembelian_voucher_okt = VoucherUser::whereMonth('created_at', '10')->whereYear('created_at', $date->format('Y'))->count();
+        // $pembelian_voucher_nov = VoucherUser::whereMonth('created_at', '11')->whereYear('created_at', $date->format('Y'))->count();
+        // $pembelian_voucher_des = VoucherUser::whereMonth('created_at', '12')->whereYear('created_at', $date->format('Y'))->count();
         //endPembelianVoucher
 
         // BarangMasukBulan
@@ -96,9 +95,9 @@ class DashboardController extends Controller
         $refunds = RefundProduk::whereYear('created_at', $date->format('Y'))->count();
 
         if ($request->tahun) {
-            $pendapatan_voucher = VoucherUser::join('vouchers', 'voucher_users.voucher_id', '=', 'vouchers.id')->whereYear('voucher_users.created_at', $request->tahun)->sum("vouchers.harga");
+            // $pendapatan_voucher = VoucherUser::join('vouchers', 'voucher_users.voucher_id', '=', 'vouchers.id')->whereYear('voucher_users.created_at', $request->tahun)->sum("vouchers.harga");
             $pendapatan_transaksi = Transaksi::whereYear('created_at', $request->tahun)->sum('total_harga');
-            $total_pendapatan = ($pendapatan_voucher + $pendapatan_transaksi);
+            // $total_pendapatan = ($pendapatan_voucher + $pendapatan_transaksi);
 
             // pembelianVoucher
             $pembelian_produk_jan = DetailTransaksi::whereMonth('created_at', '01')->whereYear('created_at', $request->tahun)->count();
@@ -115,20 +114,20 @@ class DashboardController extends Controller
             $pembelian_produk_des = DetailTransaksi::whereMonth('created_at', '12')->whereYear('created_at', $request->tahun)->count();
             //endPembelianVoucher
 
-            // pembelianVoucher
-            $pembelian_voucher_jan = VoucherUser::whereMonth('created_at', '01')->whereYear('created_at', $request->tahun)->count();
-            $pembelian_voucher_feb = VoucherUser::whereMonth('created_at', '02')->whereYear('created_at', $request->tahun)->count();
-            $pembelian_voucher_mar = VoucherUser::whereMonth('created_at', '03')->whereYear('created_at', $request->tahun)->count();
-            $pembelian_voucher_apr = VoucherUser::whereMonth('created_at', '04')->whereYear('created_at', $request->tahun)->count();
-            $pembelian_voucher_mei = VoucherUser::whereMonth('created_at', '05')->whereYear('created_at', $request->tahun)->count();
-            $pembelian_voucher_jun = VoucherUser::whereMonth('created_at', '06')->whereYear('created_at', $request->tahun)->count();
-            $pembelian_voucher_jul = VoucherUser::whereMonth('created_at', '07')->whereYear('created_at', $request->tahun)->count();
-            $pembelian_voucher_agu = VoucherUser::whereMonth('created_at', '08')->whereYear('created_at', $request->tahun)->count();
-            $pembelian_voucher_sep = VoucherUser::whereMonth('created_at', '09')->whereYear('created_at', $request->tahun)->count();
-            $pembelian_voucher_okt = VoucherUser::whereMonth('created_at', '10')->whereYear('created_at', $request->tahun)->count();
-            $pembelian_voucher_nov = VoucherUser::whereMonth('created_at', '11')->whereYear('created_at', $request->tahun)->count();
-            $pembelian_voucher_des = VoucherUser::whereMonth('created_at', '12')->whereYear('created_at', $request->tahun)->count();
-            //endPembelianVoucher
+            // // pembelianVoucher
+            // $pembelian_voucher_jan = VoucherUser::whereMonth('created_at', '01')->whereYear('created_at', $request->tahun)->count();
+            // $pembelian_voucher_feb = VoucherUser::whereMonth('created_at', '02')->whereYear('created_at', $request->tahun)->count();
+            // $pembelian_voucher_mar = VoucherUser::whereMonth('created_at', '03')->whereYear('created_at', $request->tahun)->count();
+            // $pembelian_voucher_apr = VoucherUser::whereMonth('created_at', '04')->whereYear('created_at', $request->tahun)->count();
+            // $pembelian_voucher_mei = VoucherUser::whereMonth('created_at', '05')->whereYear('created_at', $request->tahun)->count();
+            // $pembelian_voucher_jun = VoucherUser::whereMonth('created_at', '06')->whereYear('created_at', $request->tahun)->count();
+            // $pembelian_voucher_jul = VoucherUser::whereMonth('created_at', '07')->whereYear('created_at', $request->tahun)->count();
+            // $pembelian_voucher_agu = VoucherUser::whereMonth('created_at', '08')->whereYear('created_at', $request->tahun)->count();
+            // $pembelian_voucher_sep = VoucherUser::whereMonth('created_at', '09')->whereYear('created_at', $request->tahun)->count();
+            // $pembelian_voucher_okt = VoucherUser::whereMonth('created_at', '10')->whereYear('created_at', $request->tahun)->count();
+            // $pembelian_voucher_nov = VoucherUser::whereMonth('created_at', '11')->whereYear('created_at', $request->tahun)->count();
+            // $pembelian_voucher_des = VoucherUser::whereMonth('created_at', '12')->whereYear('created_at', $request->tahun)->count();
+            // //endPembelianVoucher
 
             // BarangMasukBulan
             $barang_masuk_bulan_jan = RiwayatProduk::where('type', 'masuk')->whereMonth('created_at', '01')->whereYear('created_at', $request->tahun)->count();
@@ -176,21 +175,21 @@ class DashboardController extends Controller
         }
 
         return view('admin.index', compact(
-            'pendapatan_voucher',
+            // 'pendapatan_voucher',
             'pendapatan_transaksi',
-            'total_pendapatan',
-            'pembelian_voucher_jan',
-            'pembelian_voucher_feb',
-            'pembelian_voucher_mar',
-            'pembelian_voucher_apr',
-            'pembelian_voucher_mei',
-            'pembelian_voucher_jun',
-            'pembelian_voucher_jul',
-            'pembelian_voucher_agu',
-            'pembelian_voucher_sep',
-            'pembelian_voucher_okt',
-            'pembelian_voucher_nov',
-            'pembelian_voucher_des',
+            // 'total_pendapatan',
+            // 'pembelian_voucher_jan',
+            // 'pembelian_voucher_feb',
+            // 'pembelian_voucher_mar',
+            // 'pembelian_voucher_apr',
+            // 'pembelian_voucher_mei',
+            // 'pembelian_voucher_jun',
+            // 'pembelian_voucher_jul',
+            // 'pembelian_voucher_agu',
+            // 'pembelian_voucher_sep',
+            // 'pembelian_voucher_okt',
+            // 'pembelian_voucher_nov',
+            // 'pembelian_voucher_des',
             'pembelian_produk_jan',
             'pembelian_produk_feb',
             'pembelian_produk_mar',

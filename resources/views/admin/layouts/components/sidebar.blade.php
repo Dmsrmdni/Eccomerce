@@ -110,19 +110,19 @@
         {{-- EndProduk --}}
 
         {{-- Produk --}}
-        <li class="menu-item {{ Request::is('admin/supplier*') ? 'active' : '' }}">
-            <a href="/admin/supplier" class="menu-link">
+        <li class="menu-item {{ Request::is('admin/produk*') ? 'active' : '' }}">
+            <a href="/admin/produk" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-closet"></i>
-                <div>Supplier</div>
+                <div>Produk</div>
             </a>
         </li>
         {{-- EndProduk --}}
 
         {{-- Produk --}}
-        <li class="menu-item {{ Request::is('admin/produk*') ? 'active' : '' }}">
-            <a href="/admin/produk" class="menu-link">
+        <li class="menu-item {{ Request::is('admin/supplier*') ? 'active' : '' }}">
+            <a href="/admin/supplier" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-closet"></i>
-                <div>Produk</div>
+                <div>Supplier</div>
             </a>
         </li>
         {{-- EndProduk --}}

@@ -1,80 +1,29 @@
 @extends('user.layouts.users')
 
 @section('content')
-{{--
-
-<head>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
-    <link rel="stylesheet"
-        href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
-        integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
-    <link rel="stylesgeet"
-        href="https://rawgit.com/creativetimofficial/material-kit/master/assets/css/material-kit.css">
-</head> --}}
-
-{{--
-
-<body class="profile-page"> --}}
-    {{-- <nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg "
-        color-on-scroll="100" id="sectionsNav">
-        <div class="container">
-            <div class="navbar-translate">
-                <a class="navbar-brand" href="https://demos.creative-tim.com/material-kit/index.html"
-                    target="_blank">Material Kit </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
-
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ml-auto">
-                    <li class="dropdown nav-item">
-                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
-                            <i class="material-icons">apps</i> Components
-                        </a>
-                        <div class="dropdown-menu dropdown-with-icons">
-                            <a href="../index.html" class="dropdown-item">
-                                <i class="material-icons">layers</i> All Components
-                            </a>
-
-                            <a href="https://demos.creative-tim.com/material-kit/docs/2.0/getting-started/introduction.html"
-                                class="dropdown-item">
-                                <i class="material-icons">content_paste</i> Documentation
-                            </a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)">
-                            <i class="material-icons">cloud_download</i> Download
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://twitter.com/CreativeTim" target="_blank">
-                            <i class="fa fa-twitter"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://www.facebook.com/CreativeTim" target="_blank">
-                            <i class="fa fa-facebook-square"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://www.instagram.com/CreativeTimOfficial" target="_blank">
-                            <i class="fa fa-instagram"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav> --}}
-
     <style>
+        .rating-css input {
+            display: none;
+        }
+
+        .rating-css input+label {
+            font-size: 25px;
+            color: yellow;
+            text-shadow: 1px 1px 0 grey;
+            cursor: pointer;
+        }
+
+        .rating-css input:checked+label~label {
+            color: #b4afaf;
+        }
+
+        .rating-css label:active {
+            transform: scale(0.8);
+            transition: 0.3s ease;
+        }
+    </style>
+    {{-- Male --}}
+    {{-- <style>
         html * {
             -webkit-font-smoothing: antialiased;
         }
@@ -417,12 +366,6 @@
                                                                 <input type="radio" name="jumlah_saldo"
                                                                     value="300000">300.000
                                                             </div>
-                                                            {{-- <div class="form-group">
-                                                                <label for="message-text"
-                                                                    class="col-form-label">Message:</label>
-                                                                <textarea class="form-control"
-                                                                    id="message-text"></textarea>
-                                                            </div> --}}
                                                             <div class="mb-3">
                                                                 <select name="metodePembayaran_id"
                                                                     class="form-control @error('metodePembayaran_id') is-invalid @enderror">
@@ -460,27 +403,647 @@
                             <a href="/histori" class="btn btn-primary m-1">history barang</a>
                             <a href="/histori/proses" class="btn btn-primary m-1">dalam proses</a>
                             <a href="/histori/refund" class="btn btn-primary m-1">refund produk</a>
-                            <a href="" class="btn btn-primary m-1">alamat</a>
-                            <a href="" class="btn btn-primary m-1">Voucher Saya</a>
+                            <a href="/alamat" class="btn btn-primary m-1">alamat</a>
+                            <a href="/voucherSaya" class="btn btn-primary m-1">Voucher Saya</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div> --}}
+    {{-- EndMale --}}
+
+    {{-- Canvas --}}
+    {{-- <div class="container clearfix">
+
+        <div class="row clearfix">
+            <div class="tabs side-tabs mb-0 clearfix">
+
+                <div class="col-lg-8" style="margin-right:50px">
+
+                    <img src="{{ asset($users->profile) }}" class="alignleft img-circle img-thumbnail my-0" alt="Avatar"
+                        style="max-width: 84px;">
+
+                    <div class="heading-block border-0">
+                        <h3>{{ $users->name }}</h3>
+                        <span style="margin-top:-7px">{{ $users->email }}</span>
+                    </div>
+
+                    <div class="tab-container" style="margin-top: -35px">
+
+                        <div class="tab-content clearfix" id="tabs-profil">
+                            <form action="{{ route('profil.update', $users->id) }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                @method('put')
+                                <div class="form-process">
+                                    <div class="css3-spinner">
+                                        <div class="css3-spinner-scaler"></div>
+                                    </div>
+                                </div>
+                                <div class="w-100"></div>
+                                <div class="col-12 form-group">
+                                    <label>Name:</label>
+                                    <input type="text" name="name" class="form-control required"
+                                        value="{{ $users->name }}">
+                                </div>
+                                <div class="col-12 form-group">
+                                    <label>Email:</label>
+                                    <input type="email" name="email" class="form-control required"
+                                        value="{{ $users->email }}">
+                                </div>
+                                <div class="col-12 form-group">
+                                    <label>No telepon</label>
+                                    <input type="number" min="0" name="no_telepon"
+                                        class="form-control numbers required" value="{{ $users->no_telepon }}">
+                                </div>
+                                <div class="col-12 form-group">
+                                    <label>Jenis Kelamin</label><br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input required" id="Laki-laki" type="radio"
+                                            name="jenis_kelamin" value="Laki-laki"
+                                            {{ $users->jenis_kelamin == 'Laki-laki' ? 'checked' : null }}>
+                                        <label class="form-check-label nott ms-2" for="Laki-laki">Laki-laki</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" id="Perempuan" type="radio" name="jenis_kelamin"
+                                            value="Perempuan" {{ $users->jenis_kelamin == 'Perempuan' ? 'checked' : null }}>
+                                        <label class="form-check-label nott ms-2" for="Perempuan">Perempuan</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 form-group">
+                                    <label>tanggal lahir</label>
+                                    <input type="date" name="tanggal_lahir" class="form-control required"
+                                        value="{{ $users->tanggal_lahir }}">
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="button button-black">simpan</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-content clearfix" id="tabs-alamat">
+
+                            <a class="button button-circle button-black mb-3 button-small" data-bs-toggle="modal"
+                                data-bs-target="#alamatCreate">tambah alamat</a>
+
+                            <div class="modal fade modal-lg" id="alamatCreate" data-bs-backdrop="static" tabindex="-1"
+                                role="dialog" aria-labelledby="alamatCreate" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <form action="{{ route('alamat.store') }}" method="post">
+                                        @csrf
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Tambah Alamat</h4>
+                                                <button type="button" class="btn-close btn-sm" data-bs-dismiss="modal"
+                                                    aria-hidden="true"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                @csrf
+                                                <div class="row">
+                                                    <div class="col-6 mb-3">
+                                                        <label for="nama_lengkap">Nama Lengkap</label>
+                                                        <div class="input-group">
+                                                            <input type="text" id="nama_lengkap" name="nama_lengkap"
+                                                                placeholder="Nama Lengkap" class="form-control required" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-6 mb-3">
+                                                        <label for="no_telepon">No telepon</label>
+                                                        <div class="input-group">
+                                                            <input type="number" id="no_telepon" min="0"
+                                                                name="no_telepon" placeholder="No telepon"
+                                                                class="required form-control numbers" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="w-100"></div>
+
+                                                <div class="col-12 mb-3">
+                                                    <label for="provinsi">Provinsi</label>
+                                                    <select id="provinsi" name="provinsi_id" class="form-select">
+                                                        <option value="" selected hidden>Pilih provinsi
+                                                        </option>
+                                                        @foreach ($provinsis as $provinsi)
+                                                            <option value="{{ $provinsi->id }}">{{ $provinsi->provinsi }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
+                                                <div class="w-100"></div>
+
+                                                <div class="col-12 mb-3">
+                                                    <label for="kota">Kota/Kabupaten</label>
+                                                    <select id="kota" name="kota_id" class="form-select">
+                                                        <option value="" hidden>Pilih Provinsi lebih dulu</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="w-100"></div>
+
+                                                <div class="col-12 mb-3">
+                                                    <label for="kecamatan">Kecamatan</label>
+                                                    <select id="kecamatan" name="kecamatan_id" class="form-select">
+                                                        <option value="" hidden>Pilih Kota/Kabupaten lebih dulu
+                                                        </option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="w-100"></div>
+
+                                                <div class="col-12 mb-3">
+                                                    <label for="alamat_lengkap">Alamat Lengkap
+                                                    </label>
+                                                    <textarea class="required form-control" id="alamat_lengkap" name="alamat_lengkap" rows="3" cols="30"
+                                                        placeholder="Nama jalan, Gedung, No.Rumah"></textarea>
+                                                </div>
+
+                                                <div class="w-100"></div>
+
+                                                <div class="col-12 mb-3">
+                                                    <label for="detail_lainnya">Detail Lainnya</label>
+                                                    <div class="input-group">
+                                                        <input type="text" id="detail_lainnya" name="detail_lainnya"
+                                                            placeholder="Detail lainnya (cth:Blok/Patokan)"
+                                                            class="form-control" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="w-100"></div>
+                                                <div class="col-12">
+                                                    <label class="d-block">Tandai Sebagai</label>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input required" id="Rumah"
+                                                            type="radio" name="label_alamat" value="Rumah">
+                                                        <label class="form-check-label nott ms-2"
+                                                            for="Rumah">Rumah</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" id="Kantor" type="radio"
+                                                            name="label_alamat" value="Kantor">
+                                                        <label class="form-check-label nott ms-2"
+                                                            for="Kantor">Kantor</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">kirim</button>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </form>
+                                </div><!-- /.modal-dialog -->
+                            </div>
+                            @if (count($alamats))
+                                @foreach ($alamats as $alamat)
+                                    <div class="promo promo-light promo-full p-3 mb-3">
+                                        <div class="container">
+                                            <div class="row align-items-center">
+                                                <div class="col-12 col-lg">
+                                                    <h4>
+                                                        <div id="nama_lengkap" class="d-inline">
+                                                            {{ $alamat->nama_lengkap }}
+                                                        </div> <span id="no_telepon">
+                                                            {{ $alamat->no_telepon }}</span>
+                                                    </h4>
+                                                    <div style="margin-top:-10px" id="alamat_lengkap">
+                                                        {{ $alamat->alamat_lengkap }}</div>
+
+                                                    @if ($alamat->detail_lainnya != '')
+                                                        <div>({{ $alamat->detail_lainnya }})</div>
+                                                    @endif
+
+                                                </div>
+                                                <div class="col-12 col-lg-auto mt-4 mt-lg-0">
+                                                    <form id="deleteAlamat{{ $alamat->id }}"
+                                                        action="{{ route('alamat.destroy', $alamat->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <a data-bs-toggle="modal"
+                                                            data-bs-target="#alamatEdit{{ $alamat->id }}"
+                                                            class="button button-circle button-black button-small m-0 mx-1">Ubah</a>
+                                                        <a id="btnDeleteAlamat" data-id="{{ $alamat->id }}"
+                                                            class="button button-circle button-black button-small m-0">Hapus</a>
+                                                    </form>
+
+                                                    <div class="modal fade modal-lg" id="alamatEdit{{ $alamat->id }}"
+                                                        data-bs-backdrop="static" tabindex="-1" role="dialog"
+                                                        aria-labelledby="alamatEdit" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <form action="{{ route('alamat.update', $alamat->id) }}"
+                                                                method="post">
+                                                                @csrf
+                                                                @method('put')
+                                                                @php
+                                                                    $kotas = App\Models\Kota::where('provinsi_id', $alamat->provinsi_id)->get();
+                                                                    $kecamatans = App\Models\Kecamatan::where('kota_id', $alamat->kota_id)->get();
+                                                                @endphp
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title">Edit Alamat</h4>
+                                                                        <button type="button" class="btn-close btn-sm"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-hidden="true"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        @csrf
+                                                                        <div class="row">
+                                                                            <div class="col-6 mb-3">
+                                                                                <label for="nama_lengkap">Nama
+                                                                                    Lengkap</label>
+                                                                                <div class="input-group">
+                                                                                    <input type="text"
+                                                                                        id="nama_lengkap"
+                                                                                        name="nama_lengkap"
+                                                                                        value="{{ $alamat->nama_lengkap }}"
+                                                                                        class="form-control required" />
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-6 mb-3">
+                                                                                <label for="no_telepon">No telepon</label>
+                                                                                <div class="input-group">
+                                                                                    <input type="number" id="no_telepon"
+                                                                                        min="0" name="no_telepon"
+                                                                                        value="{{ $alamat->no_telepon }}"
+                                                                                        class="required form-control numbers" />
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="w-100"></div>
+
+                                                                        <div class="col-12 mb-3">
+                                                                            <label for="provinsi">Provinsi</label>
+                                                                            <select id="provinsiEdit" name="provinsi_id"
+                                                                                class="form-select">
+                                                                                <option value="" selected hidden>
+                                                                                    Pilih provinsi
+                                                                                </option>
+                                                                                @foreach ($provinsis as $provinsi)
+                                                                                    @if (old('provinsi_id', $provinsi->id) == $alamat->provinsi_id)
+                                                                                        <option
+                                                                                            value="{{ $provinsi->id }}"
+                                                                                            selected hidden>
+                                                                                            {{ $provinsi->provinsi }}
+                                                                                        </option>
+                                                                                    @else
+                                                                                        <option
+                                                                                            value="{{ $provinsi->id }}">
+                                                                                            {{ $provinsi->provinsi }}
+                                                                                        </option>
+                                                                                    @endif
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+
+                                                                        <div class="w-100"></div>
+
+                                                                        <div class="col-12 mb-3">
+                                                                            <label for="kota">Kota/Kabupaten</label>
+                                                                            <select id="kotaEdit" name="kota_id"
+                                                                                class="form-select">
+                                                                                @foreach ($kotas as $kota)
+                                                                                    @if (old('kota_id', $kota->id) == $alamat->kota_id)
+                                                                                        <option
+                                                                                            value="{{ $kota->id }}"
+                                                                                            selected hidden>
+                                                                                            {{ $kota->kota }}
+                                                                                        </option>
+                                                                                    @else
+                                                                                        <option
+                                                                                            value="{{ $kota->id }}">
+                                                                                            {{ $kota->kota }}</option>
+                                                                                    @endif
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+
+                                                                        <div class="w-100"></div>
+
+                                                                        <div class="col-12 mb-3">
+                                                                            <label for="kecamatan">Kecamatan</label>
+                                                                            <select id="kecamatanEdit" name="kecamatan_id"
+                                                                                class="form-select">
+                                                                                @foreach ($kecamatans as $kecamatan)
+                                                                                    @if (old('kecamatan_id', $kecamatan->id) == $alamat->kecamatan_id)
+                                                                                        <option
+                                                                                            value="{{ $kecamatan->id }}"
+                                                                                            selected hidden>
+                                                                                            {{ $kecamatan->kecamatan }}
+                                                                                        </option>
+                                                                                    @else
+                                                                                        <option
+                                                                                            value="{{ $kecamatan->id }}">
+                                                                                            {{ $kecamatan->kecamatan }}
+                                                                                        </option>
+                                                                                    @endif
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+
+                                                                        <div class="w-100"></div>
+
+                                                                        <div class="col-12 mb-3">
+                                                                            <label for="alamat_lengkap">Alamat Lengkap
+                                                                            </label>
+                                                                            <textarea class="required form-control" id="alamat_lengkap" name="alamat_lengkap" rows="3" cols="30"
+                                                                                placeholder="Nama jalan, Gedung, No.Rumah">{{ $alamat->alamat_lengkap }}</textarea>
+                                                                        </div>
+
+                                                                        <div class="w-100"></div>
+
+                                                                        <div class="col-12 mb-3">
+                                                                            <label for="detail_lainnya">Detail
+                                                                                Lainnya</label>
+                                                                            <div class="input-group">
+                                                                                <input type="text" id="detail_lainnya"
+                                                                                    name="detail_lainnya"
+                                                                                    value="{{ $alamat->detail_lainnya }}"
+                                                                                    class="form-control" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="w-100"></div>
+                                                                        <div class="col-12">
+                                                                            <label class="d-block">Tandai Sebagai</label>
+                                                                            <div class="form-check form-check-inline">
+                                                                                <input class="form-check-input required"
+                                                                                    id="Rumah" type="radio"
+                                                                                    name="label_alamat" value="Rumah"
+                                                                                    {{ $alamat->label_alamat == 'Rumah' ? 'checked' : null }}>
+                                                                                <label class="form-check-label nott ms-2"
+                                                                                    for="Rumah">Rumah</label>
+                                                                            </div>
+                                                                            <div class="form-check form-check-inline">
+                                                                                <input class="form-check-input"
+                                                                                    id="Kantor" type="radio"
+                                                                                    name="label_alamat" value="Kantor"
+                                                                                    {{ $alamat->label_alamat == 'Kantor' ? 'checked' : null }}>
+                                                                                <label class="form-check-label nott ms-2"
+                                                                                    for="Kantor">Kantor</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">Close</button>
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary">kirim</button>
+                                                                    </div>
+                                                                </div><!-- /.modal-content -->
+                                                            </form>
+                                                        </div><!-- /.modal-dialog -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="text-center">
+                                    <img src="{{ asset('images/no_review.png') }}" width="100px" alt=""
+                                        srcset="">
+                                    <div class="fw-bold p-4">Belum ada alamat</div>
+                                </div>
+                            @endif
+                        </div>
+                        <div class="tab-content clearfix" id="tabs-voucher">
+                            <div class="row">
+                                @if (count($vouchers))
+                                    @foreach ($vouchers as $voucher)
+                                        <div class="col-lg-6">
+                                            <div class="promo promo-light promo-full mb-3">
+                                                <div class="row align-items-center">
+                                                    <div class="col-lg-4">
+                                                        <img src="{{ asset('images/no_voucher.png') }}" width="300px"
+                                                            alt="" srcset="">
+                                                    </div>
+                                                    <div class="col-lg-8">
+                                                        <h4>
+                                                            <div class="d-inline">
+                                                                {{ $voucher->voucher->kode_voucher }}
+                                                            </div>
+                                                            <span
+                                                                class="text-danger">({{ $voucher->voucher->diskon }})%</span>
+                                                        </h4>
+                                                        <div style="margin-top:-30px">
+                                                            {{ $voucher->voucher->waktu_mulai }} -
+                                                            {{ $voucher->voucher->waktu_berakhir }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <div class="text-center">
+                                        <img src="{{ asset('images/no_review.png') }}" width="120px" alt=""
+                                            srcset="">
+                                        <div class="fw-bold p-4">Belum ada Voucher</div>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="w-100 line d-block d-md-none"></div>
+
+                <div class="col-lg-3">
+                    <ul class="tab-nav tab-nav2 clearfix">
+                        <li><a href="#tabs-profil"><i class="icon-home2"></i>Akun saya</a></li>
+                        <li><a href="#tabs-alamat">Alamat</a></li>
+                        <li><a href="#tabs-voucher">Voucher Saya</a></li>
+                        <li class="hidden-phone"><a href="#tabs-24">Aenean lacinia</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </div> --}}
+    <div class="container clearfix">
+
+        @php
+            $users = App\Models\User::where('id', Auth::user()->id)->first();
+        @endphp
+
+        <div class="row clearfix">
+
+            <div class="col-md-9">
+
+                <img src="{{ asset($users->profile) }}" class="alignleft img-circle img-thumbnail my-0" alt="Avatar"
+                    style="max-width: 84px;">
+
+                <div class="heading-block border-0">
+                    <h3>{{ $users->name }}</h3>
+                    <span style="margin-top:-7px">{{ $users->email }}</span>
+                </div>
+
+                <div class="clear"></div>
+
+                @yield('profil')
+            </div>
+
+
+            <div class="w-100 line d-block d-md-none"></div>
+
+            <div class="col-md-3">
+
+                <div class="list-group">
+                    <a href="/profil/akun" class="list-group-item list-group-item-action d-flex justify-content-between">
+                        <div>Akun saya</div><i class="icon-user"></i>
+                    </a>
+                    <a href="/profil/alamat" class="list-group-item list-group-item-action d-flex justify-content-between">
+                        <div>Alamat saya</div><i class="icon-laptop2"></i>
+                    </a>
+                    <a href="/profil/voucher" class="list-group-item list-group-item-action d-flex justify-content-between">
+                        <div>Voucher</div><i class="icon-envelope2"></i>
+                    </a>
+                    <a href="/profil/pesanan" class="list-group-item list-group-item-action d-flex justify-content-between">
+                        <div>Pesanan saya</div><i class="icon-credit-cards"></i>
+                    </a>
+                    <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                        class="list-group-item list-group-item-action d-flex justify-content-between">
+                        <div>Logout</div><i class="icon-line2-logout"></i>
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
-    {{-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
-        integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous">
+    <script>
+        $(document).ready(function() {
+            $('#provinsi').on('change', function() {
+                var provinsi_id = $(this).val();
+                if (provinsi_id) {
+                    $.ajax({
+                        url: '/getKota/' + provinsi_id,
+                        type: "GET",
+                        data: {
+                            "_token": "{{ csrf_token() }}"
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            if (data) {
+                                $('#kota').empty();
+                                $('#kota').append(
+                                    '<option hidden>Pilih Kota</option>');
+                                $.each(data, function(key, kotas) {
+                                    $('select[name="kota_id"]').append(
+                                        '<option value="' + kotas.id + '">' +
+                                        kotas.kota + '</option>');
+                                });
+                            } else {
+                                $('#kota').empty();
+                            }
+                        }
+                    });
+                } else {
+                    $('#kota').empty();
+                }
+            });
+
+            $('#kota').on('change', function() {
+                var kota_id = $(this).val();
+                if (kota_id) {
+                    $.ajax({
+                        url: '/getKecamatan/' + kota_id,
+                        type: "GET",
+                        data: {
+                            "_token": "{{ csrf_token() }}"
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            if (data) {
+                                $('#kecamatan').empty();
+                                $('#kecamatan').append(
+                                    '<option hidden>Pilih kecamatan</option>');
+                                $.each(data, function(key, kecamatans) {
+                                    $('select[name="kecamatan_id"]').append(
+                                        '<option value="' + kecamatans.id + '">' +
+                                        kecamatans.kecamatan + '</option>');
+                                });
+                            } else {
+                                $('#kecamatan').empty();
+                            }
+                        }
+                    });
+                } else {
+                    $('#kecamatan').empty();
+                }
+            });
+
+            $('#provinsiEdit').on('change', function() {
+                var provinsi_id = $(this).val();
+                if (provinsi_id) {
+                    $.ajax({
+                        url: '/getKota/' + provinsi_id,
+                        type: "GET",
+                        data: {
+                            "_token": "{{ csrf_token() }}"
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            if (data) {
+                                $('#kotaEdit').empty();
+                                $('#kotaEdit').append(
+                                    '<option hidden>Pilih Kota</option>');
+                                $.each(data, function(key, kotas) {
+                                    $('select[name="kota_id"]').append(
+                                        '<option value="' + kotas.id + '">' +
+                                        kotas.kota + '</option>');
+                                });
+                            } else {
+                                $('#kotaEdit').empty();
+                            }
+                        }
+                    });
+                } else {
+                    $('#kotaEdit').empty();
+                }
+            });
+
+            $('#kotaEdit').on('change', function() {
+                var kota_id = $(this).val();
+                if (kota_id) {
+                    $.ajax({
+                        url: '/getKecamatan/' + kota_id,
+                        type: "GET",
+                        data: {
+                            "_token": "{{ csrf_token() }}"
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            if (data) {
+                                $('#kecamatanEdit').empty();
+                                $('#kecamatanEdit').append(
+                                    '<option hidden>Pilih kecamatan</option>');
+                                $.each(data, function(key, kecamatans) {
+                                    $('select[name="kecamatan_id"]').append(
+                                        '<option value="' + kecamatans.id + '">' +
+                                        kecamatans.kecamatan + '</option>');
+                                });
+                            } else {
+                                $('#kecamatanEdit').empty();
+                            }
+                        }
+                    });
+                } else {
+                    $('#kecamatanEdit').empty();
+                }
+            });
+        });
     </script>
-    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
-        integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous">
-    </script> --}}
-
-
-
-
-    {{--
-</body> --}}
 @endsection

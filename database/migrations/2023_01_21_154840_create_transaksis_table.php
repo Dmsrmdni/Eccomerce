@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('alamat_id')->nullable();
             $table->foreign('alamat_id')->references('id')->on('alamats')->onDelete('cascade');
             $table->unsignedBigInteger('voucher_id')->nullable();
-            $table->foreign('voucher_id')->references('id')->on('vouchers')->onDelete('cascade');
+            $table->foreign('voucher_id')->references('id')->on('voucher_users')->onDelete('cascade');
             $table->unsignedBigInteger('metodePembayaran_id');
             $table->foreign('metodePembayaran_id')->references('id')->on('metode_pembayarans')->onDelete('cascade');
             $table->integer('total_harga')->default(0);

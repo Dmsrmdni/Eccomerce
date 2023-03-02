@@ -27,7 +27,7 @@ return new class extends Migration
             $table->foreign('kecamatan_id')->references('id')->on('kecamatans')->onDelete('cascade');
             $table->text('alamat_lengkap');
             $table->string('detail_lainnya')->nullable();
-            $table->enum('label_alamat', ['rumah', 'kantor'])->default('rumah');
+            $table->enum('label_alamat', ['Rumah', 'Kantor']);
             $table->timestamps();
         });
     }

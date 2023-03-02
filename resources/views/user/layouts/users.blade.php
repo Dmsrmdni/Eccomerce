@@ -1,3 +1,5 @@
+{{-- MaleTempalte --}}
+{{--
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -28,4 +30,56 @@
     @include('user.layouts.components.bottom')
 </body>
 
+</html> --}}
+
+{{-- Male Template --}}
+
+{{-- Canvas --}}
+
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="SemiColonWeb" />
+
+    @include('user.layouts.components.top')
+
+</head>
+
+<body class="stretched">
+
+    @include('admin.layouts.components.alert')
+
+    <!-- Document Wrapper
+	============================================= -->
+    <div id="wrapper" class="clearfix">
+
+        {{-- Navbar --}}
+        @include('user.layouts.components.navbar')
+        {{-- EndNavbar --}}
+
+        <!-- Content
+		============================================= -->
+        <section id="content">
+            <div class="content-wrap">
+                @yield('content')
+            </div>
+        </section>
+        <!-- #content end -->
+
+        <!-- Footer-->
+        @include('user.layouts.components.footer')
+        <!-- #footer end -->
+
+    </div>
+    <!-- #wrapper end -->
+
+    @include('user.layouts.components.bottom')
+
+</body>
+
 </html>
+
+{{-- EndCanvas --}}

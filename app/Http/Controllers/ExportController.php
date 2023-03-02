@@ -13,6 +13,9 @@ class ExportController extends Controller
     {
         $riwayatProduks = RiwayatProduk::whereBetween('created_at', [$request->tanggal_awal, $request->tanggal_akhir])->get();
 
+        if ($request->tanggal_awal > $request->tanggal_akhir) {
+            return back()->with('error','invalid date');
+        }
         if ($request->type == 'pdf') {
             $pdf = App::make('dompdf.wrapper');
             $pdf->loadView('admin.export.pdf', compact('riwayatProduks'));

@@ -41,6 +41,7 @@ class AlamatController extends Controller
      */
     public function store(Request $request)
     {
+
         //validasi
         $validated = $request->validate([
             'nama_lengkap' => 'required',
@@ -62,8 +63,7 @@ class AlamatController extends Controller
         $alamats->detail_lainnya = $request->detail_lainnya;
         $alamats->label_alamat = $request->label_alamat;
         $alamats->save();
-        return redirect()
-            ->route('alamat.index')->with('berhasil', 'Data has been added');
+        return back()->with('berhasil', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -102,6 +102,7 @@ class AlamatController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         //validasi
         $validated = $request->validate([
             'nama_lengkap' => 'required',
@@ -122,8 +123,7 @@ class AlamatController extends Controller
         $alamats->detail_lainnya = $request->detail_lainnya;
         $alamats->label_alamat = $request->label_alamat;
         $alamats->save();
-        return redirect()
-            ->route('alamat.index')->with('berhasil', 'Data has been edited');
+        return back()->with('berhasil', 'Data berhasil di ubah');
 
     }
 
@@ -137,7 +137,6 @@ class AlamatController extends Controller
     {
         $alamats = Alamat::findOrFail($id);
         $alamats->delete();
-        return redirect()
-            ->route('alamat.index')->with('berhasil', 'Data has been deleted');
+        return back()->with('berhasil', 'Data berhasil dihapus');
     }
 }

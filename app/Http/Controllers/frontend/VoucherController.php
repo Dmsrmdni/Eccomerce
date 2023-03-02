@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\MetodePembayaran;
 use App\Models\Voucher;
+use Illuminate\Http\Request;
 
 class VoucherController extends Controller
 {
-    public function index()
+    public function voucher()
     {
-        $vouchers = Voucher::where('label', 'berbayar')->get();
-        $metodePembayarans = MetodePembayaran::all();
-        return view('user.voucher', compact('vouchers', 'metodePembayarans'));
+        $vouchers = Voucher::all();
+        return view('user.voucher', compact('vouchers'));
+    }
+
+    public function klaim(Request $request)
+    {
+        dd($request);
     }
 }
