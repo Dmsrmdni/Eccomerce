@@ -48,7 +48,7 @@ class AlamatController extends Controller
             'no_telepon' => 'required',
             'provinsi_id' => 'required',
             'kota_id' => 'required',
-            'kecamatan_id' => 'required',
+            // 'kecamatan_id' => 'required',
             'alamat_lengkap' => 'required',
         ]);
 
@@ -58,7 +58,7 @@ class AlamatController extends Controller
         $alamats->no_telepon = $request->no_telepon;
         $alamats->provinsi_id = $request->provinsi_id;
         $alamats->kota_id = $request->kota_id;
-        $alamats->kecamatan_id = $request->kecamatan_id;
+        // $alamats->kecamatan_id = $request->kecamatan_id;
         $alamats->alamat_lengkap = $request->alamat_lengkap;
         $alamats->detail_lainnya = $request->detail_lainnya;
         $alamats->label_alamat = $request->label_alamat;
@@ -109,7 +109,7 @@ class AlamatController extends Controller
             'no_telepon' => 'required',
             'provinsi_id' => 'required',
             'kota_id' => 'required',
-            'kecamatan_id' => 'required',
+            // 'kecamatan_id' => 'required',
             'alamat_lengkap' => 'required',
         ]);
 
@@ -118,7 +118,7 @@ class AlamatController extends Controller
         $alamats->no_telepon = $request->no_telepon;
         $alamats->provinsi_id = $request->provinsi_id;
         $alamats->kota_id = $request->kota_id;
-        $alamats->kecamatan_id = $request->kecamatan_id;
+        // $alamats->kecamatan_id = $request->kecamatan_id;
         $alamats->alamat_lengkap = $request->alamat_lengkap;
         $alamats->detail_lainnya = $request->detail_lainnya;
         $alamats->label_alamat = $request->label_alamat;

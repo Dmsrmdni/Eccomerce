@@ -1,6 +1,16 @@
 @extends('user.profil')
 
 @section('profil')
+    {{-- @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif --}}
+
     <a class="button button-circle button-black mb-3 button-small" data-bs-toggle="modal" data-bs-target="#alamatCreate">tambah
         alamat</a>
 
@@ -59,13 +69,13 @@
 
                         <div class="w-100"></div>
 
-                        <div class="col-12 mb-3">
+                        {{-- <div class="col-12 mb-3">
                             <label for="kecamatan">Kecamatan</label>
                             <select id="kecamatan" name="kecamatan_id" class="form-select">
                                 <option value="" hidden>Pilih Kota/Kabupaten lebih dulu
                                 </option>
                             </select>
-                        </div>
+                        </div> --}}
 
                         <div class="w-100"></div>
 
@@ -102,8 +112,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">kirim</button>
+                        <button type="button" class="button button-teal" data-bs-dismiss="modal">Kembali</button>
+                        <button type="submit" class="button button-rounded">kirim</button>
                     </div>
                 </div><!-- /.modal-content -->
             </form>
@@ -222,7 +232,7 @@
 
                                                 <div class="w-100"></div>
 
-                                                <div class="col-12 mb-3">
+                                                {{-- <div class="col-12 mb-3">
                                                     <label for="kecamatan">Kecamatan</label>
                                                     <select id="kecamatanEdit" name="kecamatan_id" class="form-select">
                                                         @foreach ($kecamatans as $kecamatan)
@@ -237,7 +247,7 @@
                                                             @endif
                                                         @endforeach
                                                     </select>
-                                                </div>
+                                                </div> --}}
 
                                                 <div class="w-100"></div>
 
@@ -278,9 +288,9 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">kirim</button>
+                                                <button type="button" class="button button-teal"
+                                                    data-bs-dismiss="modal">Kembali</button>
+                                                <button type="submit" class="button button-rounded">kirim</button>
                                             </div>
                                         </div><!-- /.modal-content -->
                                     </form>
@@ -313,8 +323,8 @@
                         success: function(data) {
                             if (data) {
                                 $('#kota').empty();
-                                $('#kota').append(
-                                    '<option hidden>Pilih Kota</option>');
+                                // $('#kota').append(
+                                //     '<option hidden selected value="">Pilih Kota</option>');
                                 $.each(data, function(key, kotas) {
                                     $('select[name="kota_id"]').append(
                                         '<option value="' + kotas.id + '">' +
@@ -374,7 +384,7 @@
                             if (data) {
                                 $('#kotaEdit').empty();
                                 $('#kotaEdit').append(
-                                    '<option hidden>Pilih Kota</option>');
+                                    "<option hidden value=''>Pilih Kota</option>");
                                 $.each(data, function(key, kotas) {
                                     $('select[name="kota_id"]').append(
                                         '<option value="' + kotas.id + '">' +

@@ -21,6 +21,22 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function image()
+    {
+        if ($this->profile && file_exists(public_path($this->profile))) {
+            return asset($this->profile);
+        } else {
+            return asset('images/users/profile.jpeg');
+        }
+    }
+
+    public function deleteImage()
+    {
+        if ($this->profile && file_exists(public_path($this->profile))) {
+            return unlink(public_path($this->profile));
+        }
+    }
+
     public function wishlist()
     {
         return $this->hasMany(Wishlist::class);
@@ -74,9 +90,11 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'no_telepon',
+        'jenis_kelamin',
+        'tanggal_lahir',
         'password',
-        'saldo',
-        'point',
+        'status',
         'profile',
     ];
 

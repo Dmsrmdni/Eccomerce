@@ -8,6 +8,8 @@ use App\Models\DetailTransaksi;
 use App\Models\Keranjang;
 use App\Models\MetodePembayaran;
 use App\Models\Produk;
+use App\Models\Provinsi;
+use App\Models\RiwayatProduk;
 use App\Models\Transaksi;
 use App\Models\User;
 use App\Models\Voucher;
@@ -46,7 +48,8 @@ class TransaksiController extends Controller
         $voucher_users = VoucherUser::where('user_id', auth()->user()->id)->where('status', 'belum dipakai')->get();
         $metodePembayarans = MetodePembayaran::all();
         $alamats = Alamat::where('user_id', auth()->user()->id)->get();
-        return view('user.transaksi', compact('keranjangs', 'total', 'total_harga', 'voucher_users', 'voucher_saya', 'metodePembayarans', 'alamats'));
+        $provinsis = Provinsi::all();
+        return view('user.transaksi', compact('keranjangs', 'total', 'total_harga', 'voucher_users', 'voucher_saya', 'metodePembayarans', 'alamats', 'provinsis'));
     }
 
     /**
@@ -116,9 +119,16 @@ class TransaksiController extends Controller
                     $keranjang->status = 'checkout';
                     $keranjang->save();
                     $produks->stok -= $keranjang->jumlah;
-
                 }
                 $produks->save();
+
+                $riwayatProduks = new RiwayatProduk();
+                $riwayatProduks->produk_id = $produks->id;
+                $riwayatProduks->type = 'keluar';
+                $riwayatProduks->qty = $keranjang->jumlah;
+                $riwayatProduks->note = 'Barang terjual';
+                $riwayatProduks->save();
+
             }
         }
 
@@ -133,33 +143,33 @@ class TransaksiController extends Controller
         }
         $total_bayar = $total_harga - $diskon;
 
-        // saldo
-        $metodePembayarans = MetodePembayaran::where('id', $transaksis->metodePembayaran_id)->first();
-        $users = User::findOrFail($transaksis->user_id);
-        if ($metodePembayarans->metodePembayaran == 'GAKUNIQ WALLET') {
-            if ($users->saldo > $total_bayar) {
-                $users->saldo -= $total_bayar;
-            } else {
-                $transaksis = Transaksi::where('id', $transaksis->id)->first();
-                $transaksis->delete();
-                return redirect()->route('transaksi.create')->with('error', 'Saldo Kurang');
-            }
-        }
+        // // saldo
+        // $metodePembayarans = MetodePembayaran::where('id', $transaksis->metodePembayaran_id)->first();
+        // $users = User::findOrFail($transaksis->user_id);
+        // if ($metodePembayarans->metodePembayaran == 'GAKUNIQ WALLET') {
+        //     if ($users->saldo > $total_bayar) {
+        //         $users->saldo -= $total_bayar;
+        //     } else {
+        //         $transaksis = Transaksi::where('id', $transaksis->id)->first();
+        //         $transaksis->delete();
+        //         return redirect()->route('transaksi.create')->with('error', 'Saldo Kurang');
+        //     }
+        // }
 
         $transaksis->findOrFail($transaksis->id);
         $transaksis->total_harga += $total_bayar;
         $transaksis->save();
 
-        if ($total_harga >= 100000) {
-            $users->point += 10000;
-        } elseif ($total_harga >= 150000) {
-            $users->point += 10000;
-        } elseif ($total_harga >= 200000) {
-            $users->point += 25000;
-        } elseif ($total_harga >= 250000) {
-            $users->point += 25000;
-        }
-        $users->save();
+        // if ($total_harga >= 100000) {
+        //     $users->point += 10000;
+        // } elseif ($total_harga >= 150000) {
+        //     $users->point += 10000;
+        // } elseif ($total_harga >= 200000) {
+        //     $users->point += 25000;
+        // } elseif ($total_harga >= 250000) {
+        //     $users->point += 25000;
+        // }
+        // $users->save();
 
         return redirect('/profil/pesanan')->with('success', 'Data has been added');
 

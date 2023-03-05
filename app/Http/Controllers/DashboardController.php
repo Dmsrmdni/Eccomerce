@@ -19,6 +19,18 @@ class DashboardController extends Controller
         $date = new DateTime();
         // $pendapatan_voucher = VoucherUser::join('vouchers', 'voucher_users.voucher_id', '=', 'vouchers.id')->whereYear('voucher_users.created_at', $date->format('Y'))->sum("vouchers.harga");
         $pendapatan_transaksi = Transaksi::whereYear('created_at', $date->format('Y'))->sum('total_harga');
+        $pendapatan_transaksi_jan = Transaksi::whereMonth('created_at', '01')->whereYear('created_at', $date->format('Y'))->sum('total_harga');
+        $pendapatan_transaksi_feb = Transaksi::whereMonth('created_at', '02')->whereYear('created_at', $date->format('Y'))->sum('total_harga');
+        $pendapatan_transaksi_mar = Transaksi::whereMonth('created_at', '03')->whereYear('created_at', $date->format('Y'))->sum('total_harga');
+        $pendapatan_transaksi_apr = Transaksi::whereMonth('created_at', '04')->whereYear('created_at', $date->format('Y'))->sum('total_harga');
+        $pendapatan_transaksi_mei = Transaksi::whereMonth('created_at', '05')->whereYear('created_at', $date->format('Y'))->sum('total_harga');
+        $pendapatan_transaksi_jun = Transaksi::whereMonth('created_at', '06')->whereYear('created_at', $date->format('Y'))->sum('total_harga');
+        $pendapatan_transaksi_jul = Transaksi::whereMonth('created_at', '07')->whereYear('created_at', $date->format('Y'))->sum('total_harga');
+        $pendapatan_transaksi_agu = Transaksi::whereMonth('created_at', '08')->whereYear('created_at', $date->format('Y'))->sum('total_harga');
+        $pendapatan_transaksi_sep = Transaksi::whereMonth('created_at', '09')->whereYear('created_at', $date->format('Y'))->sum('total_harga');
+        $pendapatan_transaksi_okt = Transaksi::whereMonth('created_at', '10')->whereYear('created_at', $date->format('Y'))->sum('total_harga');
+        $pendapatan_transaksi_nov = Transaksi::whereMonth('created_at', '11')->whereYear('created_at', $date->format('Y'))->sum('total_harga');
+        $pendapatan_transaksi_des = Transaksi::whereMonth('created_at', '12')->whereYear('created_at', $date->format('Y'))->sum('total_harga');
         // $total_pendapatan = ($pendapatan_voucher + $pendapatan_transaksi);
 
         // pembelianVoucher
@@ -97,6 +109,19 @@ class DashboardController extends Controller
         if ($request->tahun) {
             // $pendapatan_voucher = VoucherUser::join('vouchers', 'voucher_users.voucher_id', '=', 'vouchers.id')->whereYear('voucher_users.created_at', $request->tahun)->sum("vouchers.harga");
             $pendapatan_transaksi = Transaksi::whereYear('created_at', $request->tahun)->sum('total_harga');
+            $pendapatan_transaksi_jan = Transaksi::whereMonth('created_at', '01')->whereYear('created_at', $request->tahun)->sum('total_harga');
+            $pendapatan_transaksi_feb = Transaksi::whereMonth('created_at', '02')->whereYear('created_at', $request->tahun)->sum('total_harga');
+            $pendapatan_transaksi_mar = Transaksi::whereMonth('created_at', '03')->whereYear('created_at', $request->tahun)->sum('total_harga');
+            $pendapatan_transaksi_apr = Transaksi::whereMonth('created_at', '04')->whereYear('created_at', $request->tahun)->sum('total_harga');
+            $pendapatan_transaksi_mei = Transaksi::whereMonth('created_at', '05')->whereYear('created_at', $request->tahun)->sum('total_harga');
+            $pendapatan_transaksi_jun = Transaksi::whereMonth('created_at', '06')->whereYear('created_at', $request->tahun)->sum('total_harga');
+            $pendapatan_transaksi_jul = Transaksi::whereMonth('created_at', '07')->whereYear('created_at', $request->tahun)->sum('total_harga');
+            $pendapatan_transaksi_agu = Transaksi::whereMonth('created_at', '08')->whereYear('created_at', $request->tahun)->sum('total_harga');
+            $pendapatan_transaksi_sep = Transaksi::whereMonth('created_at', '09')->whereYear('created_at', $request->tahun)->sum('total_harga');
+            $pendapatan_transaksi_okt = Transaksi::whereMonth('created_at', '10')->whereYear('created_at', $request->tahun)->sum('total_harga');
+            $pendapatan_transaksi_nov = Transaksi::whereMonth('created_at', '11')->whereYear('created_at', $request->tahun)->sum('total_harga');
+            $pendapatan_transaksi_des = Transaksi::whereMonth('created_at', '12')->whereYear('created_at', $request->tahun)->sum('total_harga');
+
             // $total_pendapatan = ($pendapatan_voucher + $pendapatan_transaksi);
 
             // pembelianVoucher
@@ -177,6 +202,18 @@ class DashboardController extends Controller
         return view('admin.index', compact(
             // 'pendapatan_voucher',
             'pendapatan_transaksi',
+            'pendapatan_transaksi_jan',
+            'pendapatan_transaksi_feb',
+            'pendapatan_transaksi_mar',
+            'pendapatan_transaksi_apr',
+            'pendapatan_transaksi_mei',
+            'pendapatan_transaksi_jun',
+            'pendapatan_transaksi_jul',
+            'pendapatan_transaksi_agu',
+            'pendapatan_transaksi_sep',
+            'pendapatan_transaksi_okt',
+            'pendapatan_transaksi_nov',
+            'pendapatan_transaksi_des',
             // 'total_pendapatan',
             // 'pembelian_voucher_jan',
             // 'pembelian_voucher_feb',

@@ -22,8 +22,6 @@ return new class extends Migration
             $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan'])->nullable();
             $table->date('tanggal_lahir')->nullable();
             $table->string('password');
-            $table->integer('saldo')->default('0');
-            $table->integer('point')->default('0');
             $table->enum('status', ['aktif', 'tidak aktif'])->default('tidak aktif');
             $table->string('profile')->default('images/users/profile.jpeg');
             $table->enum('role', ['costumer', 'admin'])->default('costumer');

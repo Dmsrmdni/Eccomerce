@@ -91,77 +91,63 @@
 
     {{-- Canvas --}}
 
-    @if (count($alamats) < 0)
-        <div class="modal-on-load" data-target="#myModal1">
-        </div>
-
-        <!-- Modal -->
-        <div class="modal1 mfp-hide" id="myModal1">
-            <div class="block mx-auto" style="background-color: #FFF; max-width: 500px;">
-                <div class="center" style="padding: 50px;">
-                    <h3>Anda Belum memiliki alamat</h3>
-                </div>
-                <div class="section center m-0" style="padding: 30px;">
-                    <a href="#" class="button" onClick="$.magnificPopup.close();return false;">Close this Modal</a>
-                </div>
-            </div>
-        </div>
-    @endif
-
     <div class="container clearfix">
         <form action="{{ route('checkout.store') }}" id="checkout" method="POST">
             @csrf
             <h4>Alamat Pengiriman</h4>
 
-            <div class="promo promo-light promo-full p-4 p-md-5 mb-5">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-12 col-lg">
-                            <h4>
-                                <div id="nama_lengkap" class="d-inline">{{ $alamats[0]->nama_lengkap }}</div> <span
-                                    id="no_telepon">
-                                    ({{ $alamats[0]->no_telepon }})</span>
-                            </h4>
-                            <div style="margin-top:-10px" id="alamat_lengkap">{{ $alamats[0]->alamat_lengkap }}</div>
-                            <input type="hidden" name="alamat_id" id="alamat_id" value="{{ $alamats[0]->id }}">
-                        </div>
-                        <div class="col-12 col-lg-auto mt-4 mt-lg-0">
-                            <a data-bs-toggle="modal" data-bs-target="#alamat"
-                                class="button button-circle button-black m-0">Ubah</a>
+            @if (count($alamats))
+                <div class="promo promo-light promo-full p-4 p-md-5 mb-5">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-12 col-lg">
+                                <h4>
+                                    <div id="nama_lengkap" class="d-inline">{{ $alamats[0]->nama_lengkap }}</div> <span
+                                        id="no_telepon">
+                                        ({{ $alamats[0]->no_telepon }})</span>
+                                </h4>
+                                <div style="margin-top:-10px" id="alamat_lengkap">{{ $alamats[0]->alamat_lengkap }}</div>
+                                <input type="hidden" name="alamat_id" id="alamat_id" data-kota="{{ $alamats[0]->kota_id }}"
+                                    value="{{ $alamats[0]->id }}">
+                            </div>
+                            <div class="col-12 col-lg-auto mt-4 mt-lg-0">
+                                <a data-bs-toggle="modal" data-bs-target="#alamat"
+                                    class="button button-circle button-black m-0">Ubah</a>
 
-                            <!-- Scrollable modal -->
-                            <div class="modal fade bs-example-modal-scrollable modal-lg" id="alamat" tabindex="-1"
-                                role="dialog" aria-labelledby="scrollableModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-scrollable">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Alamat saya</h4>
-                                            <button type="button" class="btn-close btn-sm" data-bs-dismiss="modal"
-                                                aria-hidden="true"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            @foreach ($alamats as $alamat)
-                                                <div class="card p-3 mb-2">
-                                                    <div class="row">
-                                                        <div class="col-8 col-lg">
-                                                            <h4>{{ $alamat->nama_lengkap }} <span>
-                                                                    ({{ $alamat->no_telepon }})
-                                                                </span></h4>
-                                                            <div style="margin-top:-10px">{{ $alamat->alamat_lengkap }}
+                                <!-- Scrollable modal -->
+                                <div class="modal fade bs-example-modal-scrollable modal-lg" id="alamat" tabindex="-1"
+                                    role="dialog" aria-labelledby="scrollableModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Alamat saya</h4>
+                                                <button type="button" class="btn-close btn-sm" data-bs-dismiss="modal"
+                                                    aria-hidden="true"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                @foreach ($alamats as $alamat)
+                                                    <div class="card p-3 mb-2">
+                                                        <div class="row">
+                                                            <div class="col-8 col-lg">
+                                                                <h4>{{ $alamat->nama_lengkap }} <span>
+                                                                        ({{ $alamat->no_telepon }})
+                                                                    </span></h4>
+                                                                <div style="margin-top:-10px">{{ $alamat->alamat_lengkap }}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4 col-lg-auto" style="margin-top:15px">
+                                                                <button type="button"
+                                                                    class="button button-circle button-black m-0 selectAlamat"
+                                                                    data-id="{{ $alamat }}">Pakai</button>
                                                             </div>
                                                         </div>
-                                                        <div class="col-4 col-lg-auto" style="margin-top:15px">
-                                                            <button type="button"
-                                                                class="button button-circle button-black m-0 selectAlamat"
-                                                                data-id="{{ $alamat }}">Pakai</button>
-                                                        </div>
                                                     </div>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">kembali</button>
+                                                @endforeach
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="button button-rounded"
+                                                    data-bs-dismiss="modal">kembali</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -169,18 +155,35 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            @else
+                <div class="modal-on-load" data-target="#myModal">
+                </div>
+
+                <!-- Modal -->
+                <div class="modal1 mfp-hide" id="myModal">
+                    <div class="block mx-auto" style="background-color: #FFF; max-width: 500px;">
+                        <div class="center" style="padding:20px">
+                            <h3>Anda Belum memiliki alamat</h3>
+                        </div>
+                        <div class="section center m-0" style="padding: 10px;">
+                            <a href="/keranjang" class="button button-red button-circle">Kembali</a>
+                            <a href="/profil/alamat" class="button button-circle">Tambah
+                                Alamat</a>
+                        </div>
+                    </div>
+                </div>
+            @endif
 
             <div class="row col-mb-50 gutter-50">
                 <div class="w-100"></div>
                 <div class="col-lg-6">
-                    <h4>Your Orders</h4>
+                    <h4>Pesanan anda</h4>
 
                     <div class="table-responsive">
                         <table class="table cart mb-5">
                             <thead>
                                 <tr>
-                                    <th class=" cart-product-thumbnail">Product</th>
+                                    <th class=" cart-product-thumbnail">Produk</th>
                                     <th class="cart-product-price">Ukuran</th>
                                     <th class="cart-product-quantity">Jumlah</th>
                                     <th class="cart-product-subtotal">Total</th>
@@ -198,7 +201,7 @@
                                                             src="{{ asset($keranjang->produk->image[0]->gambar_produk) }}"
                                                             alt="{{ $keranjang->produk->nama_produk }}"></a>
                                                 </div>
-                                                <div class="col mt-2 ">
+                                                <div class="col mt-2 mx-1">
                                                     <div class="cart-product-name">{{ $keranjang->produk->nama_produk }}
                                                     </div>
                                                     @php
@@ -230,8 +233,8 @@
                 </div>
 
                 <div class="col-lg-6">
-                    <h4>Cart Totals</h4>
-                    <div class="row">
+                    <h4>Total Keranjang</h4>
+                    <div class="row mb-3">
                         <div class="col-md-8 m-0">
                             @if ($voucher_saya != '')
                                 <input type="hidden" name="voucher_id" id="voucher_id" value="{{ $voucher_saya->id }}">
@@ -280,7 +283,7 @@
                                                             </div>
                                                             <div class="col-lg-3">
                                                                 <button type="button"
-                                                                    class="mt-4 button button-circle button-black m-0 select"
+                                                                    class="my-4 button button-circle button-black m-0 button-small select"
                                                                     data-id="{{ $voucher_user }}">Pakai</button>
                                                             </div>
                                                         </div>
@@ -295,7 +298,7 @@
                                             @endif
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
+                                            <button type="button" class="button button-rounded"
                                                 data-bs-dismiss="modal">kembali</button>
                                         </div>
                                     </div>
@@ -303,6 +306,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-8 m-0">
+                            <select name="courier" id="ongkirs" class="form-select required">
+                                <option value="" selected hidden>Pilih opsi pengiriman</option>
+                                <option value="jne">JNE</option>
+                                <option value="pos">POS</option>
+                                <option value="tiki">TIKI</option>
+                            </select>
+                        </div>
+                        <p class="ongkir"></p>
+                    </div>
+
                     <div class="table-responsive">
                         <table class="table cart">
                             <tbody>
@@ -344,6 +359,11 @@
         </form>
     </div>
 
+    {{-- EndCanvas --}}
+
+    {{-- <a class="btn yoww">asdas</a> --}}
+
+
     <script>
         $('.select').click(function() {
             var kode_voucher = $(this).data(kode_voucher);
@@ -367,8 +387,49 @@
             // CloseModal
             $("#alamat").modal("hide");
         });
-    </script>
 
-    {{-- EndCanvas --}}
+
+        // $(document).ready(function() {
+        //active select2
+        // let isProcessing = false;
+        $('#ongkirs').change(function() {
+
+            let token = $("meta[name='csrf-token']").attr("content");
+            let city_destination = $('#alamat_id').data('kota');
+
+            console.log(city_destination);
+            let courier = $('select[name=courier]').val();
+            let weight = $('#weight').val();
+
+            jQuery.ajax({
+                url: "/ongkir",
+                data: {
+                    _token: token,
+                    // city_origin: 22,
+                    city_destination: city_destination,
+                    courier: courier,
+                    weight: 100,
+                },
+                dataType: "JSON",
+                type: "POST",
+                success: function(response) {
+                    if (response) {
+                        $('.ongkir').empty();
+                        // $('.ongkir').addClass('d-block');
+                        $.each(response[0]['costs'], function(key, value) {
+                            $('.ongkir').append('<li class="list-group-item">' +
+                                response[0].code.toUpperCase() +
+                                ' : <strong><a class="btn yoww">' +
+                                value.service + '</a></strong> - Rp. ' + value.cost[
+                                    0].value + ' (' + value.cost[0].etd +
+                                ' hari)</li>')
+                        });
+
+                    }
+                }
+            });
+
+        });
+    </script>
 
 @endsection

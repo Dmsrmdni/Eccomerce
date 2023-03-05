@@ -40,6 +40,10 @@
             <label>tanggal lahir</label>
             <input type="date" name="tanggal_lahir" class="form-control required" value="{{ $users->tanggal_lahir }}">
         </div>
+        <div class="col-12 form-group">
+            <label>Foto Profil</label>
+            <input type="file" name="profile" class="form-control required" value="{{ $users->profile }}">
+        </div>
         <div class="col-12">
             <button type="submit" class="button button-black">simpan</button>
         </div>

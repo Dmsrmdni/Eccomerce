@@ -23,8 +23,8 @@ return new class extends Migration
             $table->foreign('provinsi_id')->references('id')->on('provinsis')->onDelete('cascade');
             $table->unsignedBigInteger('kota_id');
             $table->foreign('kota_id')->references('id')->on('kotas')->onDelete('cascade');
-            $table->unsignedBigInteger('kecamatan_id');
-            $table->foreign('kecamatan_id')->references('id')->on('kecamatans')->onDelete('cascade');
+            // $table->unsignedBigInteger('kecamatan_id');
+            // $table->foreign('kecamatan_id')->references('id')->on('kecamatans')->onDelete('cascade');
             $table->text('alamat_lengkap');
             $table->string('detail_lainnya')->nullable();
             $table->enum('label_alamat', ['Rumah', 'Kantor']);

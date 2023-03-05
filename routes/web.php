@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlamatController;
+use App\Http\Controllers\CheckOngkirController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DetailTransaksiController;
 use App\Http\Controllers\ExportController;
@@ -55,6 +56,10 @@ Route::get('/detailProduk/{id}', [App\Http\Controllers\frontend\ProdukController
 Route::get('/ulasan/{id}', [App\Http\Controllers\frontend\ReviewController::class, 'review']);
 Route::get('/voucher', [App\Http\Controllers\frontend\VoucherController::class, 'voucher']);
 Route::post('/voucher/klaim', [App\Http\Controllers\frontend\VoucherController::class, 'klaim']);
+
+Route::get('/ongkir', [CheckOngkirController::class, 'index']);
+Route::post('/ongkir', [CheckOngkirController::class, 'check_ongkir']);
+Route::get('/cities/{province_id}', [CheckOngkirController::class, 'getCities']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profil/akun', [App\Http\Controllers\frontend\UserController::class, 'akun']);

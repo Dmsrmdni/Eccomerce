@@ -60,7 +60,9 @@ class KeranjangController extends Controller
             $keranjangs->ukuran = $request->ukuran;
             $keranjangs->jumlah = $request->jumlah;
             $diskon = (($keranjangs->produk->diskon / 100) * $keranjangs->produk->harga);
-            $keranjangs->total_harga = ($keranjangs->produk->harga * $request->jumlah) - $diskon;
+            $harga = ($keranjangs->produk->harga) - $diskon;
+            $keranjangs->total_harga = ($harga * $keranjangs->jumlah);
+
         }
         $keranjangs->save();
         return back()->with('berhasil', 'Data has been added');

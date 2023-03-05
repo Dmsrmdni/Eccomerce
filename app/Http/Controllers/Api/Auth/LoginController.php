@@ -19,8 +19,7 @@ class LoginController extends Controller
     {
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
-                'success' => false,
-                'message' => 'Unauthorized',
+                'message' => 'Email atau password yang anda masukan salah',
             ], 401);
         }
 

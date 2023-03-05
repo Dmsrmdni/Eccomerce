@@ -43,6 +43,7 @@
 
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="author" content="SemiColonWeb" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @include('user.layouts.components.top')
 
@@ -53,7 +54,7 @@
     @include('admin.layouts.components.alert')
 
     <!-- Document Wrapper
-	============================================= -->
+    ============================================= -->
     <div id="wrapper" class="clearfix">
 
         {{-- Navbar --}}
@@ -61,7 +62,7 @@
         {{-- EndNavbar --}}
 
         <!-- Content
-		============================================= -->
+  ============================================= -->
         <section id="content">
             <div class="content-wrap">
                 @yield('content')

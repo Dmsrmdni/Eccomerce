@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class Provinsi extends Model
 {
     use HasFactory;
+    protected $guarded = [];
 
     public function kota()
     {

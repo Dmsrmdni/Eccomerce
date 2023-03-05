@@ -165,6 +165,12 @@ class UserController extends Controller
         $users->no_telepon = $request->no_telepon;
         $users->jenis_kelamin = $request->jenis_kelamin;
         $users->tanggal_lahir = $request->tanggal_lahir;
+        if ($request->hasFile('profile')) {
+            $image = $request->file('profile');
+            $name = rand(1000, 9999) . $image->getClientOriginalName();
+            $image->move('images/users/', $name);
+            $users->profile = 'images/users/' . $name;
+        }
 
         $users->save();
         return back()->with('berhasil', 'Data berhasil di ubah');

@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\KeranjangController;
+use App\Http\Controllers\api\ProdukController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,3 +31,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
     Route::resource('/keranjang', KeranjangController::class);
 });
+
+Route::get('/produk', [ProdukController::class, 'produk']);

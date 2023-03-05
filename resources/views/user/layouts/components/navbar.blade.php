@@ -1,60 +1,3 @@
-<!-- Male template Begin -->
-{{-- <header class="header">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-3">
-                <div class="header__logo">
-                    <a href="/"><img src="{{ asset('assets2/img/logo.png') }}" alt=""></a>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-                <nav class="header__menu mobile-menu">
-                    <ul>
-                        <li class="{{ Request::is('/') ? 'active' : '' }}"><a href="/">Home</a></li>
-                        <li class="{{ Request::is('produk*') ? 'active' : '' }}"><a href="produk">Shop</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-lg-3 col-md-3">
-                <div class="header__nav__option">
-                    @auth
-                    @php
-                    $wishlists = App\Models\Wishlist::where('user_id', Auth::user()->id)->count();
-                    $keranjangs = App\Models\Keranjang::where('user_id', Auth::user()->id)
-                    ->where('status', 'keranjang')
-                    ->count();
-                    @endphp
-                    <a href="/wishlist"><i class='bx bx-heart bx-sm'></i>
-                        <div class="tip">{{ $wishlists }}</div>
-                    </a>
-                    <a href="/keranjang"><i class='bx bx-cart bx-sm'></i>
-                        <div class="tip">{{ $keranjangs }}</div>
-                    </a>
-                    <a href="/profil"><i class='bx bx-user bx-sm'></i></a>
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();" style="color: black">logout</a>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                    @endauth
-                    @guest()
-                    <a href="/wishlist"><i class='bx bx-heart bx-sm'></i>
-                        <div class="tip">0</div>
-                    </a>
-                    <a href="/keranjang"><i class='bx bx-cart bx-sm'></i>
-                        <div class="tip">0</div>
-                    </a>
-                    <a href="/profil"><i class='bx bx-user bx-sm'></i></a>
-                    @endguest
-                </div>
-            </div>
-        </div>
-        <div class="canvas__open"><i class="fa fa-bars"></i></div>
-    </div>
-</header> --}}
-<!-- Male template End -->
-
 {{-- Canvas --}}
 <!-- Header -->
 <header id="header" class="full-header transparent-header" data-sticky-class="not-dark">
@@ -108,7 +51,7 @@
                                         @endforeach
                                     @else
                                         <div class="text-center">
-                                            <img src="{{ asset('images/no_review.png') }}" width="80px" alt=""
+                                            <img src="{{ asset('images/no_produk.png') }}" width="80px" alt=""
                                                 srcset="">
                                             <div class="fw-bold p-4">Wishlist kosong</div>
                                         </div>
@@ -173,7 +116,7 @@
                                         @endforeach
                                     @else
                                         <div class="text-center">
-                                            <img src="{{ asset('images/no_review.png') }}" width="80px" alt=""
+                                            <img src="{{ asset('images/no_produk.png') }}" width="80px" alt=""
                                                 srcset="">
                                             <div class="fw-bold p-4">Keranjang kosong</div>
                                         </div>
@@ -200,11 +143,17 @@
                                 style="font-size: 20px"></i></div>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu1">
                             @auth
-                                <a class="dropdown-item text-start" href="#">Profil</a>
+                                <a class="dropdown-item text-start" href="/profil/akun">Profil</a>
+                                <a class="dropdown-item text-start" href="/profil/pesanan">Pesanan Saya</a>
                                 <a class="dropdown-item text-start" href="{{ route('logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
+                                    @php
+                                        $users = App\Models\User::findOrFail(auth()->user()->id);
+                                        $users->status = 'tidak aktif';
+                                        $users->save();
+                                    @endphp
                                 </form>
                             @endauth
                             @guest()
@@ -269,7 +218,6 @@
     <section id="slider"
         class="slider-element slider-parallax swiper_wrapper min-vh-60 min-vh-md-100 include-header">
         <div class="slider-inner">
-
             <div class="swiper-container swiper-parent">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide dark">
@@ -332,7 +280,7 @@
             <h1>Belanja Sekarang</h1>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Shop</li>
+                <li class="breadcrumb-item active text-white" aria-current="page">Shop</li>
             </ol>
         </div>
 
@@ -345,10 +293,10 @@
         data-bottom-top="background-position:0px 0px;" data-top-bottom="background-position:0px -300px;">
 
         <div class="container clearfix">
-            <h1>Belanja Sekarang</h1>
+            <h1>Klaim Voucher anda</h1>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Shop</li>
+                <li class="breadcrumb-item active text-white" aria-current="page">Voucher</li>
             </ol>
         </div>
 
@@ -364,28 +312,43 @@
             <h1>Wishlist saya</h1>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">wishlist</li>
+                <li class="breadcrumb-item active text-white" aria-current="page">wishlist</li>
             </ol>
         </div>
     </section>
 @endif
 
-{{--
-<!-- Page Title
-        ============================================= -->
-<section id="page-title">
+@if (Request::is('detailProduk*'))
+    <section id="page-title" class="page-title-parallax page-title-dark"
+        style="background-image: url({{ asset('user/assets/images/parallax/8.jpg') }}); background-size: cover; padding: 120px 0;"
+        data-bottom-top="background-position:0px 0px;" data-top-bottom="background-position:0px -400px;">
 
-    <div class="container clearfix">
-        <h1>Shop</h1>
-        <span>Start Buying your Favourite Theme</span>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Shop</li>
-        </ol>
-    </div>
+        <div class="container clearfix">
+            <h1>Detail produk</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/produk">Shop</a></li>
+                <li class="breadcrumb-item active text-white" aria-current="page">Detail produk</li>
+            </ol>
+        </div>
+    </section>
+@endif
 
-</section>
-<!-- #page-title end --> --}}
+@if (Request::is('checkout*'))
+    <section id="page-title" class="page-title-parallax page-title-dark"
+        style="background-image: url({{ asset('user/assets/images/parallax/8.jpg') }}); background-size: cover; padding: 120px 0;"
+        data-bottom-top="background-position:0px 0px;" data-top-bottom="background-position:0px -400px;">
+
+        <div class="container clearfix">
+            <h1>Checkout</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/keranjang">Keranjang</a></li>
+                <li class="breadcrumb-item active text-white" aria-current="page">checkout</li>
+            </ol>
+        </div>
+    </section>
+@endif
 
 <!-- #header end -->
 {{-- EndCanvas --}}

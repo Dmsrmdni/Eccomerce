@@ -154,6 +154,25 @@
 </script>
 
 <script>
+    $('body').on('click', '#btnDeleteAllKeranjang', function() {
+        Swal.fire({
+            title: 'Apakah Kamu Yakin?',
+            text: "ingin menghapus semua data!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'TIDAK',
+            confirmButtonText: 'YA, HAPUS!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $("#deleteAllKeranjang").submit()
+            }
+        })
+    });
+</script>
+
+<script>
     $('body').on('click', '#btnDeleteAlamat', function() {
         Swal.fire({
             title: 'Apakah Kamu Yakin?',

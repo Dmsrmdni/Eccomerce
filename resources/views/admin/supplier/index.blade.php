@@ -2,65 +2,65 @@
 
 @section('content')
 
-<div class="card shadow-lg rounded card p-2 pb-3">
-    <div class="card-header" id="#atas">
-        <span class="fs-4 fw-700">Data Supplier</span>
-        <a href="{{ route('supplier.create') }}" class="btn btn-sm btn-primary float-end"><svg
-                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
-                viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                    d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
-            </svg>Tambah Data</a>
-    </div>
-    <div class="table-responsive text-nowrap">
-        <div class="container">
-            <table class="table table-hover table-bordered" id="dataTable">
-                <thead>
-                    <tr>
-                        <th>NO</th>
-                        <th>Kode Supplier</th>
-                        <th>Nama Produk</th>
-                        <th>Jumlah</th>
-                        <th>Tanggal</th>
-                        <th>Jam</th>
-                        {{-- <th>Actions</th> --}}
-                    </tr>
-                </thead>
-                <tbody class="table-border-bottom-1">
-                    @if (count($suppliers))
-                    @foreach ($suppliers as $supplier)
-                    <tr">
-                        <td>
-                            <div class="d-flex">
-                                {{ $loop->iteration }}
-                            </div>
-                        </td>
-                        <td>
-                            <div class="d-flex">
-                                {{ $supplier->kode_supplier }}
-                            </div>
-                        </td>
-                        <td>
-                            <div class="d-flex">
-                                {{ $supplier->produk->nama_produk }}
-                            </div>
-                        </td>
-                        <td>
-                            <div class="d-flex">
-                                {{ $supplier->jumlah }}
-                            </div>
-                        </td>
-                        <td>
-                            <div class="d-flex">
-                                {{ $supplier->created_at->format('Y-m-d') }}
-                            </div>
-                        </td>
-                        <td>
-                            <div class="d-flex">
-                                {{ $supplier->created_at->format('h:i:s A') }}
-                            </div>
-                        </td>
-                        {{-- <td>
+    <div class="card shadow-lg rounded card p-2 pb-3">
+        <div class="card-header" id="#atas">
+            <span class="fs-4 fw-700">Data Supplier</span>
+            <a href="{{ route('supplier.create') }}" class="btn btn-sm btn-primary float-end"><svg
+                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+                </svg>Tambah Data</a>
+        </div>
+        <div class="table-responsive text-nowrap">
+            <div class="container">
+                <table class="table table-hover table-bordered" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>NO</th>
+                            <th>Kode Supplier</th>
+                            <th>Nama Produk</th>
+                            <th>Jumlah</th>
+                            <th>Tanggal</th>
+                            <th>Jam</th>
+                            {{-- <th>Actions</th> --}}
+                        </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-1">
+                        @if (count($suppliers))
+                            @foreach ($suppliers as $supplier)
+                                <tr>
+                                    <td>
+                                        <div class="d-flex">
+                                            {{ $loop->iteration }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            {{ $supplier->kode_supplier }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            {{ $supplier->produk->nama_produk }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            {{ $supplier->jumlah }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            {{ $supplier->created_at->format('Y-m-d') }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            {{ $supplier->created_at->format('h:i:s A') }}
+                                        </div>
+                                    </td>
+                                    {{-- <td>
                             <form action="{{ route('supplier.destroy', $supplier->id) }}" method="post">
                                 @csrf
                                 @method('delete')
@@ -95,12 +95,12 @@
                                 </div>
                             </form>
                         </td> --}}
-                        </tr>
-                        @endforeach
+                                </tr>
+                            @endforeach
                         @endif
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 @endsection

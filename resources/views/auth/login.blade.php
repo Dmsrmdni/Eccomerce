@@ -74,7 +74,7 @@ data-template="vertical-menu-template-free"
         <div class="card-body">
             <!-- Logo -->
             <div class="app-brand justify-content-center">
-            <a href="index.html" class="app-brand-link gap-2">
+            <a href="/" class="app-brand-link gap-2">
                 <span class="app-brand-logo demo">
                 <svg
                     width="25"
@@ -135,7 +135,7 @@ data-template="vertical-menu-template-free"
             </div>
             <!-- /Logo -->
             <h4 class="mb-2">Welcome to gakuniq! 👋</h4>
-            <p class="mb-4">Please sign-in to your account and start the adventure</p>
+            <p class="mb-4">Silahkan login ke akun anda</p>
 
             <form method="POST" action="{{ route('login') }}">
             @csrf
@@ -144,24 +144,21 @@ data-template="vertical-menu-template-free"
                 <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Enter your email " autofocus value="{{ old('email') }}" />
                 @error('email')
     <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                                        <strong>{{ $message }}</strong>
+                                    </span>
 @enderror
             </div>
             <div class="mb-3 form-password-toggle">
                 <div class="d-flex justify-content-between">
                 <label class="form-label" for="password">Password</label>
-                <a href="{{ route('password.request') }}">
-                    <small>Forgot Password?</small>
-                </a>
                 </div>
                 <div class="input-group input-group-merge">
                 <input type="password"id="password"class="form-control @error('password') is-invalid @enderror" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password"
                 value="{{ old('passsword') }}" />
                 @error('password')
     <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
+                                <strong>{{ $message }}</strong>
+                            </span>
 @enderror
                 </div>
             </div>

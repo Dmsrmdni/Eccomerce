@@ -103,7 +103,7 @@
         {{-- Produk --}}
         <li class="menu-item {{ Request::is('admin/ukuran*') ? 'active' : '' }}">
             <a href="/admin/ukuran" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-closet"></i>
+                <i class="menu-icon tf-icons bx bx-label"></i>
                 <div>Ukuran</div>
             </a>
         </li>
@@ -121,7 +121,7 @@
         {{-- Produk --}}
         <li class="menu-item {{ Request::is('admin/supplier*') ? 'active' : '' }}">
             <a href="/admin/supplier" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-closet"></i>
+                <i class="menu-icon tf-icons bx bx-food-menu"></i>
                 <div>Supplier</div>
             </a>
         </li>
@@ -162,12 +162,12 @@
         </li>
 
         {{-- TopUp --}}
-        <li class="menu-item {{ Request::is('admin/topUp*') ? 'active' : '' }}">
+        {{-- <li class="menu-item {{ Request::is('admin/topUp*') ? 'active' : '' }}">
             <a href="/admin/topUp" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-wallet"></i>
                 <div>Top Up</div>
             </a>
-        </li>
+        </li> --}}
         {{-- EndTopUp --}}
 
         {{-- Transaksi --}}
@@ -204,12 +204,12 @@
         {{-- EndRefundProduk --}}
 
         {{-- Voucher --}}
-        <li class="menu-item {{ Request::is('admin/voucherUser*') ? 'active' : '' }}">
+        {{-- <li class="menu-item {{ Request::is('admin/voucherUser*') ? 'active' : '' }}">
             <a href="/admin/voucherUser" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-coupon"></i>
                 <div>Voucher User</div>
             </a>
-        </li>
+        </li> --}}
         {{-- EndVoucher --}}
 
         {{-- EndDataUser --}}
